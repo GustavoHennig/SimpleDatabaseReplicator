@@ -1,0 +1,3 @@
+﻿Hardcoded database settings
+Connection string configuration screen
+Handle deletions
