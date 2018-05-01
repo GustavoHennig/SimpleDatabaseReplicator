@@ -5,6 +5,7 @@ This is a very simple database data synchronizer, it loads a bunch of rows from 
 
 This project was created in 2006 to resolve a problem of database benchmarking, then it was abandoned. Now I'm resurrecting the project and fixing the very ugly code 12 years old.
 
+
 The replication purpose:
  - It is a one-way data synchronizer;
  - Database agnostic, should work with any one, with some adjustments (well tested with SqlServer, Firebird, SqLite, MySql and Postgres);
@@ -23,8 +24,16 @@ Known issues:
 Originally this program had a simple Schema migration function, but it was removed, for DDL and Schema migration, there are a lot of good programs, like this one: 
   http://fishcodelib.com/DBMigration.htm
 
-This code was created in 2006, using .Net Framework 2.0, now it was migrated to .Net 4.5 some parts of the code still could be simpler with some refactoring.
-Please, fell free to contribute with Pull Requests
+Since this code is old, created in 2006, using .Net Framework 2.0 (now migrated to .Net 4.5) some parts of the code could be simpler with some refactoring.
+
+Please, fell free to contribute with Pull Requests ;)
+
+## Screenshots
+
+![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/main-stopped.png "Main screen stopped")
+![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/main-running.png "Main screen running")
+![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/configuring-connection.png "Configuring connection strings")
+![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/selecting-tables.png "Selecting tables")
 
 Gustavo Augusto Hennig
 GH Software
