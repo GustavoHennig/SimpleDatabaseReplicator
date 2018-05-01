@@ -36,5 +36,6 @@ Please, fell free to contribute with Pull Requests ;)
 ![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/selecting-tables.png "Selecting tables")
 
 Gustavo Augusto Hennig
-GH Software
-https://www.plagius.com/en
+
+GH Software - [Plagius - Plagiarism Checker](https://www.plagius.com/en)
+
