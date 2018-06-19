@@ -67,13 +67,13 @@ namespace SimpleDatabaseReplicator.UI
             this.btnReplicateAll = new System.Windows.Forms.ToolStripButton();
             this.btnAbort = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lvwLog = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuContext.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -149,7 +149,6 @@ namespace SimpleDatabaseReplicator.UI
             this.btnAbort,
             this.toolStripSeparator2});
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             // 
             // toolStripDropDownButton1
             // 
@@ -221,10 +220,16 @@ namespace SimpleDatabaseReplicator.UI
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // splitContainer1
             // 
             resources.ApplyResources(this.splitContainer1, "splitContainer1");
             this.tableLayoutPanel1.SetColumnSpan(this.splitContainer1, 2);
+            this.splitContainer1.DataBindings.Add(new System.Windows.Forms.Binding("SplitterDistance", global::SimpleDatabaseReplicator.Properties.Settings.Default, "splitterDistance", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -235,6 +240,7 @@ namespace SimpleDatabaseReplicator.UI
             // 
             this.splitContainer1.Panel2.Controls.Add(this.richTextBoxLog);
             this.tableLayoutPanel1.SetRowSpan(this.splitContainer1, 2);
+            this.splitContainer1.SplitterDistance = global::SimpleDatabaseReplicator.Properties.Settings.Default.splitterDistance;
             // 
             // lvwLog
             // 
@@ -254,24 +260,22 @@ namespace SimpleDatabaseReplicator.UI
             // columnHeader1
             // 
             resources.ApplyResources(this.columnHeader1, "columnHeader1");
+            this.columnHeader1.Width = global::SimpleDatabaseReplicator.Properties.Settings.Default.columnWidthJobName;
             // 
             // columnHeader2
             // 
             resources.ApplyResources(this.columnHeader2, "columnHeader2");
+            this.columnHeader2.Width = global::SimpleDatabaseReplicator.Properties.Settings.Default.columnWidthStatus;
             // 
             // columnHeader3
             // 
             resources.ApplyResources(this.columnHeader3, "columnHeader3");
+            this.columnHeader3.Width = global::SimpleDatabaseReplicator.Properties.Settings.Default.columnWidthProgress;
             // 
             // richTextBoxLog
             // 
             resources.ApplyResources(this.richTextBoxLog, "richTextBoxLog");
             this.richTextBoxLog.Name = "richTextBoxLog";
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Main
             // 

@@ -247,6 +247,7 @@ namespace SimpleDatabaseReplicator.UI
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             Replicator.AbortReplication = true;
+            SimpleDatabaseReplicator.Properties.Settings.Default.Save();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -341,7 +342,7 @@ namespace SimpleDatabaseReplicator.UI
         private void mniDelete_Click(object sender, EventArgs e)
         {
 
-              for (int i = lvwLog.SelectedItems.Count-1; i >= 0; i--)
+            for (int i = lvwLog.SelectedItems.Count - 1; i >= 0; i--)
             {
                 var lvi = lvwLog.SelectedItems[i];
                 lvwLog.Items.Remove(lvi);

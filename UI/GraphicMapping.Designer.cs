@@ -34,14 +34,14 @@ namespace SimpleDatabaseReplicator.UI
             this.txtColumnKey = new System.Windows.Forms.TextBox();
             this.lblColumnKey = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblColumsList = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnOk = new System.Windows.Forms.Button();
-            this.chkEnableBatchExecution = new System.Windows.Forms.CheckBox();
-            this.txtBatchSize = new System.Windows.Forms.TextBox();
             this.lblTableName = new System.Windows.Forms.Label();
             this.txtTableName = new System.Windows.Forms.TextBox();
+            this.lblColumsList = new System.Windows.Forms.Label();
+            this.chkEnableBatchExecution = new System.Windows.Forms.CheckBox();
             this.lblBatch = new System.Windows.Forms.Label();
+            this.txtBatchSize = new System.Windows.Forms.TextBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOk = new System.Windows.Forms.Button();
             this.lnkLoadSchema = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -53,7 +53,7 @@ namespace SimpleDatabaseReplicator.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.lstSource, 4);
             this.lstSource.Location = new System.Drawing.Point(8, 90);
-            this.lstSource.Margin = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            this.lstSource.Margin = new System.Windows.Forms.Padding(8);
             this.lstSource.Name = "lstSource";
             this.lstSource.Size = new System.Drawing.Size(663, 655);
             this.lstSource.TabIndex = 0;
@@ -114,6 +114,26 @@ namespace SimpleDatabaseReplicator.UI
             this.tableLayoutPanel1.Size = new System.Drawing.Size(679, 964);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
+            // lblTableName
+            // 
+            this.lblTableName.AutoSize = true;
+            this.lblTableName.Location = new System.Drawing.Point(8, 18);
+            this.lblTableName.Margin = new System.Windows.Forms.Padding(8, 18, 8, 8);
+            this.lblTableName.Name = "lblTableName";
+            this.lblTableName.Size = new System.Drawing.Size(94, 20);
+            this.lblTableName.TabIndex = 10;
+            this.lblTableName.Text = "Table Name";
+            // 
+            // txtTableName
+            // 
+            this.txtTableName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTableName.Location = new System.Drawing.Point(229, 18);
+            this.txtTableName.Margin = new System.Windows.Forms.Padding(8, 18, 8, 8);
+            this.txtTableName.Name = "txtTableName";
+            this.txtTableName.Size = new System.Drawing.Size(169, 26);
+            this.txtTableName.TabIndex = 11;
+            // 
             // lblColumsList
             // 
             this.lblColumsList.AutoSize = true;
@@ -123,6 +143,38 @@ namespace SimpleDatabaseReplicator.UI
             this.lblColumsList.Size = new System.Drawing.Size(71, 20);
             this.lblColumsList.TabIndex = 0;
             this.lblColumsList.Text = "Columns";
+            // 
+            // chkEnableBatchExecution
+            // 
+            this.chkEnableBatchExecution.AutoSize = true;
+            this.chkEnableBatchExecution.Location = new System.Drawing.Point(8, 775);
+            this.chkEnableBatchExecution.Margin = new System.Windows.Forms.Padding(8);
+            this.chkEnableBatchExecution.Name = "chkEnableBatchExecution";
+            this.chkEnableBatchExecution.Size = new System.Drawing.Size(205, 24);
+            this.chkEnableBatchExecution.TabIndex = 3;
+            this.chkEnableBatchExecution.Text = "Enable Batch Execution";
+            this.chkEnableBatchExecution.UseVisualStyleBackColor = true;
+            // 
+            // lblBatch
+            // 
+            this.lblBatch.AutoSize = true;
+            this.lblBatch.Location = new System.Drawing.Point(8, 815);
+            this.lblBatch.Margin = new System.Windows.Forms.Padding(8);
+            this.lblBatch.Name = "lblBatch";
+            this.lblBatch.Size = new System.Drawing.Size(86, 20);
+            this.lblBatch.TabIndex = 12;
+            this.lblBatch.Text = "Batch Size";
+            // 
+            // txtBatchSize
+            // 
+            this.txtBatchSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBatchSize.Location = new System.Drawing.Point(229, 815);
+            this.txtBatchSize.Margin = new System.Windows.Forms.Padding(8);
+            this.txtBatchSize.Name = "txtBatchSize";
+            this.txtBatchSize.Size = new System.Drawing.Size(169, 26);
+            this.txtBatchSize.TabIndex = 9;
+            this.txtBatchSize.Text = "20000";
             // 
             // btnCancel
             // 
@@ -148,58 +200,6 @@ namespace SimpleDatabaseReplicator.UI
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // chkEnableBatchExecution
-            // 
-            this.chkEnableBatchExecution.AutoSize = true;
-            this.chkEnableBatchExecution.Location = new System.Drawing.Point(8, 775);
-            this.chkEnableBatchExecution.Margin = new System.Windows.Forms.Padding(8);
-            this.chkEnableBatchExecution.Name = "chkEnableBatchExecution";
-            this.chkEnableBatchExecution.Size = new System.Drawing.Size(205, 24);
-            this.chkEnableBatchExecution.TabIndex = 3;
-            this.chkEnableBatchExecution.Text = "Enable Batch Execution";
-            this.chkEnableBatchExecution.UseVisualStyleBackColor = true;
-            // 
-            // txtBatchSize
-            // 
-            this.txtBatchSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBatchSize.Location = new System.Drawing.Point(229, 815);
-            this.txtBatchSize.Margin = new System.Windows.Forms.Padding(8);
-            this.txtBatchSize.Name = "txtBatchSize";
-            this.txtBatchSize.Size = new System.Drawing.Size(169, 26);
-            this.txtBatchSize.TabIndex = 9;
-            this.txtBatchSize.Text = "20000";
-            // 
-            // lblTableName
-            // 
-            this.lblTableName.AutoSize = true;
-            this.lblTableName.Location = new System.Drawing.Point(8, 18);
-            this.lblTableName.Margin = new System.Windows.Forms.Padding(8, 18, 8, 8);
-            this.lblTableName.Name = "lblTableName";
-            this.lblTableName.Size = new System.Drawing.Size(94, 20);
-            this.lblTableName.TabIndex = 10;
-            this.lblTableName.Text = "Table Name";
-            // 
-            // txtTableName
-            // 
-            this.txtTableName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTableName.Location = new System.Drawing.Point(229, 18);
-            this.txtTableName.Margin = new System.Windows.Forms.Padding(8, 18, 8, 8);
-            this.txtTableName.Name = "txtTableName";
-            this.txtTableName.Size = new System.Drawing.Size(169, 26);
-            this.txtTableName.TabIndex = 11;
-            // 
-            // lblBatch
-            // 
-            this.lblBatch.AutoSize = true;
-            this.lblBatch.Location = new System.Drawing.Point(8, 815);
-            this.lblBatch.Margin = new System.Windows.Forms.Padding(8);
-            this.lblBatch.Name = "lblBatch";
-            this.lblBatch.Size = new System.Drawing.Size(86, 20);
-            this.lblBatch.TabIndex = 12;
-            this.lblBatch.Text = "Batch Size";
             // 
             // lnkLoadSchema
             // 

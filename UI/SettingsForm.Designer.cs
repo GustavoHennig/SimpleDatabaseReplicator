@@ -1,6 +1,6 @@
 ﻿namespace SimpleDatabaseReplicator.UI
 {
-    partial class Settings
+    partial class SettingsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -36,29 +36,30 @@
             // 
             this.lblCurrentLang.AutoSize = true;
             this.lblCurrentLang.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblCurrentLang.Location = new System.Drawing.Point(26, 34);
+            this.lblCurrentLang.Location = new System.Drawing.Point(66, 59);
+            this.lblCurrentLang.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCurrentLang.Name = "lblCurrentLang";
-            this.lblCurrentLang.Size = new System.Drawing.Size(89, 13);
+            this.lblCurrentLang.Size = new System.Drawing.Size(134, 20);
             this.lblCurrentLang.TabIndex = 6;
             this.lblCurrentLang.Text = "CurrentLanguage";
             // 
             // cmbLanguage
             // 
             this.cmbLanguage.FormattingEnabled = true;
-            this.cmbLanguage.Location = new System.Drawing.Point(30, 50);
+            this.cmbLanguage.Location = new System.Drawing.Point(72, 84);
+            this.cmbLanguage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbLanguage.Name = "cmbLanguage";
-            this.cmbLanguage.Size = new System.Drawing.Size(180, 21);
+            this.cmbLanguage.Size = new System.Drawing.Size(268, 28);
             this.cmbLanguage.TabIndex = 4;
             // 
-            // Settings
+            // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 222);
+            this.ClientSize = new System.Drawing.Size(640, 342);
             this.Controls.Add(this.lblCurrentLang);
             this.Controls.Add(this.cmbLanguage);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "Settings";
+            this.Name = "SettingsForm";
             this.Text = "Settings";
             this.ResumeLayout(false);
             this.PerformLayout();

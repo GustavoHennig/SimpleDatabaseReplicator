@@ -122,6 +122,7 @@
     <Compile Include="DB\DbTableLoader.cs" />
     <Compile Include="DB\DbTaskRunner.cs" />
     <Compile Include="Replicator\MessageHandler.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Util\Functions.cs" />
     <Compile Include="Images.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -198,11 +199,11 @@
     <Compile Include="UI\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Settings.cs">
+    <Compile Include="UI\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Settings.Designer.cs">
-      <DependentUpon>Settings.cs</DependentUpon>
+    <Compile Include="UI\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -239,8 +240,8 @@
       <SubType>Designer</SubType>
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Settings.resx">
-      <DependentUpon>Settings.cs</DependentUpon>
+    <EmbeddedResource Include="UI\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -25,9 +25,9 @@ using System.Windows.Forms;
 
 namespace SimpleDatabaseReplicator.UI
 {
-    public partial class Settings : Form
+    public partial class SettingsForm : Form
     {
-        public Settings()
+        public SettingsForm()
         {
             InitializeComponent();
         }

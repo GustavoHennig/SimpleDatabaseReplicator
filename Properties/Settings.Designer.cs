@@ -34,5 +34,53 @@ namespace SimpleDatabaseReplicator.Properties {
                 this["Setting"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("400")]
+        public int splitterDistance {
+            get {
+                return ((int)(this["splitterDistance"]));
+            }
+            set {
+                this["splitterDistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("327")]
+        public int columnWidthJobName {
+            get {
+                return ((int)(this["columnWidthJobName"]));
+            }
+            set {
+                this["columnWidthJobName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("279")]
+        public int columnWidthStatus {
+            get {
+                return ((int)(this["columnWidthStatus"]));
+            }
+            set {
+                this["columnWidthStatus"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("213")]
+        public int columnWidthProgress {
+            get {
+                return ((int)(this["columnWidthProgress"]));
+            }
+            set {
+                this["columnWidthProgress"] = value;
+            }
+        }
     }
 }
