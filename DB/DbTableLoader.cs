@@ -54,7 +54,7 @@ namespace SimpleDatabaseReplicator.DB
                     //}
                 }
 
-           
+
 
                 SqlQueryBuilder query = new SqlQueryBuilder(dbType).Select().From(table.TableName);
                 string whereForCount = "";
@@ -147,12 +147,18 @@ namespace SimpleDatabaseReplicator.DB
 
                 //Monta o Header
                 DataTable dt = dr.GetSchemaTable(); // db
-                
+
                 TableColumn rf;
 
                 foreach (DataRow drr in dt.Rows)
                 {
-                    rf = new TableColumn();
+                    rf = table.Columns.FirstOrDefault(o => o.Name == drr["ColumnName"].ToString());
+
+                    if (rf == null)
+                    {
+                        rf = new TableColumn();
+                        table.Columns.Add(rf);
+                    }
                     rf.Checked = true;
                     //rf.Value = dr.GetValue(Convert.ToInt32(drr["ColumnOrdinal"]));
                     rf.Name = drr["ColumnName"].ToString();
@@ -171,12 +177,11 @@ namespace SimpleDatabaseReplicator.DB
                     }
 
                     rf.IsAutoIncrement = Convert.ToBoolean(drr["IsAutoIncrement"]);
-                 
-                    table.Columns.Add(rf);
 
                     if (rf.IsKey)
                     {
-                        table.Keys.Add(rf.Name);
+                        if (!table.Keys.Exists(o=> o.Equals(rf.Name, StringComparison.CurrentCultureIgnoreCase)))
+                            table.Keys.Add(rf.Name);
                     }
                 }
 
