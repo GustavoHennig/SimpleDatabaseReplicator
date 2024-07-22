@@ -149,7 +149,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             get { return " null "; }
         }
 
-        public override System.Data.Common.DbConnection BuildCoonnection(string connectionString)
+        public override System.Data.Common.DbConnection BuildConnection(string connectionString)
         {
             System.Data.Common.DbConnection con = new Npgsql.NpgsqlConnection(connectionString);
             // new Npgsql.NpgsqlConnection().

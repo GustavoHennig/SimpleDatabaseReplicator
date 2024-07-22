@@ -54,7 +54,7 @@ namespace SimpleDatabaseReplicator
                     {
                         if (ri.Data.ContainsKey(k))
                         {
-                            if (!Functions.EqualsValue(Data[k], ri.Data[k]))
+                            if (!ObjectComparison.EquivalentValue(Data[k], ri.Data[k]))
                             {
                                 return false;
                             }

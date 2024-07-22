@@ -27,6 +27,7 @@ using System.Threading;
 using SimpleDatabaseReplicator.UI.Base;
 using SimpleDatabaseReplicator.Properties;
 using System.Runtime.InteropServices;
+using SimpleDatabaseReplicator.Util;
 
 namespace SimpleDatabaseReplicator.UI
 {
@@ -137,16 +138,16 @@ namespace SimpleDatabaseReplicator.UI
         public void RefreshControls()
         {
             //foreach (ReplicatingThread rt in Preferences.ReplicatingThreads)
-            foreach (ReplicationTaskInfo job in Preferences.Settings.jobs)
+            foreach (ReplicationTaskInfo job in Settings.Default.ReplicationTasks)
             {
                 ListViewItem item;
-                if (lvwLog.Items.ContainsKey(job.Uid))
+                if (lvwJobs.Items.ContainsKey(job.Uid))
                 {
-                    item = lvwLog.Items[job.Uid];
+                    item = lvwJobs.Items[job.Uid];
                 }
                 else
                 {
-                    item = lvwLog.Items.Add(job.Uid, job.JobName, 0);
+                    item = lvwJobs.Items.Add(job.Uid, job.JobName, 0);
                     item.SubItems.Add(job.Status);
                     item.SubItems.Add(job.PbValue.ToString());
                     /*
@@ -191,20 +192,20 @@ namespace SimpleDatabaseReplicator.UI
 
         private void EditSelectedItem()
         {
-            if (lvwLog.SelectedItems.Count == 1)
+            if (lvwJobs.SelectedItems.Count == 1)
             {
                 //Job job = (Job)lvwLog.SelectedItems[0].Tag;
                 EditJob ej = new EditJob(SelectetJob);
                 ej.ShowDialog();
-                lvwLog.SelectedItems[0].Text = SelectetJob.JobName;
+                lvwJobs.SelectedItems[0].Text = SelectetJob.JobName;
             }
         }
 
         private void LoadData()
         {
-            lvwLog.Items.Clear();
+            lvwJobs.Items.Clear();
 
-            foreach (ReplicationTaskInfo job in Preferences.Settings.jobs)
+            foreach (ReplicationTaskInfo job in Settings.Default.ReplicationTasks)
             {
                 AddJobToTheList(job);
             }
@@ -213,7 +214,7 @@ namespace SimpleDatabaseReplicator.UI
         private void AddJobToTheList(ReplicationTaskInfo job)
         {
 
-            ListViewItem item = lvwLog.Items.Add(job.Uid, job.JobName, 0);
+            ListViewItem item = lvwJobs.Items.Add(job.Uid, job.JobName, 0);
             item.Tag = job;
             item.SubItems.Add("");
             item.SubItems.Add("0");
@@ -227,9 +228,9 @@ namespace SimpleDatabaseReplicator.UI
         {
             get
             {
-                if (lvwLog.SelectedItems.Count > 0)
+                if (lvwJobs.SelectedItems.Count > 0)
                 {
-                    return (ReplicationTaskInfo)lvwLog.SelectedItems[0].Tag;
+                    return (ReplicationTaskInfo)lvwJobs.SelectedItems[0].Tag;
                 }
                 else
                 {
@@ -247,7 +248,7 @@ namespace SimpleDatabaseReplicator.UI
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             Replicator.AbortReplication = true;
-            SimpleDatabaseReplicator.Properties.Settings.Default.Save();
+            Settings.Save();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -278,7 +279,7 @@ namespace SimpleDatabaseReplicator.UI
 
         private void btnReplicateAll_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem lvw in lvwLog.CheckedItems)
+            foreach (ListViewItem lvw in lvwJobs.CheckedItems)
             {
                 ReplicationTaskInfo job = lvw.Tag as ReplicationTaskInfo;
                 Replicate(job);
@@ -327,34 +328,39 @@ namespace SimpleDatabaseReplicator.UI
 
         private void mniDuplicate_Click(object sender, EventArgs e)
         {
-            if (lvwLog.SelectedItems.Count == 1)
+            if (lvwJobs.SelectedItems.Count == 1)
             {
-                ListViewItem lvi = lvwLog.SelectedItems[0].Clone() as ListViewItem;
+                ListViewItem lvi = lvwJobs.SelectedItems[0].Clone() as ListViewItem;
                 lvi.Tag = (lvi.Tag as ReplicationTaskInfo).Clone();
                 lvi.Name = (lvi.Tag as ReplicationTaskInfo).Uid;
-                lvwLog.Items.Add(lvi);
-                Preferences.Settings.jobs.Add(lvi.Tag as ReplicationTaskInfo);
+                lvwJobs.Items.Add(lvi);
+                Settings.Default.ReplicationTasks.Add(lvi.Tag as ReplicationTaskInfo);
             }
 
-            Preferences.Save();
+            Settings.Save();
         }
 
         private void mniDelete_Click(object sender, EventArgs e)
         {
 
-            for (int i = lvwLog.SelectedItems.Count - 1; i >= 0; i--)
+            for (int i = lvwJobs.SelectedItems.Count - 1; i >= 0; i--)
             {
-                var lvi = lvwLog.SelectedItems[i];
-                lvwLog.Items.Remove(lvi);
-                Preferences.Settings.jobs.Remove(lvi.Tag as ReplicationTaskInfo);
+                var lvi = lvwJobs.SelectedItems[i];
+                lvwJobs.Items.Remove(lvi);
+                Settings.Default.ReplicationTasks.Remove(lvi.Tag as ReplicationTaskInfo);
             }
 
-            Preferences.Save();
+            Settings.Save();
         }
 
         public static void ScrollToBottom(RichTextBox MyRichTextBox)
         {
             SendMessage(MyRichTextBox.Handle, WM_VSCROLL, (IntPtr)SB_PAGEBOTTOM, IntPtr.Zero);
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new SettingsForm().ShowDialog();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace SimpleDatabaseReplicator.DB
         public DbCon(DbConnectionInfo dbConnectionInfo)
         {
             DbConnectionInfo = dbConnectionInfo;
-            dbConnection = dbConnectionInfo.DbType.BuildCoonnection(dbConnectionInfo.ConnectionString);
+            dbConnection = dbConnectionInfo.DbType.BuildConnection(dbConnectionInfo.ConnectionString);
             CheckConnection();
         }
 

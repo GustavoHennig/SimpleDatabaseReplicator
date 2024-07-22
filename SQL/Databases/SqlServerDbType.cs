@@ -97,7 +97,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             }
         }
 
-        public override System.Data.Common.DbConnection BuildCoonnection(string ConnectionString)
+        public override System.Data.Common.DbConnection BuildConnection(string ConnectionString)
         {
             return new SqlConnection(ConnectionString);
         }

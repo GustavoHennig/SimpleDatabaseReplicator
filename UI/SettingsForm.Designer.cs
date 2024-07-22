@@ -28,42 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblCurrentLang = new System.Windows.Forms.Label();
-            this.cmbLanguage = new System.Windows.Forms.ComboBox();
-            this.SuspendLayout();
+            lblCurrentLang = new System.Windows.Forms.Label();
+            cmbLanguage = new System.Windows.Forms.ComboBox();
+            SuspendLayout();
             // 
             // lblCurrentLang
             // 
-            this.lblCurrentLang.AutoSize = true;
-            this.lblCurrentLang.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblCurrentLang.Location = new System.Drawing.Point(66, 59);
-            this.lblCurrentLang.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCurrentLang.Name = "lblCurrentLang";
-            this.lblCurrentLang.Size = new System.Drawing.Size(134, 20);
-            this.lblCurrentLang.TabIndex = 6;
-            this.lblCurrentLang.Text = "CurrentLanguage";
+            lblCurrentLang.AutoSize = true;
+            lblCurrentLang.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            lblCurrentLang.Location = new System.Drawing.Point(67, 55);
+            lblCurrentLang.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblCurrentLang.Name = "lblCurrentLang";
+            lblCurrentLang.Size = new System.Drawing.Size(89, 25);
+            lblCurrentLang.TabIndex = 6;
+            lblCurrentLang.Text = "Language";
             // 
             // cmbLanguage
             // 
-            this.cmbLanguage.FormattingEnabled = true;
-            this.cmbLanguage.Location = new System.Drawing.Point(72, 84);
-            this.cmbLanguage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cmbLanguage.Name = "cmbLanguage";
-            this.cmbLanguage.Size = new System.Drawing.Size(268, 28);
-            this.cmbLanguage.TabIndex = 4;
+            cmbLanguage.FormattingEnabled = true;
+            cmbLanguage.Location = new System.Drawing.Point(67, 86);
+            cmbLanguage.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            cmbLanguage.Name = "cmbLanguage";
+            cmbLanguage.Size = new System.Drawing.Size(297, 33);
+            cmbLanguage.TabIndex = 4;
+            cmbLanguage.SelectedIndexChanged += cmbLanguage_SelectedIndexChanged;
             // 
             // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 342);
-            this.Controls.Add(this.lblCurrentLang);
-            this.Controls.Add(this.cmbLanguage);
-            this.Name = "SettingsForm";
-            this.Text = "Settings";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            ClientSize = new System.Drawing.Size(686, 459);
+            Controls.Add(lblCurrentLang);
+            Controls.Add(cmbLanguage);
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            Name = "SettingsForm";
+            Text = "Settings";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 using SimpleDatabaseReplicator.SQL;
 using SimpleDatabaseReplicator.SQL.Databases;
 
@@ -24,48 +25,42 @@ namespace SimpleDatabaseReplicator
     public class ReplicationTaskInfo : ICloneable
     {
 
-        public string Uid = Guid.NewGuid().ToString();
+        public string Uid { get; set; } = Guid.NewGuid().ToString();
 
-        public bool Enabled;
+        public bool Enabled { get; set; }
 
-        public BaseDbType.DbTypeSupported DialectSource;
-        public BaseDbType.DbTypeSupported DialectDestination;
+        public BaseDbType.DbTypeSupported DialectSource { get; set; }
+        public BaseDbType.DbTypeSupported DialectDestination { get; set; }
 
-        public string ConnectionStringSource;
-        public string ConnectionStringDestination;
-        public string JobName;
-        public string PostUpdateSQL;
-        public string RetrieveDataCondition;
+        public string ConnectionStringSource { get; set; }
+        public string ConnectionStringDestination { get; set; }
+        public string JobName { get; set; }
+        public string PostUpdateSQL { get; set; }
+        public string RetrieveDataCondition { get; set; }
 
-        [System.Xml.Serialization.XmlIgnore]
-        [NonSerialized]
-        public string Status;
+        [JsonIgnore]
+        public string Status { get; set; }
 
-        [System.Xml.Serialization.XmlIgnore]
-        [NonSerialized]
-        public double PbMax;
+        [JsonIgnore]
+        public double PbMax { get; set; }
 
-        [System.Xml.Serialization.XmlIgnore]
-        [NonSerialized]
-        public double PbValue;
+        [JsonIgnore]
+        public double PbValue { get; set; }
 
-        [System.Xml.Serialization.XmlIgnore]
-        [NonSerialized]
-        public List<string> StatusLog = new List<string>();
+        [JsonIgnore]
+        public List<string> StatusLog { get; set; } = new List<string>();
 
-        [System.Xml.Serialization.XmlIgnore]
-        [NonSerialized]
-        public List<string> Errors = new List<string>();
+        [JsonIgnore]
+        public List<string> Errors { get; set; } = new List<string>();
 
-        public List<string> IgnoreFields = new List<string>();
-        public List<TableInfo> TablesAvailable = new List<TableInfo>();
+        public List<string> IgnoreFields { get; set; } = new List<string>();
+        public List<TableInfo> TablesAvailable { get; set; } = new List<TableInfo>();
 
+        [JsonIgnore]
+        public bool IsRunning { get; set; }
 
-        [System.Xml.Serialization.XmlIgnore]
-        [NonSerialized]
-        public bool IsRunning;
-
-        public long LastTimeReplicated;
+        public long LastTimeReplicated { get; set; }
+        private string connectionStringSource;
 
         public ReplicationTaskInfo()
         {

@@ -99,7 +99,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             get { return "SHOW TABLES"; }
         }
 
-        public override System.Data.Common.DbConnection BuildCoonnection(string connectionString)
+        public override System.Data.Common.DbConnection BuildConnection(string connectionString)
         {
             return new MySql.Data.MySqlClient.MySqlConnection(connectionString);
         }

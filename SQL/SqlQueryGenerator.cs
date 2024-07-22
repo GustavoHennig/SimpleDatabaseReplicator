@@ -51,7 +51,7 @@ namespace SimpleDatabaseReplicator.SQL
                 }
             }
 
-            strSQL = Functions.RemoveLastChars(strSQL, 2);
+            strSQL = StringExtensions.RemoveLastChars(strSQL, 2);
             strSQL += getWhereCondition(Data);
 
             return strSQL;
@@ -92,8 +92,8 @@ namespace SimpleDatabaseReplicator.SQL
                 }
             }
 
-            strSQL = Functions.RemoveLastChars(strSQL, 2);
-            strSQL += " ) values ( " + Functions.RemoveLastChars(sqlValues, 2);
+            strSQL = StringExtensions.RemoveLastChars(strSQL, 2);
+            strSQL += " ) values ( " + StringExtensions.RemoveLastChars(sqlValues, 2);
             strSQL += " ) ";
 
             return strSQL;
@@ -135,7 +135,7 @@ namespace SimpleDatabaseReplicator.SQL
             if (!ok)
                 throw new ApplicationException("Impossible to build where clause without a PrimaryKey");
 
-            sql = Functions.RemoveLastChars(sql, 4);
+            sql = StringExtensions.RemoveLastChars(sql, 4);
 
             return sql;
         }

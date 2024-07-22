@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+using SimpleDatabaseReplicator.Properties;
+using SimpleDatabaseReplicator.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,16 +32,38 @@ namespace SimpleDatabaseReplicator.UI
         public SettingsForm()
         {
             InitializeComponent();
+            cmbLanguage.Items.Clear();
+            cmbLanguage.Items.AddRange(new string[] { "en", "pt" });
         }
 
-        private void chkTurboMode_CheckedChanged(object sender, EventArgs e)
+        private void cmbLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Set the current culture based on the selected language
+            string selectedLanguage = cmbLanguage.SelectedItem.ToString();
+            Settings.Default.Culture = selectedLanguage;
+            Settings.Save();
+
+            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo(selectedLanguage);
+            System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
+
+            // Update the UI with the new culture
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(SettingsForm));
+            resources.ApplyResources(this, "$this");
+            ApplyResourceToControls(resources, this.Controls);
 
         }
 
-        private void cmbLanguage_SelectedValueChanged(object sender, EventArgs e)
+        private void ApplyResourceToControls(ComponentResourceManager resources, Control.ControlCollection controls)
         {
-
+            foreach (Control control in controls)
+            {
+                resources.ApplyResources(control, control.Name);
+                if (control.Controls.Count > 0)
+                {
+                    ApplyResourceToControls(resources, control.Controls);
+                }
+            }
         }
     }
 }

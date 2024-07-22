@@ -22,6 +22,7 @@ using SimpleDatabaseReplicator.UI;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using SimpleDatabaseReplicator.Util;
 
 namespace SimpleDatabaseReplicator
 {
@@ -34,12 +35,12 @@ namespace SimpleDatabaseReplicator
 
             tzi.GetAdjustmentRules();
 
-            Preferences.Load();
+            Settings.Load();
 
             if (args.Length > 0)
             {
                 //Command line example: SimpleDatabaseReplicator.exe "sqlserver to postgres"
-                var job = Preferences.Settings.jobs.FirstOrDefault(w => w.JobName == args[0]);
+                var job = Settings.Default.ReplicationTasks.FirstOrDefault(w => w.JobName == args[0]);
                 if (job != null)
                 {
                     SynchronousSynchronizationContext sync = new SynchronousSynchronizationContext();

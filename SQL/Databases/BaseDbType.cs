@@ -14,6 +14,7 @@
  * limitations under the License.
  **/
 using SimpleDatabaseReplicator.Properties;
+using SimpleDatabaseReplicator.Util;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -23,7 +24,10 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 {
     public abstract class BaseDbType
     {
-        public abstract string LimitOffset(int limit, int offset);
+        public virtual string LimitOffset(int limit, int offset)
+        {
+            return "";
+        }
 
         public abstract string FormatNumberValue(object value);
         public abstract string FormatStringValue(object value);
@@ -60,8 +64,8 @@ namespace SimpleDatabaseReplicator.SQL.Databases
                 {
                     case "DateTime":
 
-                        if (((DateTime)Value) < Preferences.Settings.MinDateTime)
-                            Value = Preferences.Settings.MinDateTime;
+                        if (((DateTime)Value) < Settings.Default.MinDateTime)
+                            Value = Settings.Default.MinDateTime;
 
                         ret = FormatDateValue(Value);
                         break;
@@ -88,7 +92,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             return ret;
         }
 
-        public abstract DbConnection BuildCoonnection(string connectionString);
+        public abstract DbConnection BuildConnection(string connectionString);
 
 
         public string FormatDbObj(string dbObjName)

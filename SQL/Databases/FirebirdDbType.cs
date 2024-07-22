@@ -140,7 +140,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             get { throw new NotImplementedException(); }
         }
 
-        public override System.Data.Common.DbConnection BuildCoonnection(string connectionString)
+        public override System.Data.Common.DbConnection BuildConnection(string connectionString)
         {
             return new FirebirdSql.Data.FirebirdClient.FbConnection(connectionString);
         }

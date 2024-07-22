@@ -22,7 +22,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 {
     public class OracleDbType : BaseDbType
     {
-   
+
         public override string FormatNumberValue(object value)
         {
             return value.ToString().Replace(',', '.');
@@ -57,13 +57,13 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             throw new NotImplementedException();
         }
 
-        
+
         public override string GetSequenceName(string table, string field)
         {
             throw new NotImplementedException();
         }
 
-        
+
         public override string AllTablesCommand
         {
             get
@@ -76,9 +76,10 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 
         public override string NotNullableField => throw new NotImplementedException();
 
-        public override System.Data.Common.DbConnection BuildCoonnection(string ConnectionString)
+        public override System.Data.Common.DbConnection BuildConnection(string ConnectionString)
         {
-            return new Oracle.ManagedDataAccess.Client.OracleConnection(ConnectionString);
+            throw new NotImplementedException();
+            //return new Oracle.ManagedDataAccess.Client.OracleConnection(ConnectionString);
         }
 
         public override string GetDBFieldType(TableColumn f)

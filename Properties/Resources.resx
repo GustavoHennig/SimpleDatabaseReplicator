@@ -184,7 +184,7 @@
     <value>File</value>
   </data>
   <data name="Finished" xml:space="preserve">
-    <value>Finalizado</value>
+    <value>Finished</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Help</value>
@@ -236,5 +236,11 @@
   </data>
   <data name="JobName" xml:space="preserve">
     <value>Job Name</value>
+  </data>
+  <data name="TTPostUpdate" xml:space="preserve">
+    <value>Tags:\r\n   &lt;Table&gt; - Replace by current table.\r\n   &lt;Where&gt; - Where condition for the changed field.</value>
+  </data>
+  <data name="TTRetrieveCond" xml:space="preserve">
+    <value>Tags:\r\n   &lt;Table&gt; - Replacet by current table.</value>
   </data>
 </root>

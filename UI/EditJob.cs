@@ -26,6 +26,7 @@ using SimpleDatabaseReplicator.UI.Base;
 using SimpleDatabaseReplicator.DB;
 using SimpleDatabaseReplicator.SQL.Databases;
 using System.Linq;
+using SimpleDatabaseReplicator.Util;
 
 namespace SimpleDatabaseReplicator.UI
 {
@@ -201,12 +202,12 @@ namespace SimpleDatabaseReplicator.UI
 
 
 
-            if (!Preferences.Settings.jobs.Contains(JobEditting))
+            if (!Settings.Default.ReplicationTasks.Contains(JobEditting))
             {
-                Preferences.Settings.jobs.Add(JobEditting);
+                Settings.Default.ReplicationTasks.Add(JobEditting);
             }
 
-            Preferences.Save();
+            Settings.Save();
 
         }
 
