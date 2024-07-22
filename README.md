@@ -1,33 +1,31 @@
 ﻿# Simple Database Replicator
 
+This is a very simple database data synchronizer. It loads a bunch of rows from the source and destination, compares them, and inserts or updates the differences into the destination.
 
-This is a very simple database data synchronizer, it loads a bunch of rows from source and destination, compares, and inserts or updates the differences into the destination.
+This project was created in 2006 to resolve a database benchmarking problem, then it was abandoned. Now, I am resurrecting the project and fixing the old, ugly code.
 
-This project was created in 2006 to resolve a problem of database benchmarking, then it was abandoned. Now I am resurrecting the project and fixing the ugly old code.
+## Replication Purpose
+ - It is a one-way data synchronizer.
+ - Database agnostic: it should work with any database with some adjustments (well tested with SQL Server, Firebird, SQLite, MySQL, and Postgres).
+ - Speed: it uses very little from the drivers; everything is done by simple queries.
 
+## Known Issues / TODO
+ - [ ] Delete is not implemented.
+ - [ ] Use internal row identity to optimize synchronization (like Postgres xmin).
+ - [ ] Schema must be identical.
+ - [ ] Not tested with all database scenarios.
+ - [ ] Blob type not supported.
+ - [ ] Limited UI usability – implemented the minimum to work.
+ - [ ] The internationalization was abandoned.
+ - [ ] It's not using parameters for the queries, which causes problems according to the database collation and culture settings.
+ - [ ] Sequence updates are not working properly.
 
-The replication purpose:
- - It is a one-way data synchronizer;
- - Database agnostic, should work with any one, with some adjustments (well tested with SqlServer, Firebird, SqLite, MySql and Postgres);
- - Speed: it uses very little from the drivers, all is done by simple queries;
- 
-Known issues / TODO:  
- - [ ] Delete was not implemented  
- - [ ] Use internal row identity to optimize synchronization (like Postgres xmin)
- - [ ] Schema must be identical
- - [ ] Not testes with all databases scenarios
- - [ ] Blob type not supported
- - [ ] Limited UI usability – implemented the minimum to work
- - [ ] The internationalization was abandoned
- - [ ] It's not using parameters for the queries, it causes problems according to the database collation and culture settings
- - [ ] Sequences updates are not working properly 
-
-Originally this program had a simple Schema migration function, but it was removed, for DDL and Schema migration, there are a lot of good programs, like this one: 
+Originally, this program had a simple schema migration function, but it was removed. For DDL and schema migration, there are many good programs available, such as this one: 
   http://fishcodelib.com/DBMigration.htm
 
-Since this code is old, created in 2006, using .Net Framework 2.0 (now migrated to .Net 4.5) some parts of the code could be simpler with some refactoring.
+Since this code is old, created in 2006 using .NET Framework 2.0 (now migrated to .NET 4.5), some parts of the code could be simpler with some refactoring.
 
-Please, fell free to contribute with Pull Requests ;)
+Please, feel free to contribute with Pull Requests ;)
 
 ## Screenshots
 
@@ -36,8 +34,6 @@ Please, fell free to contribute with Pull Requests ;)
 ![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/configuring-connection.png "Configuring connection strings")
 ![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/selecting-tables.png "Selecting tables")
 
-
 Gustavo Augusto Hennig
 
 GH Software - [Plagius - Plagiarism Checker](https://www.plagius.com/en)
-
