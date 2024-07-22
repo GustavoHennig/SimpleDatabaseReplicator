@@ -21,50 +21,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 {
     public class AccessDbType : BaseDbType
     {
-                public override string GetDBFieldType(TableColumn f)
-        {
-            string ret = "";
-            switch (f.TypeName)
-            {
-                case "Int16":
-                    ret = "smallint";
-                    break;
-                case "DateTime":
-                    ret = "smalldatetime";
-                    break;
-                case "Byte":
-                    ret = "tinyint";
-                    break;
-                case "Int32":
-                case "Int64":
-                    ret = "integer";
-                    break;
-                case "String":
-                    //UPGRADE_WARNING: Couldn't resolve default property of object RS.Fields. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    if (f.DefinedSize > 255)
-                    {
-                        ret = "ntext";
-                    }
-                    else
-                    {
-                        ret = "Varchar(" + f.DefinedSize + ")";
-                   }
-
-                    break;
-                case "Double":
-                case "Float":
-                case "Decimal":
-                    ret = "money";
-                    break;
-                case "Char[]":
-                    ret = "char(" + f.DefinedSize + ")";
-                    break;
-                default:
-                    //TODO: Exception
-                    break;
-            }
-            return ret;
-        }
+             
 
         public override string GetIdentityCommand(string name)
         {

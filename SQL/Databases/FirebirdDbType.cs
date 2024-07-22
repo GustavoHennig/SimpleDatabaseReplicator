@@ -23,60 +23,6 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 {
     public class FirebirdDbType : BaseDbType
     {
-        
-
-        public override string GetDBFieldType(TableColumn f)
-        {
-            string ret = "";
-            switch (f.TypeName)
-            {
-                case "Int16":
-                    ret = "smallint";
-                    break;
-                case "DateTime":
-                    ret = "TIMESTAMP";
-                    break;
-                case "Byte":
-                    ret = "SMALLINT";
-                    break;
-                case "Int32":
-                case "Int64":
-                    ret = "integer";
-                    break;
-                case "String":
-                    //UPGRADE_WARNING: Couldn't resolve default property of object RS.Fields. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                   /* if (f.DefinedSize > 255)
-                    {
-                        ret = "ntext";
-                    }
-                    else
-                    {*/
-                        ret = "Varchar(" + f.DefinedSize + ")";
-                   // }
-
-                    break;
-                
-                case "Decimal":
-                    ret = "Decimal(15,6)";
-                    break;
-                case "Double":
-                    ret = "DOUBLE PRECISION";
-                    break;
-                case "Float":
-                case "Single":
-                    ret = "Float";
-                    break;
-                case "Char[]":
-                    ret = "char(" + f.DefinedSize + ")";
-                    break;
-                default:
-                    ret = " unknowed ";
-                    //TODO: Exception
-                    break;
-            }
-            return ret;
-        }
-
 
         public override string GetIdentityCommand(string name)
         {

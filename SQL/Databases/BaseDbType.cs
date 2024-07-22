@@ -37,14 +37,11 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             return "";
         }
 
-   
-        public abstract string GetDBFieldType(TableColumn f);
         public abstract string GetIdentityCommand(string name);
         public abstract string SetIdentityCommand(string name, object value);
         public abstract string GetSequenceName(string table, string field);
         public abstract string AllTablesCommand { get; }
         public DbTypeSupported DbType;
-
 
         /// <summary>
         /// TODO: Initialize this value in a factory

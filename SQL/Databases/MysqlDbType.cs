@@ -21,13 +21,6 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 {
     public class MysqlDbType : BaseDbType
     {
-        
-        public override string GetDBFieldType(TableColumn f)
-        {
-            throw new Exception("The method or operation is not implemented.");
-        }
-
-
         public override string GetIdentityCommand(string name)
         {
             throw new NotImplementedException();

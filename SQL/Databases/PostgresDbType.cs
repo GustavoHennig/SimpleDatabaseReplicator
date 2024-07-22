@@ -26,53 +26,6 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             this.KataCompiler = new SqlKata.Compilers.PostgresCompiler();
         }
 
-        public override string GetDBFieldType(TableColumn f)
-        {
-            string ret = "";
-            switch (f.TypeName)
-            {
-                case "Int16":
-                    ret = "int2";
-                    break;
-                case "DateTime":
-                    ret = "date";
-                    break;
-                case "Byte":
-                    ret = "tinyint";
-                    break;
-                case "Int32":
-                    ret = "int4";
-                    break;
-                case "Int64":
-                    ret = "int8";
-                    break;
-                case "String":
-                    //UPGRADE_WARNING: Couldn't resolve default property of object RS.Fields. Click for more: 'ms-help://MS.VSCC.v80/dv_commoner/local/redirect.htm?keyword="6A50421D-15FE-4896-8A1B-2EC21E9037B2"'
-                    if (f.DefinedSize > 255)
-                    {
-                        ret = "text";
-                    }
-                    else
-                    {
-                        ret = "Varchar(" + f.DefinedSize + ")";
-                    }
-
-                    break;
-                case "Double":
-                case "Float":
-                case "Decimal":
-                    ret = "money";
-                    break;
-                case "Char[]":
-                    ret = "char(" + f.DefinedSize + ")";
-                    break;
-                default:
-                    //TODO: Exception
-                    break;
-            }
-            return ret;
-        }
-
 
         public override string GetIdentityCommand(string name)
         {

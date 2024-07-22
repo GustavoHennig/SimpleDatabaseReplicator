@@ -53,9 +53,5 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             //return new Oracle.ManagedDataAccess.Client.OracleConnection(ConnectionString);
         }
 
-        public override string GetDBFieldType(TableColumn f)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
