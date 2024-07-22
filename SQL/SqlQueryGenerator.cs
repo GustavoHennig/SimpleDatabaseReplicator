@@ -38,7 +38,7 @@ namespace SimpleDatabaseReplicator.SQL
 
         public string BuildUpdateString(Dictionary<string, object> Data)
         {
-            string strSQL = " update " + dialect.FieldChar + table.TableName + dialect.FieldChar + " set ";
+            string strSQL = " update " + dialect.Delimiter + table.TableName + dialect.Delimiter + " set ";
 
             foreach (TableColumn reg in table.Columns)
             {
@@ -46,7 +46,7 @@ namespace SimpleDatabaseReplicator.SQL
                 {
                     if (Data.ContainsKey(reg.Name.ToUpper()))
                     {
-                        strSQL += dialect.FieldChar + reg.Name + dialect.FieldChar + " = " + dialect.GetFormattedValueForDb(reg, Data[reg.Name.ToUpper()]) + ", ";
+                        strSQL += dialect.Delimiter + reg.Name + dialect.Delimiter + " = " + dialect.GetFormattedValueForDb(reg, Data[reg.Name.ToUpper()]) + ", ";
                     }
                 }
             }
@@ -75,11 +75,11 @@ namespace SimpleDatabaseReplicator.SQL
             string strSQL = "";
             if (dialect is SqlServerDbType)
             {
-                strSQL += "SET IDENTITY_INSERT " + dialect.FieldChar + table.TableName + dialect.FieldChar + " ON;";
+                strSQL += "SET IDENTITY_INSERT " + dialect.Delimiter + table.TableName + dialect.Delimiter + " ON;";
             }
 
 
-            strSQL += " insert into " + dialect.FieldChar + table.TableName + dialect.FieldChar + " ( ";
+            strSQL += " insert into " + dialect.Delimiter + table.TableName + dialect.Delimiter + " ( ";
             string sqlValues = "";
 
             foreach (TableColumn reg in table.Columns)
@@ -87,7 +87,7 @@ namespace SimpleDatabaseReplicator.SQL
 
                 if (Data.ContainsKey(reg.Name.ToUpper()))
                 {
-                    strSQL += dialect.FieldChar + reg.Name + dialect.FieldChar + ", ";
+                    strSQL += dialect.Delimiter + reg.Name + dialect.Delimiter + ", ";
                     sqlValues += dialect.GetFormattedValueForDb(reg, Data[reg.Name.ToUpper()]) + ", ";
                 }
             }

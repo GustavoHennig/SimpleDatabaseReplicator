@@ -104,7 +104,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             return new MySql.Data.MySqlClient.MySqlConnection(connectionString);
         }
 
-        public override string FieldChar
+        public override string Delimiter
         {
             get
             {

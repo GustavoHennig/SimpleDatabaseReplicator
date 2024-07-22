@@ -1,3 +1,5 @@
+// Ignore Spelling: Nullable SQL
+
 /**
  * Copyright 2006-2018 Gustavo Augusto Hennig
  * 
@@ -22,6 +24,11 @@ using System.Text;
 
 namespace SimpleDatabaseReplicator.SQL.Databases
 {
+
+    /// <summary>
+    /// REFACT: This class should not be abstract, or should be simpler
+    /// Consider using some existing library like SqlKata
+    /// </summary>
     public abstract class BaseDbType
     {
         public virtual string LimitOffset(int limit, int offset)
@@ -49,7 +56,10 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             get;
         }
 
-        public virtual string FieldChar { get { return "\""; } }
+        /// <summary>
+        /// TODO: Initialize this value in a factory
+        /// </summary>
+        public virtual string Delimiter { get { return "\""; } }
 
         internal string GetFormattedValueForDb(TableColumn rf, object Value)
         {
@@ -97,7 +107,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 
         public string FormatDbObj(string dbObjName)
         {
-            return FieldChar + dbObjName + FieldChar;
+            return Delimiter + dbObjName + Delimiter;
         }
 
         public static BaseDbType CreateInstance(DbTypeSupported type)

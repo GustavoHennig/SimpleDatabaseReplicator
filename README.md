@@ -13,6 +13,7 @@ This project was created in 2006 to resolve a database benchmarking problem, the
  - Speed: it uses very little from the drivers; everything is done by simple queries.
 
 ## Known Issues / TODO
+- [ ] Consider using an existing library for queries, like https://github.com/sqlkata/querybuilder.
 - [ ] Delete is not implemented.  
 - [ ] Use internal row identity to optimize synchronization (like Postgres xmin).  
 - [ ] Schema must be identical.  

@@ -55,9 +55,16 @@ namespace SimpleDatabaseReplicator.UI
 
                 this.tableSyncInfo.CompareEntireTableAtOnce = !chkEnableBatchExecution.Checked;
 
-                int.TryParse(txtBatchSize.Text, out this.tableSyncInfo.IdRangeSize);
-                if (this.tableSyncInfo.IdRangeSize == 0)
+                if (int.TryParse(txtBatchSize.Text, out int idRangeSize))
+                {
+                    this.tableSyncInfo.IdRangeSize = idRangeSize;
+                }
+                else
+                {
+                    //TODO: show error message
                     this.tableSyncInfo.IdRangeSize = 10000;
+                }
+
                 this.tableSyncInfo.ColumnKeyName = txtColumnKey.Text;
 
 
@@ -81,7 +88,7 @@ namespace SimpleDatabaseReplicator.UI
 
         private void GraphicMapping_Load(object sender, EventArgs e)
         {
-            if (!tableSyncInfo.HasSchema)
+            if (!tableSyncInfo.IsSchemaLoaded)
             {
                 LoadSchema();
             }
@@ -134,7 +141,8 @@ namespace SimpleDatabaseReplicator.UI
             LoadColumnsList();
         }
 
-        private void LoadColumnsList() {
+        private void LoadColumnsList()
+        {
             LoadColumnList(lstSource, tableSyncInfo);
 
             foreach (TableColumn item in tableSyncInfo.Columns.Where(w => w.Checked))
@@ -153,10 +161,9 @@ namespace SimpleDatabaseReplicator.UI
             try
             {
                 lnkLoadSchema.Text = "Load Schema (...)";
-                using (DbCon db = new DbConnectionInfo(replicationTaskInfo.ConnectionStringSource, replicationTaskInfo.DialectSource).CreateConnection())
+                using (DbCon db = DbCon.Create(replicationTaskInfo.ConnectionStringSource, replicationTaskInfo.DialectSource))
                 {
-                    DbTableLoader dbt = new DbTableLoader(db, null);
-                    dbt.LoadTableSchema(tableSyncInfo);
+                    DbSchemaLoader.LoadTableInfoSchema(db, tableSyncInfo);
                 }
                 lnkLoadSchema.Text = "Load Schema (ok)";
             }

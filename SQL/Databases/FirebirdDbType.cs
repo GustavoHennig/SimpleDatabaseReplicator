@@ -1,3 +1,5 @@
+// Ignore Spelling: Firebird
+
 /**
  * Copyright 2006-2018 Gustavo Augusto Hennig
  * 

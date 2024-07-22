@@ -133,12 +133,12 @@ namespace SimpleDatabaseReplicator.SQL.Databases
         {
             get
             {
-                string sql = "";
-
-                sql += " select schemaname || '.' ||  tablename as table \n";
-                sql += " from pg_catalog.pg_tables  \n";
-                sql += " where schemaname not in ('information_schema','pg_catalog') \n";
-                sql += " order by schemaname, tablename \n";
+                string sql = @"
+               select schemaname as schema_name, tablename as table_name 
+               from pg_catalog.pg_tables  
+               where schemaname not in ('information_schema','pg_catalog') 
+               order by schemaname, tablename
+";
 
                 return sql;
             }

@@ -28,6 +28,7 @@ using SimpleDatabaseReplicator.UI.Base;
 using SimpleDatabaseReplicator.Properties;
 using System.Runtime.InteropServices;
 using SimpleDatabaseReplicator.Util;
+using System.Diagnostics;
 
 namespace SimpleDatabaseReplicator.UI
 {
@@ -286,6 +287,8 @@ namespace SimpleDatabaseReplicator.UI
             }
         }
 
+        [DebuggerStepThrough]
+        [DebuggerHidden]
         private void timer1_Tick(object sender, EventArgs e)
         {
             RefreshControls();

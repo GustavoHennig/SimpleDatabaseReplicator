@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <StartupObject>SimpleDatabaseReplicator.Program</StartupObject>
     <ApplicationIcon>HSReplicator.ico</ApplicationIcon>
     <ManifestCertificateThumbprint>2D6099145DB24233A11E5D661653FDE79F71CB31</ManifestCertificateThumbprint>
@@ -52,6 +52,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="SqlKata" Version="2.4.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>

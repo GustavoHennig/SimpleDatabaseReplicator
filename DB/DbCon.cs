@@ -38,6 +38,16 @@ namespace SimpleDatabaseReplicator.DB
             CheckConnection();
         }
 
+        public static DbCon Create(DbConnectionInfo dbConnectionInfo)
+        {
+            return new DbCon(dbConnectionInfo);
+        }
+
+        internal static DbCon Create(string connStr, BaseDbType.DbTypeSupported dbType)
+        {
+            return Create(new DbConnectionInfo(connStr, dbType));
+        }
+
         public object ExecuteScalar(string sql)
         {
             using (IDbCommand com = dbConnection.CreateCommand())
@@ -120,24 +130,6 @@ namespace SimpleDatabaseReplicator.DB
         }
 
 
-        /// <summary>
-        /// Get list of all table without schema
-        /// </summary>
-        /// <returns></returns>
-        public List<TableInfo> GetAllTables()
-        {
-
-            List<TableInfo> ret = new List<TableInfo>();
-            using (IDataReader dr = ExecuteDataReader(DbConnectionInfo.DbType.AllTablesCommand))
-            {
-                while (dr.Read())
-                {
-                    ret.Add(new TableInfo(Convert.ToString(dr[0])));
-                }
-
-            }
-            return ret;
-        }
 
         public long GetMax(string tableName, string fiedName)
         {
@@ -175,7 +167,6 @@ namespace SimpleDatabaseReplicator.DB
                 }
             }
         }
-
 
 
     }

@@ -30,8 +30,8 @@ namespace SimpleDatabaseReplicator.DB
     public class DbConnectionInfo
     {
 
-        public string ConnectionString = "";
-        public BaseDbType DbType;
+        public string ConnectionString { get; set; } = "";
+        public BaseDbType DbType { get; set; }
 
         public DbConnectionInfo(string connStr, DbTypeSupported type)
         {
@@ -39,10 +39,6 @@ namespace SimpleDatabaseReplicator.DB
             this.DbType = BaseDbType.CreateInstance(type);
         }
 
-        public DbCon CreateConnection()
-        {
-            return new DbCon(this);
-        }
 
         public void CheckTableSchema(TableInfo tableInfo)
         {

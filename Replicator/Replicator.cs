@@ -48,8 +48,8 @@ namespace SimpleDatabaseReplicator
             {
                 job.IsRunning = true;
 
-                DbConnectionInfo s = new DbConnectionInfo(job.ConnectionStringSource, job.DialectSource);
-                DbConnectionInfo d = new DbConnectionInfo(job.ConnectionStringDestination, job.DialectDestination);
+                DbConnectionInfo sourceConnectionInfo = new DbConnectionInfo(job.ConnectionStringSource, job.DialectSource);
+                DbConnectionInfo destinationConnectionInfo = new DbConnectionInfo(job.ConnectionStringDestination, job.DialectDestination);
 
                 /*
                 d.status += new DlgStatusMsg(r_status);
@@ -62,8 +62,8 @@ namespace SimpleDatabaseReplicator
                 int totalTables = job.TablesAvailable.Count(w => w.Checked);
                 int curTable = 1;
 
-                using (DbCon dbSource = s.CreateConnection())
-                using (DbCon dbDest = d.CreateConnection())
+                using (DbCon dbSource = DbCon.Create(sourceConnectionInfo))
+                using (DbCon dbDest = DbCon.Create(destinationConnectionInfo))
                 {
                     foreach (TableInfo table in job.TablesAvailable.Where(w => w.Checked))
                     {
@@ -95,7 +95,7 @@ namespace SimpleDatabaseReplicator
                             messageHandler.SendStatus(string.Format(status, curTable, totalTables, "Loading " + table + " [" + curMinId + "-" + curMaxId + "]"));
 
                             //Load Source Table (Async)
-                            DbTableLoader dblo1 = new DbTableLoader(dbSource, messageHandler);
+                            DbTableDataLoader dblo1 = new DbTableDataLoader(dbSource, messageHandler);
 
                             Task<Table> taskTb1 = Task.Run(() =>
                             {
@@ -103,7 +103,7 @@ namespace SimpleDatabaseReplicator
                             });
 
                             //Load Destination Table (Sync)
-                            DbTableLoader dblo2 = new DbTableLoader(dbDest, messageHandler);
+                            DbTableDataLoader dblo2 = new DbTableDataLoader(dbDest, messageHandler);
 
                             Table tb2 = dblo2.LoadTableData(table, table, columnKeyName, curMinId, curMaxId, job.RetrieveDataCondition);
 

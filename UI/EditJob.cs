@@ -103,10 +103,10 @@ namespace SimpleDatabaseReplicator.UI
         }
         private ListViewItem CreateListViewItem(TableInfo tableInfo)
         {
-            var lvi = new ListViewItem(tableInfo.TableName);
+            var lvi = new ListViewItem($"{tableInfo.TableSchema}.{tableInfo.TableName}");
             lvi.Tag = tableInfo;
             lvi.Checked = tableInfo.Checked;
-            lvi.Name = tableInfo.TableName;
+            lvi.Name = tableInfo.FormattedTableName;
             return lvi;
         }
 
@@ -171,10 +171,10 @@ namespace SimpleDatabaseReplicator.UI
 
             try
             {
-                using (DbCon db = new DbConnectionInfo(JobEditting.ConnectionStringSource, JobEditting.DialectSource).CreateConnection())
+                using (DbCon db = DbCon.Create(JobEditting.ConnectionStringSource, JobEditting.DialectSource))
                 {
-                    DbTableLoader dbt = new DbTableLoader(db, null);
-                    dbt.LoadTableSchemaBatch(JobEditting.TablesAvailable.Where(w => w.Checked).ToList());
+                    
+                    DbSchemaLoader.LoadTableInfoSchema(db, JobEditting.TablesAvailable.Where(w => w.Checked));
                 }
             }
             catch (Exception)
@@ -248,12 +248,15 @@ namespace SimpleDatabaseReplicator.UI
             try
             {
                 List<TableInfo> tables;
-                using (DbCon db = new DbConnectionInfo(txtStringSource.Text, (BaseDbType.DbTypeSupported)cmdSource.SelectedIndex).CreateConnection())
-                    tables = db.GetAllTables();
+                using (DbCon db = DbCon.Create(txtStringSource.Text, (BaseDbType.DbTypeSupported)cmdSource.SelectedIndex))
+
+                    tables = DbSchemaLoader.GetAllTables(db);
 
                 if (tables.Count > 0)
                 {
-                    lstTables.Items.AddRange(tables.Where(t => !lstTables.Items.ContainsKey(t.TableName)).Select(s => CreateListViewItem(s)).ToArray());
+                    lstTables.Items.AddRange(tables.Where(t => !lstTables.Items.ContainsKey(t.TableName))
+                                                   .Select(s => CreateListViewItem(s))
+                                                   .ToArray());
                 }
 
             }
@@ -291,7 +294,8 @@ namespace SimpleDatabaseReplicator.UI
             }
         }
 
-        private bool StartGraphicMapping(TableInfo tableInfo) {
+        private bool StartGraphicMapping(TableInfo tableInfo)
+        {
             GraphicMapping graphicMapping = new GraphicMapping();
             graphicMapping.SetTable(tableInfo);
             graphicMapping.ReplicationTaskInfo(this.JobEditting);
@@ -334,7 +338,8 @@ namespace SimpleDatabaseReplicator.UI
         {
             try
             {
-                using (DbCon db = CreateDbConn(true))
+                using (DbCon db = TestCreatingDbConnection(txtStringDestination.Text, (BaseDbType.DbTypeSupported)cmdDest.SelectedIndex))
+
                     btnTestConnDest.Text = "Test (ok)";
             }
             catch (Exception)
@@ -349,7 +354,7 @@ namespace SimpleDatabaseReplicator.UI
         {
             try
             {
-                using (DbCon db = CreateDbConn(false))
+                using (DbCon db = TestCreatingDbConnection(txtStringSource.Text, (BaseDbType.DbTypeSupported)cmdSource.SelectedIndex))
                     btnTestConnSource.Text = "Test (ok)";
             }
             catch (Exception)
@@ -359,12 +364,9 @@ namespace SimpleDatabaseReplicator.UI
         }
 
 
-        private DbCon CreateDbConn(bool dest)
+        private DbCon TestCreatingDbConnection(string connString, BaseDbType.DbTypeSupported dbTypeSupported)
         {
-            if (dest)
-                return new DbConnectionInfo(txtStringDestination.Text, (BaseDbType.DbTypeSupported)cmdDest.SelectedIndex).CreateConnection();
-            else
-                return new DbConnectionInfo(txtStringSource.Text, (BaseDbType.DbTypeSupported)cmdSource.SelectedIndex).CreateConnection();
+            return DbCon.Create(connString, dbTypeSupported);
         }
 
     }
