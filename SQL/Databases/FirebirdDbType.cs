@@ -25,31 +25,6 @@ namespace SimpleDatabaseReplicator.SQL.Databases
     {
         
 
-        public override string FormatNumberValue(object value)
-        {
-            return  value.ToString().Replace(',', '.');
-        }
-
-        public override string FormatStringValue(object value)
-        {
-            return "'" + ((string)value).Replace("'","''") + "'";
-        }
-
-        public override string FormatDateValue(object value)
-        {
-            return "'" + ((DateTime)value).ToString("MM/dd/yyyy HH:mm:ss") + "'";
-        }
-
-        public  override string NullString
-        {
-            get
-            { 
-                return "null";
-            }
-        }
-
-     
-
         public override string GetDBFieldType(TableColumn f)
         {
             string ret = "";
@@ -100,23 +75,6 @@ namespace SimpleDatabaseReplicator.SQL.Databases
                     break;
             }
             return ret;
-        }
-
-
-        public override string NullableField
-        {
-            get
-            {
-                return " ";
-            }
-        }
-
-        public override string NotNullableField
-        {
-            get
-            {
-                return "NOT NULL";
-            }
         }
 
 

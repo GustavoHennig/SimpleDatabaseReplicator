@@ -18,16 +18,16 @@ namespace SimpleDatabaseReplicator
 
     public class TableColumn
     {
-        public string Name;
-        public bool IsKey;
-        public string TypeName;
-        public int DefinedSize;
-        public bool AllowNull;
-        public int Precision;
-        public int Decimals;
-        public bool IsAutoIncrement;
-        public string AuldIncrementName;
-        public bool Checked;
+        public string Name { get; set; }
+        public bool IsKey{ get; set; }
+        public string TypeName{ get; set; }
+        public int DefinedSize{ get; set; }
+        public bool AllowNull{ get; set; }
+        public int Precision{ get; set; }
+        public int Decimals{ get; set; }
+        public bool IsAutoIncrement{ get; set; }
+        public string AutoIncrementName{ get; set; }
+        public bool Checked{ get; set; }
 
         public override string ToString()
         {

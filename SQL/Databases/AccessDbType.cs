@@ -21,34 +21,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 {
     public class AccessDbType : BaseDbType
     {
-        
-
-        public override string FormatNumberValue(object value)
-        {
-            return  value.ToString().Replace(',', '.');
-        }
-
-        public override string FormatStringValue(object value)
-        {
-            return "'" + ((string)value).Replace("'", "''") + "'";
-        }
-
-        public override string FormatDateValue(object value)
-        {
-            //TODO: It's not 
-            return "#" + ((DateTime)value).ToString("MM/dd/yyyy HH:mm:ss") + "#";
-        }
-
-         public override string   NullString
-        {
-            get
-            { 
-                return "null";
-            }
-        }
-
-
-        public override string GetDBFieldType(TableColumn f)
+                public override string GetDBFieldType(TableColumn f)
         {
             string ret = "";
             switch (f.TypeName)
@@ -92,25 +65,6 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             }
             return ret;
         }
-
-
-
-        public override string NullableField
-        {
-            get
-            {
-                throw new Exception("The method or operation is not implemented.");
-            }
-        }
-
-        public override string NotNullableField
-        {
-            get
-            {
-                throw new Exception("The method or operation is not implemented.");
-            }
-        }
-
 
         public override string GetIdentityCommand(string name)
         {

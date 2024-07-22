@@ -17,6 +17,7 @@
  **/
 using SimpleDatabaseReplicator.Properties;
 using SimpleDatabaseReplicator.Util;
+using SqlKata.Compilers;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -36,10 +37,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             return "";
         }
 
-        public abstract string FormatNumberValue(object value);
-        public abstract string FormatStringValue(object value);
-        public abstract string FormatDateValue(object value);
-        public abstract string NullString { get; }
+   
         public abstract string GetDBFieldType(TableColumn f);
         public abstract string GetIdentityCommand(string name);
         public abstract string SetIdentityCommand(string name, object value);
@@ -47,61 +45,15 @@ namespace SimpleDatabaseReplicator.SQL.Databases
         public abstract string AllTablesCommand { get; }
         public DbTypeSupported DbType;
 
-        public abstract string NullableField
-        {
-            get;
-        }
-        public abstract string NotNullableField
-        {
-            get;
-        }
 
         /// <summary>
         /// TODO: Initialize this value in a factory
         /// </summary>
         public virtual string Delimiter { get { return "\""; } }
 
-        internal string GetFormattedValueForDb(TableColumn rf, object Value)
-        {
-            string ret = "";
-            if (Value is System.DBNull)
-            {
-                ret = " " + NullString + " ";
-            }
-            else
-            {
-                switch (rf.TypeName)
-                {
-                    case "DateTime":
+        public Compiler KataCompiler { get; protected set; }
 
-                        if (((DateTime)Value) < Settings.Default.MinDateTime)
-                            Value = Settings.Default.MinDateTime;
-
-                        ret = FormatDateValue(Value);
-                        break;
-                    case "Int32":
-                    case "Int16":
-                    case "Byte":
-                        ret = Value.ToString();
-                        break;
-                    case "String":
-                        //TODO: Remove backslashes
-                        ret = FormatStringValue(Value);
-                        break;
-                    case "Decimal":
-                    case "Float":
-                    case "Single":
-                    case "Double":
-                        ret = FormatNumberValue(Value);
-                        break;
-                    default:
-                        ret = Value.ToString();
-                        break;
-                }
-            }
-            return ret;
-        }
-
+      
         public abstract DbConnection BuildConnection(string connectionString);
 
 

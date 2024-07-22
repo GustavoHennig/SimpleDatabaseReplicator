@@ -34,6 +34,9 @@ namespace SimpleDatabaseReplicator
             bool ret;
 
             //const int Fator = 10000;
+            if (obj1 is null || obj2 is null) { 
+            return (obj1 == obj2);
+            }
 
             if (obj1 is DBNull || obj2 is DBNull)
             {

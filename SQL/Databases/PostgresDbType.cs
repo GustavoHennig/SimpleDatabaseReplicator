@@ -21,32 +21,12 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 {
     public class PostgresDbType : BaseDbType
     {
-        
-
-        public override string FormatNumberValue(object value)
+        public PostgresDbType()
         {
-            return value.ToString().Replace(',', '.');
+            this.KataCompiler = new SqlKata.Compilers.PostgresCompiler();
         }
 
-        public override string FormatStringValue(object value)
-        {
-            return "'" + ((string)value).Replace("'", "''") + "'";
-        }
-
-        public override string FormatDateValue(object value)
-        {
-            return "'" + ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss") + "'";
-        }
-
-        public override string   NullString
-        {
-            get
-            {
-                return "null";
-            }
-        }
-
-        public override  string GetDBFieldType(TableColumn f)
+        public override string GetDBFieldType(TableColumn f)
         {
             string ret = "";
             switch (f.TypeName)
@@ -94,16 +74,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
         }
 
 
-        public override  string NotNullableField
-        {
-            get
-            {
-                throw new Exception("The method or operation is not implemented.");
-            }
-        }
-
-
-        public  override string GetIdentityCommand(string name)
+        public override string GetIdentityCommand(string name)
         {
 
             string sql = " select last_value from  " + name;
@@ -111,16 +82,16 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             return sql;
         }
 
-        public override  string SetIdentityCommand(string name, object value)
+        public override string SetIdentityCommand(string name, object value)
         {
 
-            string sql = " select setval('"+name+"', "+value+") ";
+            string sql = " select setval('" + name + "', " + value + ") ";
 
             return sql;
 
         }
 
-        public  override string GetSequenceName(string table, string field)
+        public override string GetSequenceName(string table, string field)
         {
 
             string sql = " select * from pg_get_serial_sequence('" + table + "','" + field + "');";
@@ -129,7 +100,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
         }
 
 
-        public override  string AllTablesCommand
+        public override string AllTablesCommand
         {
             get
             {
@@ -144,21 +115,10 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             }
         }
 
-        public override string NullableField
-        {
-            get { return " null "; }
-        }
-
-        public override System.Data.Common.DbConnection BuildConnection(string connectionString)
+          public override System.Data.Common.DbConnection BuildConnection(string connectionString)
         {
             System.Data.Common.DbConnection con = new Npgsql.NpgsqlConnection(connectionString);
-            // new Npgsql.NpgsqlConnection().
-            //con = (DbConnection)pgcon;
-            //                    con = 
-
-            //DbTransaction trans = con.BeginTransaction();
-            //trans.Commit();
-            //trans.Rollback();
+         
             return con;
         }
 

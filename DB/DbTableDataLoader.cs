@@ -15,6 +15,7 @@
  **/
 using SimpleDatabaseReplicator.SQL;
 using SqlKata;
+using SqlKata.Execution;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -55,8 +56,9 @@ namespace SimpleDatabaseReplicator.DB
                     //}
                 }
 
-                Query query = new Query(table.FormattedTableName);
-                    
+                
+                        var db = new QueryFactory(dbConnection.DB, dbType.KataCompiler);
+                Query query = db.Query($"{table.TableSchema}.{table.TableName}");
 
 
                 //SqlQueryBuilder query = new SqlQueryBuilder(dbType).Select().From(table.TableName);
@@ -78,28 +80,35 @@ namespace SimpleDatabaseReplicator.DB
 
                 int progressMax = (int)dbConnection.CountRegs(table.TableName, whereForCount, dbType);
 
-                using (IDataReader dr = dbConnection.ExecuteDataReader(query.ToString()))
+            string sql1 = dbType.KataCompiler.Compile(query).ToString();
+            
+
+                using (IDataReader dr = dbConnection.ExecuteDataReader(sql1))
                 {
 
                     object[] col = new object[dr.FieldCount];
 
-                    ArrayList l = new ArrayList();
+                    //ArrayList l = new ArrayList();
 
-                    TableRow rg;
-                    long t;
-                    t = DateTime.Now.Ticks;
+                    TableRow row;
+                    long                     t = DateTime.Now.Ticks;
 
                     while (dr.Read())
                     {
-                        rg = new TableRow();
+                        row = new TableRow();
 
                         for (int i = 0; i < dr.FieldCount; i++)
                         {
-                            rg.Data.Add(dr.GetName(i).ToUpper(), dr.GetValue(i));
+                            object dbValue = dr.GetValue(i);
+                            if(dbValue == DBNull.Value)
+                            {
+                                dbValue = null;
+                            }
+                            row.Data.Add(dr.GetName(i), dbValue);
                         }
 
-                        rg.MontaKey(table.Keys);
-                        tb.Data.Add(rg.Key, rg);
+                        row.BuildCompositeKey(table.Keys);
+                        tb.Data.Add(row.KeyValue, row);
 
                         if (Replicator.AbortReplication)
                             throw new ApplicationException("Aborted");

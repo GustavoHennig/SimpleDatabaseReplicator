@@ -47,6 +47,7 @@ namespace SimpleDatabaseReplicator.DB
         {
             return Create(new DbConnectionInfo(connStr, dbType));
         }
+        public IDbConnection DB => dbConnection;
 
         public object ExecuteScalar(string sql)
         {
@@ -120,7 +121,7 @@ namespace SimpleDatabaseReplicator.DB
 
             foreach (DataRow dr in dt.Rows)
             {
-                if (dr[2].ToString().ToUpper() == tablename.ToUpper())
+                if (tablename.Equals(dr[2].ToString(), StringComparison.CurrentCultureIgnoreCase))
                 {
                     return true;
                 }

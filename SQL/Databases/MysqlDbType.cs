@@ -22,53 +22,11 @@ namespace SimpleDatabaseReplicator.SQL.Databases
     public class MysqlDbType : BaseDbType
     {
         
-
-        public override string FormatNumberValue(object value)
-        {
-            return value.ToString().Replace(',', '.');
-        }
-
-        public override string FormatStringValue(object value)
-        {
-            return "'" + ((string)value).Replace("'", "''") + "'";
-        }
-
-        public override string FormatDateValue(object value)
-        {
-            return "'" + ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss") + "'";
-        }
-
-        public override string NullString
-        {
-            get
-            {
-                return "null";
-            }
-        }
-
-
-
         public override string GetDBFieldType(TableColumn f)
         {
             throw new Exception("The method or operation is not implemented.");
         }
 
-
-        public override string NullableField
-        {
-            get
-            {
-                throw new Exception("The method or operation is not implemented.");
-            }
-        }
-
-        public override string NotNullableField
-        {
-            get
-            {
-                throw new Exception("The method or operation is not implemented.");
-            }
-        }
 
         public override string GetIdentityCommand(string name)
         {

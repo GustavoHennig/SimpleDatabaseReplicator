@@ -22,31 +22,6 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 {
     public class OracleDbType : BaseDbType
     {
-
-        public override string FormatNumberValue(object value)
-        {
-            return value.ToString().Replace(',', '.');
-        }
-
-        public override string FormatStringValue(object value)
-        {
-            return "'" + ((string)value).Replace("'", "''") + "'";
-        }
-
-        public override string FormatDateValue(object value)
-        {
-            return "'" + ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss") + "'";
-        }
-
-        public override string NullString
-        {
-            get
-            {
-                return "null";
-            }
-        }
-
-
         public override string GetIdentityCommand(string name)
         {
             throw new NotImplementedException();
@@ -71,10 +46,6 @@ namespace SimpleDatabaseReplicator.SQL.Databases
                 return "SELECT table_name, owner FROM dba_tables";
             }
         }
-
-        public override string NullableField => throw new NotImplementedException();
-
-        public override string NotNullableField => throw new NotImplementedException();
 
         public override System.Data.Common.DbConnection BuildConnection(string ConnectionString)
         {

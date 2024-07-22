@@ -24,21 +24,24 @@ namespace SimpleDatabaseReplicator
     {
 
         public bool NotExistsInDestination;
-        public bool DiferentFromDestinaion;
+        public bool DifferentFromDestination;
 
-        public string Key;
+        /// <summary>
+        /// For memory-only comparison
+        /// </summary>
+        public string KeyValue;
 
         public Dictionary<string, object> Data = new Dictionary<string, object>();
 
 
-        public void MontaKey(List<string> keys)
+        public void BuildCompositeKey(List<string> keys)
         {
             string key = "";
             foreach (string lkey in keys)
             {
-                key += Convert.ToString(Data[lkey.ToUpper()]);
+                key += Convert.ToString(Data[lkey]);
             }
-            Key = key;
+            KeyValue = key;
         }
 
         public override bool Equals(object obj)

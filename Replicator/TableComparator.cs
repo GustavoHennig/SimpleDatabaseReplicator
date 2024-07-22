@@ -31,18 +31,18 @@ namespace SimpleDatabaseReplicator
                 //Compares each source row with the same in the destination (using dictionary keys)
                 foreach (TableRow riS in source.Data.Values)
                 {
-                    if (dest.Data.ContainsKey(riS.Key))
+                    if (dest.Data.ContainsKey(riS.KeyValue))
                     {
-                        if (!riS.Equals(dest.Data[riS.Key]))
+                        if (!riS.Equals(dest.Data[riS.KeyValue]))
                         {
-                            riS.DiferentFromDestinaion = true;
+                            riS.DifferentFromDestination = true;
                             riS.NotExistsInDestination = false;
                             ret.Add(riS);
                         }
                     }
                     else
                     {
-                        riS.DiferentFromDestinaion = true;
+                        riS.DifferentFromDestination = true;
                         riS.NotExistsInDestination = true;
                         ret.Add(riS);
                     }

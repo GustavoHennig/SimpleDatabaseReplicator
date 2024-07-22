@@ -19,6 +19,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SqlKata;
+using SqlKata.Execution;
 
 namespace SimpleDatabaseReplicator.DB
 {
@@ -68,26 +70,46 @@ namespace SimpleDatabaseReplicator.DB
                 int prg = 0;
                 int max = l.Count;
 
-                SqlQueryGenerator rib = new SqlQueryGenerator(dest.TableInfo, dbType);
+                //SqlQueryGenerator rib = new SqlQueryGenerator(dest.TableInfo);
+
+                var db = new QueryFactory(dbConnection.DB, dbType.KataCompiler);
 
                 foreach (TableRow ri in l)
                 {
-                    if (ri.DiferentFromDestinaion)
+                    if (ri.DifferentFromDestination)
                     {
-                        string sql = rib.CreateExcecutionQuery(ri.Data, ri.NotExistsInDestination);
-
                         try
                         {
-                            intAffected += dbConnection.ExecuteSQL(sql);
+                            if (ri.NotExistsInDestination)
+                            {
+                                intAffected += db.Query(dest.TableInfo.TableName)
+                                .Insert(values: ri.Data);
+                            }
+                            else
+                            {
+                                var query = db.Query(dest.TableInfo.TableName);
+
+                                foreach (var key in dest.TableInfo.Keys)
+                                {
+                                    query = query.Where(key, ri.Data[key]);
+                                }
+
+                                intAffected += query.Update(ri.Data);
+
+                                // For debug:
+                                //dbType.KataCompiler.Compile(db.Query(dest.TableInfo.TableName).Where(dest.TableInfo.ColumnKeyName, ri.Key).AsUpdate(ri.Data)).Sql.ToString();
+                            }
+                            ///db.Query(dest.TableInfo.TableName).Where(dest.TableInfo.ColumnKeyName, ri.Key).AsUpdate(ri.Data).ToString(); 
+
                             if (!string.IsNullOrEmpty(postUpdateSQL))
                             {
                                 // TODO: It's needed to run on source
                                 //  bd.ExecuteSQL(rib.getPostUpdate(JobCallBack.PostUpdateSQL));
                             }
                         }
-                        catch (Exception erro)
+                        catch (Exception error)
                         {
-                            messageHandler.SendError(erro.Message + " SQL: " + sql);
+                            messageHandler.SendError(error.Message);
                         }
 
                         nroRegs++;
