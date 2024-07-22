@@ -23,6 +23,8 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 {
     public abstract class BaseDbType
     {
+        public abstract string LimitOffset(int limit, int offset);
+
         public abstract string FormatNumberValue(object value);
         public abstract string FormatStringValue(object value);
         public abstract string FormatDateValue(object value);

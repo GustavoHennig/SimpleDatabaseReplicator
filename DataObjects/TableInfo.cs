@@ -26,13 +26,14 @@ namespace SimpleDatabaseReplicator
         public List<TableColumn> Columns = new List<TableColumn>();
         public List<string> Keys = new List<string>();
 
-        public bool EnableIdentitySync= false;
+        public bool EnableIdentitySync = false;
         public string IdentityName = null;
         public long IdentityValue = 0;
         public bool Checked = false;
         public bool CompareEntireTableAtOnce = true;
+        public bool UseLimitOffset = true;
         public string ColumnKeyName;
-        public int IdRangeSize=20000;
+        public int IdRangeSize = 20000;
 
         public TableInfo()
         {

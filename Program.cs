@@ -21,6 +21,7 @@ using System.Windows.Forms;
 using SimpleDatabaseReplicator.UI;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 
 namespace SimpleDatabaseReplicator
 {
@@ -41,8 +42,9 @@ namespace SimpleDatabaseReplicator
                 var job = Preferences.Settings.jobs.FirstOrDefault(w => w.JobName == args[0]);
                 if (job != null)
                 {
+                    SynchronousSynchronizationContext sync = new SynchronousSynchronizationContext();
                     Replicator r = new Replicator(new MessageHandler(
-                        WindowsFormsSynchronizationContext.Current,
+                        sync,
                         job, msg => Console.WriteLine(msg), msg => Console.WriteLine(msg)
                         ));
                     r.Replicate(job);
@@ -57,5 +59,16 @@ namespace SimpleDatabaseReplicator
 
             Application.Run(new Main());
         }
+
+
+
+
+    class SynchronousSynchronizationContext : SynchronizationContext
+    {
+        public override void Post(SendOrPostCallback d, object state)
+        {
+            this.Send(d, state);
+        }
     }
+}
 }

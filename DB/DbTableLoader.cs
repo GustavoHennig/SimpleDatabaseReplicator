@@ -33,7 +33,7 @@ namespace SimpleDatabaseReplicator.DB
         {
         }
 
-        public Table LoadTableData(TableInfo table, TableInfo sourceTableForDDLComparison = null, string columnKeyName = "", long minValue = -1, long maxValue = -1, string retrieveDataCondition = null)
+        public Table LoadTableData(TableInfo table, TableInfo sourceTableForDDLComparison = null, string columnKeyName = "", long minValue = -1, long maxValue = -1, string retrieveDataCondition = null, int limit = -1, int offset = -1)
         {
 
             //SqlConnection con = new SqlConnection(ConnectionString);
@@ -67,6 +67,10 @@ namespace SimpleDatabaseReplicator.DB
                 else if (!string.IsNullOrWhiteSpace(columnKeyName))
                 {
                     query = query.WhereRowKeyBetween(columnKeyName, minValue, maxValue);
+                }
+                else if (limit > -1 && offset > -1)
+                {
+                    query = query.Where(dbType.LimitOffset(limit, offset));
                 }
 
                 int progressMax = (int)dbConnection.CountRegs(table.TableName, whereForCount, dbType);
@@ -180,7 +184,7 @@ namespace SimpleDatabaseReplicator.DB
 
                     if (rf.IsKey)
                     {
-                        if (!table.Keys.Exists(o=> o.Equals(rf.Name, StringComparison.CurrentCultureIgnoreCase)))
+                        if (!table.Keys.Exists(o => o.Equals(rf.Name, StringComparison.CurrentCultureIgnoreCase)))
                             table.Keys.Add(rf.Name);
                     }
                 }

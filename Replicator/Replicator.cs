@@ -74,7 +74,12 @@ namespace SimpleDatabaseReplicator
                         string columnKeyName = null;
                         long maxId = 0;
 
-                        if (!table.CompareEntireTableAtOnce)
+                        if (table.UseLimitOffset)
+                        {
+                            // It won't work yet, we need the same set of record from the other side for comparison
+                            // TODO: Enable a way to import without local comparison
+                        }
+                        else if (!table.CompareEntireTableAtOnce)
                         {
                             columnKeyName = table.ColumnKeyName;
                             if (!string.IsNullOrWhiteSpace(columnKeyName))

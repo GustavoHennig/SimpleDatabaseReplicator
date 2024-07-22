@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 [Setup]
-AppName=GH Software Simple Database Replicator
+AppName=GH Software - Simple Database Replicator
 AppVersion=0.1
 ;AppVerName=GH Software Simple Database Replicator 0.1
 AppPublisher=Gustavo Augusto Hennig
@@ -52,13 +52,13 @@ Source: "bin\Microsoft.Threading.Tasks.dll"; DestDir: "{app}"; Flags: ignorevers
 Filename: {app}\Replicator.url; Section: InternetShortcut; Key: URL; String: https://github.com/GustavoHennig/SimpleDatabaseReplicator
 
 [Icons]
-Name: {group}\Simple Database Replicator; Filename: {app}\Replicator.exe
+Name: {group}\Simple Database Replicator; Filename: {app}\SimpleDatabaseReplicator.exe
 Name: {group}\{cm:ProgramOnTheWeb,Neliware Replicator}; Filename: {app}\Replicator.url
 Name: {group}\{cm:UninstallProgram,Neliware Replicator}; Filename: {uninstallexe}
-Name: {userdesktop}\Simple Database Replicator; Filename: {app}\Replicator.exe; Tasks: desktopicon
+Name: {userdesktop}\Simple Database Replicator; Filename: {app}\SimpleDatabaseReplicator.exe; Tasks: desktopicon
 
 [Run]
-Filename: {app}\Replicator.exe; Description: {cm:LaunchProgram,Simple Database Replicator}; Flags: nowait postinstall skipifsilent
+Filename: {app}\SimpleDatabaseReplicator.exe; Description: {cm:LaunchProgram,Simple Database Replicator}; Flags: nowait postinstall skipifsilent
 
 [UninstallDelete]
 Type: files; Name: {app}\Replicator.url

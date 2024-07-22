@@ -161,5 +161,10 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             //trans.Rollback();
             return con;
         }
+
+        public override string LimitOffset(int limit, int offset)
+        {
+            return $" limite {limit} offset {offset}";
+        }
     }
 }

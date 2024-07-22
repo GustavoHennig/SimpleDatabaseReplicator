@@ -29,23 +29,7 @@ namespace SimpleDatabaseReplicator
         public static CultureInfo culture = Thread.CurrentThread.CurrentUICulture;
 
 
-        public static string InputBox(string Caption, string default_value)
-        {
-
-            InputBox ib = new InputBox();
-            ib.Text = Caption;
-            ib.Texto = default_value;
-            ib.ShowDialog();
-            return ib.Texto;
-
-        }
-
-        public static string InputBox(string Caption)
-        {
-
-            return InputBox(Caption, "");
-
-        }
+  
 
         public static bool EqualsValue(object obj1, object obj2)
         {
