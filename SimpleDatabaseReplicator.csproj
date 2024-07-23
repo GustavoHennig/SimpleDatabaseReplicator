@@ -3,7 +3,7 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <StartupObject>SimpleDatabaseReplicator.Program</StartupObject>
-    <ApplicationIcon>HSReplicator.ico</ApplicationIcon>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
     <ManifestCertificateThumbprint>2D6099145DB24233A11E5D661653FDE79F71CB31</ManifestCertificateThumbprint>
     <ManifestKeyFile>HSReplicator_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>false</GenerateManifests>
@@ -30,10 +30,27 @@
     <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="HSReplicator.ico" />
-    <Content Include="TODO.txt" />
     <BaseApplicationManifest Include="Properties\app.manifest" />
   </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Properties\Resources.pt.resx">
+			<LastGenOutput>Properties\Resources.pt.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+	
+	</ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
@@ -67,72 +84,6 @@
     <PackageReference Include="System.Text.Json" Version="8.0.4" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Backup\DB\DBAccess.cs" />
-    <Compile Remove="Backup\DB\DBCon.cs" />
-    <Compile Remove="Backup\DB\DBFun\DBFunFirebird.cs" />
-    <Compile Remove="Backup\DB\DBFun\IDbFunc.cs" />
-    <Compile Remove="Backup\Functions.cs" />
-    <Compile Remove="Backup\Images.Designer.cs" />
-    <Compile Remove="Backup\Job.cs" />
-    <Compile Remove="Backup\Language.cs" />
-    <Compile Remove="Backup\Preferences.cs" />
-    <Compile Remove="Backup\Program.cs" />
-    <Compile Remove="Backup\Properties\AssemblyInfo.cs" />
-    <Compile Remove="Backup\RegHeaderField.cs" />
-    <Compile Remove="Backup\RegItem.cs" />
-    <Compile Remove="Backup\ReplicatingThread.cs" />
-    <Compile Remove="Backup\res.en-Us.Designer.cs" />
-    <Compile Remove="Backup\res.pt-BR.Designer.cs" />
-    <Compile Remove="Backup\ResLoader.cs" />
-    <Compile Remove="Backup\Scheduler.cs" />
-    <Compile Remove="Backup\Serializer.cs" />
-    <Compile Remove="Backup\SQL\DDL.cs" />
-    <Compile Remove="Backup\SQL\Dialects\DialectAccess.cs" />
-    <Compile Remove="Backup\SQL\Dialects\DialectFirebird.cs" />
-    <Compile Remove="Backup\SQL\Dialects\DialectODBC.cs" />
-    <Compile Remove="Backup\SQL\Dialects\DialectPostgres.cs" />
-    <Compile Remove="Backup\SQL\Dialects\DialectSQLServer.cs" />
-    <Compile Remove="Backup\SQL\Dialects\ISQLDialect.cs" />
-    <Compile Remove="Backup\SQL\RegItemSqlBuilder.cs" />
-    <Compile Remove="Backup\SQL\SQLFormatter.cs" />
-    <Compile Remove="Backup\StorageData.cs" />
-    <Compile Remove="Backup\Table.cs" />
-    <Compile Remove="Backup\TableComparator.cs" />
-    <Compile Remove="Backup\Threads.cs" />
-    <Compile Remove="Backup\TipoIntervalo.cs" />
-    <Compile Remove="Backup\UI\AboutBox.cs" />
-    <Compile Remove="Backup\UI\AboutBox.Designer.cs" />
-    <Compile Remove="Backup\UI\Base\BaseForm.cs" />
-    <Compile Remove="Backup\UI\EditJob.cs" />
-    <Compile Remove="Backup\UI\EditJob.Designer.cs" />
-    <Compile Remove="Backup\UI\FieldList.cs" />
-    <Compile Remove="Backup\UI\GComboBox.cs" />
-    <Compile Remove="Backup\UI\GenericList.cs" />
-    <Compile Remove="Backup\UI\GraphicMapping.cs" />
-    <Compile Remove="Backup\UI\GraphicMapping.Designer.cs" />
-    <Compile Remove="Backup\UI\GTextBox.cs" />
-    <Compile Remove="Backup\UI\InputBox.cs" />
-    <Compile Remove="Backup\UI\InputBox.Designer.cs" />
-    <Compile Remove="Backup\UI\JobStatus.cs" />
-    <Compile Remove="Backup\UI\JobStatus.Designer.cs" />
-    <Compile Remove="Backup\UI\LinkedList.cs" />
-    <Compile Remove="Backup\UI\ListViewBoundPanel.cs" />
-    <Compile Remove="Backup\UI\Main.cs" />
-    <Compile Remove="Backup\UI\Main.Designer.cs" />
-    <Compile Remove="Backup\UI\TableList.cs" />
-    <Compile Remove="Backup\UI\TableSelect.cs" />
-    <Compile Remove="Backup\UI\TableSelect.Designer.cs" />
-    <Compile Remove="Languages.Designer.cs" />
-    <EmbeddedResource Remove="Backup\Images.resx" />
-    <EmbeddedResource Remove="Backup\res.en-Us.resx" />
-    <EmbeddedResource Remove="Backup\res.pt-BR.resx" />
-    <EmbeddedResource Remove="Backup\UI\AboutBox.resx" />
-    <EmbeddedResource Remove="Backup\UI\EditJob.resx" />
-    <EmbeddedResource Remove="Backup\UI\GraphicMapping.resx" />
-    <EmbeddedResource Remove="Backup\UI\InputBox.resx" />
-    <EmbeddedResource Remove="Backup\UI\JobStatus.resx" />
-    <EmbeddedResource Remove="Backup\UI\Main.resx" />
-    <EmbeddedResource Remove="Backup\UI\TableSelect.resx" />
-    <EmbeddedResource Remove="Languages.resx" />
+    <Content Include="logo.ico" />
   </ItemGroup>
 </Project>

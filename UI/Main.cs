@@ -101,7 +101,7 @@ namespace SimpleDatabaseReplicator.UI
         {
 
             ReplicationTaskInfo rti = new ReplicationTaskInfo("");
-            EditJob ej = new EditJob(rti);
+            ReplicationTaskEdit ej = new ReplicationTaskEdit(rti);
             ej.ShowDialog();
 
             if (rti != null)
@@ -196,7 +196,7 @@ namespace SimpleDatabaseReplicator.UI
             if (lvwJobs.SelectedItems.Count == 1)
             {
                 //Job job = (Job)lvwLog.SelectedItems[0].Tag;
-                EditJob ej = new EditJob(SelectetJob);
+                ReplicationTaskEdit ej = new ReplicationTaskEdit(SelectetJob);
                 ej.ShowDialog();
                 lvwJobs.SelectedItems[0].Text = SelectetJob.JobName;
             }

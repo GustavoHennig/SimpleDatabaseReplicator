@@ -171,14 +171,14 @@ namespace SimpleDatabaseReplicator.UI
             // 
             // tbtnNewJob
             // 
-            tbtnNewJob.Image = Images.New;
+            tbtnNewJob.Image = Properties.Resources.file_64;
             resources.ApplyResources(tbtnNewJob, "tbtnNewJob");
             tbtnNewJob.Name = "tbtnNewJob";
             tbtnNewJob.Click += tbtnNewJob_Click;
             // 
             // btnEdit
             // 
-            btnEdit.Image = Images.Edit;
+            btnEdit.Image = Properties.Resources.edit_property_64;
             resources.ApplyResources(btnEdit, "btnEdit");
             btnEdit.Name = "btnEdit";
             btnEdit.Click += btnEdit_Click;
@@ -190,15 +190,15 @@ namespace SimpleDatabaseReplicator.UI
             // 
             // btnReplicateAll
             // 
-            btnReplicateAll.Image = Images.Play;
+            btnReplicateAll.Image = Properties.Resources.play_64;
             resources.ApplyResources(btnReplicateAll, "btnReplicateAll");
             btnReplicateAll.Name = "btnReplicateAll";
             btnReplicateAll.Click += btnReplicateAll_Click;
             // 
             // btnAbort
             // 
-            btnAbort.Image = Images.Stop;
             resources.ApplyResources(btnAbort, "btnAbort");
+            btnAbort.Image = Properties.Resources.cancel_64;
             btnAbort.Name = "btnAbort";
             btnAbort.Click += btnAbort_Click;
             // 

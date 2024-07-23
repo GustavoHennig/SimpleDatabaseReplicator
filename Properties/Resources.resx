@@ -117,92 +117,42 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Abort" xml:space="preserve">
-    <value>Abort</value>
+  <data name="TTPostUpdate" xml:space="preserve">
+    <value>Tags:\r\n   &lt;Table&gt; - Replace by current table.\r\n   &lt;Where&gt; - Where condition for the changed field.</value>
   </data>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="Add" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="CleanErrors" xml:space="preserve">
-    <value>Clean Errors</value>
-  </data>
-  <data name="Configuration" xml:space="preserve">
-    <value>Configuration</value>
-  </data>
-  <data name="Connections" xml:space="preserve">
-    <value>Connections</value>
-  </data>
-  <data name="ConnString" xml:space="preserve">
-    <value>Connection String</value>
-  </data>
-  <data name="Copy" xml:space="preserve">
-    <value>Copy</value>
-  </data>
-  <data name="dbms" xml:space="preserve">
-    <value>DBMS</value>
-  </data>
-  <data name="DbNotSup" xml:space="preserve">
-    <value>Database engine is yet not supported</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Destination" xml:space="preserve">
-    <value>Destination</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="EditJob" xml:space="preserve">
-    <value>Edit Job</value>
-  </data>
-  <data name="Enable" xml:space="preserve">
-    <value>Enable</value>
-  </data>
-  <data name="Enabled" xml:space="preserve">
-    <value>Enabled</value>
-  </data>
-  <data name="Errors" xml:space="preserve">
-    <value>Errors</value>
-  </data>
-  <data name="Exceptions" xml:space="preserve">
-    <value>Exceptions</value>
-  </data>
-  <data name="ExecAll" xml:space="preserve">
-    <value>Execute All</value>
-  </data>
-  <data name="ExecAtual" xml:space="preserve">
-    <value>Execute</value>
-  </data>
-  <data name="Exit" xml:space="preserve">
-    <value>Exit</value>
-  </data>
-  <data name="File" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="Finished" xml:space="preserve">
-    <value>Finished</value>
-  </data>
-  <data name="Help" xml:space="preserve">
-    <value>Help</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="play-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\play-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Hour" xml:space="preserve">
     <value>Hour</value>
   </data>
-  <data name="MaxThreads" xml:space="preserve">
-    <value>Max threads</value>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
   </data>
   <data name="Minute" xml:space="preserve">
     <value>Minute</value>
   </data>
-  <data name="Open" xml:space="preserve">
-    <value>Open</value>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="dbms" xml:space="preserve">
+    <value>DBMS</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy</value>
   </data>
   <data name="Others" xml:space="preserve">
     <value>Others</value>
+  </data>
+  <data name="ExecAll" xml:space="preserve">
+    <value>Execute All</value>
   </data>
   <data name="Progress" xml:space="preserve">
     <value>Progresso</value>
@@ -210,37 +160,100 @@
   <data name="Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
+  <data name="Enable" xml:space="preserve">
+    <value>Enable</value>
   </data>
-  <data name="Schedule" xml:space="preserve">
-    <value>Schedule</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
-  <data name="Source" xml:space="preserve">
-    <value>Source</value>
+  <data name="Connections" xml:space="preserve">
+    <value>Connections</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
-  <data name="Tables" xml:space="preserve">
-    <value>Tables</value>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
   </data>
-  <data name="Tasks" xml:space="preserve">
-    <value>Tasks</value>
+  <data name="MaxThreads" xml:space="preserve">
+    <value>Max threads</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="Destination" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
   </data>
   <data name="Writing" xml:space="preserve">
     <value>Writing...</value>
   </data>
-  <data name="Ready" xml:space="preserve">
-    <value>Ready</value>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="cancel-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancel-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tables" xml:space="preserve">
+    <value>Tables</value>
+  </data>
+  <data name="CleanErrors" xml:space="preserve">
+    <value>Clean Errors</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DbNotSup" xml:space="preserve">
+    <value>Database engine is yet not supported</value>
+  </data>
+  <data name="Schedule" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="Configuration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="TTRetrieveCond" xml:space="preserve">
+    <value>Tags:\r\n   &lt;Table&gt; - Replacet by current table.</value>
+  </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Errors</value>
   </data>
   <data name="JobName" xml:space="preserve">
     <value>Job Name</value>
   </data>
-  <data name="TTPostUpdate" xml:space="preserve">
-    <value>Tags:\r\n   &lt;Table&gt; - Replace by current table.\r\n   &lt;Where&gt; - Where condition for the changed field.</value>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
   </data>
-  <data name="TTRetrieveCond" xml:space="preserve">
-    <value>Tags:\r\n   &lt;Table&gt; - Replacet by current table.</value>
+  <data name="ExecAtual" xml:space="preserve">
+    <value>Execute</value>
+  </data>
+  <data name="ConnString" xml:space="preserve">
+    <value>Connection String</value>
+  </data>
+  <data name="EditJob" xml:space="preserve">
+    <value>Edit Job</value>
+  </data>
+  <data name="Exceptions" xml:space="preserve">
+    <value>Exceptions</value>
+  </data>
+  <data name="edit-property-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit-property-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="file-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\file-64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

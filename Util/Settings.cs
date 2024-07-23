@@ -33,11 +33,29 @@ namespace SimpleDatabaseReplicator.Util
             }
 
             Default = JsonSerializer.Deserialize<Settings>(File.ReadAllText(SettingsFile));
+
+
+
+
             if (Default.Culture != null)
             {
-            var culture = CultureInfo.GetCultureInfoByIetfLanguageTag(Default.Culture);
+                var culture = CultureInfo.GetCultureInfoByIetfLanguageTag(Default.Culture);
                 System.Threading.Thread.CurrentThread.CurrentCulture = culture;
                 System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
+
+                // Fix garbage data
+                foreach (var task in Default.ReplicationTasks)
+                {
+                    task.TablesAvailable = task.TablesAvailable.Where(t => !string.IsNullOrEmpty(t.TableName)).ToList();
+                    foreach (var table in task.TablesAvailable)
+                    {
+                        //foreach (var column in table.Columns)
+                        //{
+                        //}
+                        table.Columns = table.Columns.Where(c => !string.IsNullOrEmpty(c.Name)).ToList();
+                    }
+                }
+
             }
         }
         public List<ReplicationTaskInfo> ReplicationTasks { get; set; } = new List<ReplicationTaskInfo>();

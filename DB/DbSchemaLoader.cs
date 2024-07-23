@@ -72,7 +72,14 @@ from {dbType.FormatDbObj(table.TableSchema)}.{dbType.FormatDbObj(table.TableName
                     rf.IsKey = Convert.ToBoolean((drr["IsKey"] is DBNull ? false : drr["IsKey"]));
 
                     rf.DefinedSize = Convert.ToInt32(drr["ColumnSize"]);
-                    rf.AllowNull = Convert.ToBoolean(drr["AllowDBNull"]);
+                    if(drr["AllowDBNull"] is DBNull)
+                    {
+                        rf.AllowNull = true;
+                    }
+                    else
+                    {
+                        rf.AllowNull = Convert.ToBoolean(drr["AllowDBNull"]);
+                    }
                     rf.TypeName = ((Type)drr["DataType"]).Name;
                     if (!(drr["NumericPrecision"] is DBNull))
                     {

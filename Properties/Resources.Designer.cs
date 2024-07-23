@@ -22,7 +22,7 @@ namespace SimpleDatabaseReplicator.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SimpleDatabaseReplicator.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SimpleDatabaseReplicator.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace SimpleDatabaseReplicator.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Abort.
         /// </summary>
-        internal static string Abort {
+        public static string Abort {
             get {
                 return ResourceManager.GetString("Abort", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
-        internal static string About {
+        public static string About {
             get {
                 return ResourceManager.GetString("About", resourceCulture);
             }
@@ -81,16 +81,26 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
-        internal static string Add {
+        public static string Add {
             get {
                 return ResourceManager.GetString("Add", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap cancel_64 {
+            get {
+                object obj = ResourceManager.GetObject("cancel-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clean Errors.
         /// </summary>
-        internal static string CleanErrors {
+        public static string CleanErrors {
             get {
                 return ResourceManager.GetString("CleanErrors", resourceCulture);
             }
@@ -99,7 +109,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Configuration.
         /// </summary>
-        internal static string Configuration {
+        public static string Configuration {
             get {
                 return ResourceManager.GetString("Configuration", resourceCulture);
             }
@@ -108,7 +118,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Connections.
         /// </summary>
-        internal static string Connections {
+        public static string Connections {
             get {
                 return ResourceManager.GetString("Connections", resourceCulture);
             }
@@ -117,7 +127,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Connection String.
         /// </summary>
-        internal static string ConnString {
+        public static string ConnString {
             get {
                 return ResourceManager.GetString("ConnString", resourceCulture);
             }
@@ -126,7 +136,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Copy.
         /// </summary>
-        internal static string Copy {
+        public static string Copy {
             get {
                 return ResourceManager.GetString("Copy", resourceCulture);
             }
@@ -135,7 +145,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to DBMS.
         /// </summary>
-        internal static string dbms {
+        public static string dbms {
             get {
                 return ResourceManager.GetString("dbms", resourceCulture);
             }
@@ -144,7 +154,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Database engine is yet not supported.
         /// </summary>
-        internal static string DbNotSup {
+        public static string DbNotSup {
             get {
                 return ResourceManager.GetString("DbNotSup", resourceCulture);
             }
@@ -153,7 +163,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        internal static string Delete {
+        public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
             }
@@ -162,7 +172,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Destination.
         /// </summary>
-        internal static string Destination {
+        public static string Destination {
             get {
                 return ResourceManager.GetString("Destination", resourceCulture);
             }
@@ -171,16 +181,26 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
-        internal static string Edit {
+        public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap edit_property_64 {
+            get {
+                object obj = ResourceManager.GetObject("edit-property-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Job.
         /// </summary>
-        internal static string EditJob {
+        public static string EditJob {
             get {
                 return ResourceManager.GetString("EditJob", resourceCulture);
             }
@@ -189,7 +209,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enable.
         /// </summary>
-        internal static string Enable {
+        public static string Enable {
             get {
                 return ResourceManager.GetString("Enable", resourceCulture);
             }
@@ -198,7 +218,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Enabled.
         /// </summary>
-        internal static string Enabled {
+        public static string Enabled {
             get {
                 return ResourceManager.GetString("Enabled", resourceCulture);
             }
@@ -207,7 +227,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Errors.
         /// </summary>
-        internal static string Errors {
+        public static string Errors {
             get {
                 return ResourceManager.GetString("Errors", resourceCulture);
             }
@@ -216,7 +236,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Exceptions.
         /// </summary>
-        internal static string Exceptions {
+        public static string Exceptions {
             get {
                 return ResourceManager.GetString("Exceptions", resourceCulture);
             }
@@ -225,7 +245,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Execute All.
         /// </summary>
-        internal static string ExecAll {
+        public static string ExecAll {
             get {
                 return ResourceManager.GetString("ExecAll", resourceCulture);
             }
@@ -234,7 +254,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Execute.
         /// </summary>
-        internal static string ExecAtual {
+        public static string ExecAtual {
             get {
                 return ResourceManager.GetString("ExecAtual", resourceCulture);
             }
@@ -243,7 +263,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
-        internal static string Exit {
+        public static string Exit {
             get {
                 return ResourceManager.GetString("Exit", resourceCulture);
             }
@@ -252,16 +272,26 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
-        internal static string File {
+        public static string File {
             get {
                 return ResourceManager.GetString("File", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finalizado.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static string Finished {
+        public static System.Drawing.Bitmap file_64 {
+            get {
+                object obj = ResourceManager.GetObject("file-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished.
+        /// </summary>
+        public static string Finished {
             get {
                 return ResourceManager.GetString("Finished", resourceCulture);
             }
@@ -270,7 +300,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
-        internal static string Help {
+        public static string Help {
             get {
                 return ResourceManager.GetString("Help", resourceCulture);
             }
@@ -279,7 +309,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hour.
         /// </summary>
-        internal static string Hour {
+        public static string Hour {
             get {
                 return ResourceManager.GetString("Hour", resourceCulture);
             }
@@ -288,7 +318,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Job Name.
         /// </summary>
-        internal static string JobName {
+        public static string JobName {
             get {
                 return ResourceManager.GetString("JobName", resourceCulture);
             }
@@ -297,7 +327,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Max threads.
         /// </summary>
-        internal static string MaxThreads {
+        public static string MaxThreads {
             get {
                 return ResourceManager.GetString("MaxThreads", resourceCulture);
             }
@@ -306,7 +336,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Minute.
         /// </summary>
-        internal static string Minute {
+        public static string Minute {
             get {
                 return ResourceManager.GetString("Minute", resourceCulture);
             }
@@ -315,7 +345,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Open.
         /// </summary>
-        internal static string Open {
+        public static string Open {
             get {
                 return ResourceManager.GetString("Open", resourceCulture);
             }
@@ -324,16 +354,26 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Others.
         /// </summary>
-        internal static string Others {
+        public static string Others {
             get {
                 return ResourceManager.GetString("Others", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap play_64 {
+            get {
+                object obj = ResourceManager.GetObject("play-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Progresso.
         /// </summary>
-        internal static string Progress {
+        public static string Progress {
             get {
                 return ResourceManager.GetString("Progress", resourceCulture);
             }
@@ -342,7 +382,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ready.
         /// </summary>
-        internal static string Ready {
+        public static string Ready {
             get {
                 return ResourceManager.GetString("Ready", resourceCulture);
             }
@@ -351,7 +391,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
-        internal static string Remove {
+        public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
             }
@@ -360,7 +400,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
-        internal static string Save {
+        public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
             }
@@ -369,7 +409,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Schedule.
         /// </summary>
-        internal static string Schedule {
+        public static string Schedule {
             get {
                 return ResourceManager.GetString("Schedule", resourceCulture);
             }
@@ -378,7 +418,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Source.
         /// </summary>
-        internal static string Source {
+        public static string Source {
             get {
                 return ResourceManager.GetString("Source", resourceCulture);
             }
@@ -387,7 +427,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
-        internal static string Status {
+        public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
             }
@@ -396,7 +436,7 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Tables.
         /// </summary>
-        internal static string Tables {
+        public static string Tables {
             get {
                 return ResourceManager.GetString("Tables", resourceCulture);
             }
@@ -405,16 +445,34 @@ namespace SimpleDatabaseReplicator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Tasks.
         /// </summary>
-        internal static string Tasks {
+        public static string Tasks {
             get {
                 return ResourceManager.GetString("Tasks", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tags:\r\n   &lt;Table&gt; - Replace by current table.\r\n   &lt;Where&gt; - Where condition for the changed field..
+        /// </summary>
+        public static string TTPostUpdate {
+            get {
+                return ResourceManager.GetString("TTPostUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags:\r\n   &lt;Table&gt; - Replacet by current table..
+        /// </summary>
+        public static string TTRetrieveCond {
+            get {
+                return ResourceManager.GetString("TTRetrieveCond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Writing....
         /// </summary>
-        internal static string Writing {
+        public static string Writing {
             get {
                 return ResourceManager.GetString("Writing", resourceCulture);
             }
