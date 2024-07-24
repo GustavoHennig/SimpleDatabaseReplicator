@@ -49,7 +49,7 @@ namespace SimpleDatabaseReplicator
         {
             TableSchema = schemaName;
             TableName = tableName;
-            FormattedTableName = $"{dbType.Delimiter}{schemaName}{dbType.Delimiter}.{dbType.Delimiter}{tableName}{dbType.Delimiter}";
+            FormattedTableName = $"{schemaName}.{tableName}";
         }
 
         public bool IsSchemaLoaded
@@ -59,7 +59,6 @@ namespace SimpleDatabaseReplicator
                 return Columns.Count > 0;
             }
         }
-
 
 
         public override string ToString()

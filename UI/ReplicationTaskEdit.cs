@@ -67,13 +67,9 @@ namespace SimpleDatabaseReplicator.UI
 
 
             lstTables.Items.Clear();
+                PopulateListView(JobEditting.SourceTables, JobEditting.DestinationTables);
 
-            foreach (TableInfo item in JobEditting.TablesAvailable)
-            {
-                var lvi = CreateListViewItem(item);
-                lstTables.Items.Add(lvi);
-            }
-
+ 
             lstExFields.Items.Clear();
             foreach (string item in JobEditting.IgnoreFields)
             {
@@ -101,12 +97,17 @@ namespace SimpleDatabaseReplicator.UI
         {
             AddTable();
         }
-        private ListViewItem CreateListViewItem(TableInfo tableInfo)
+        private ListViewItem CreateListViewItem(TableInfo tableInfoSource, TableInfo tableInfoDestination = null)
         {
-            var lvi = new ListViewItem($"{tableInfo.TableSchema}.{tableInfo.TableName}");
-            lvi.Tag = tableInfo;
-            lvi.Checked = tableInfo.Checked;
-            lvi.Name = tableInfo.FormattedTableName;
+            var lvi = new ListViewItem();// $"{tableInfoDestination.TableSchema}.{tableInfoDestination.TableName}");
+            lvi.SubItems.Add("");
+            if (tableInfoDestination != null)
+                lvi.SubItems[columnTableDestination.Index].Text = tableInfoDestination.FormattedTableName;
+
+            lvi.SubItems[columnTableSource.Index].Text = tableInfoSource.FormattedTableName;
+            lvi.Tag = tableInfoSource;
+            lvi.Checked = tableInfoSource.Checked;
+            lvi.Name = tableInfoSource.FormattedTableName;
             return lvi;
         }
 
@@ -164,7 +165,7 @@ namespace SimpleDatabaseReplicator.UI
             JobEditting.DialectDestination = (BaseDbType.DbTypeSupported)cmdDest.SelectedIndex;
             JobEditting.DialectSource = (BaseDbType.DbTypeSupported)cmdSource.SelectedIndex;
 
-            JobEditting.TablesAvailable = lstTables.Items.Cast<ListViewItem>().Select(s => s.Tag as TableInfo).ToList();
+            JobEditting.SourceTables = lstTables.Items.Cast<ListViewItem>().Select(s => s.Tag as TableInfo).ToList();
 
 
             //TODO: Fill schema info at this point
@@ -174,7 +175,7 @@ namespace SimpleDatabaseReplicator.UI
                 using (DbCon db = DbCon.Create(JobEditting.ConnectionStringSource, JobEditting.DialectSource))
                 {
 
-                    DbSchemaLoader.LoadTableInfoSchema(db, JobEditting.TablesAvailable.Where(w => w.Checked));
+                    DbSchemaLoader.LoadTableInfoSchema(db, JobEditting.SourceTables.Where(w => w.Checked));
                 }
             }
             catch (Exception)
@@ -247,23 +248,44 @@ namespace SimpleDatabaseReplicator.UI
         {
             try
             {
-                List<TableInfo> tables;
+                List<TableInfo> tablesSource;
                 using (DbCon db = DbCon.Create(txtStringSource.Text, (BaseDbType.DbTypeSupported)cmdSource.SelectedIndex))
+                    tablesSource = DbSchemaLoader.GetAllTables(db);
 
-                    tables = DbSchemaLoader.GetAllTables(db);
+                List<TableInfo> tablesDestination;
+                using (DbCon db = DbCon.Create(txtStringDestination.Text, (BaseDbType.DbTypeSupported)cmdDest.SelectedIndex))
+                    tablesDestination = DbSchemaLoader.GetAllTables(db);
 
-                if (tables.Count > 0)
-                {
-                    lstTables.Items.AddRange(tables.Where(t => !lstTables.Items.ContainsKey(t.TableName))
-                                                   .Select(s => CreateListViewItem(s))
-                                                   .ToArray());
-                }
-
+                PopulateListView(tablesSource, tablesDestination);
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
 
+            }
+        }
+
+        public void PopulateListView(List<TableInfo> tablesSource, List<TableInfo> tablesDestination)
+        {
+            if (tablesSource.Count > 0)
+            {
+                lstTables.Items.AddRange(tablesSource.Where(t => !lstTables.Items.ContainsKey(t.FormattedTableName))
+                                               .Select(tbSource => CreateListViewItem(tbSource))
+                                               .ToArray());
+            }
+
+            foreach (var tb in tablesDestination)
+            {
+                var lvi = lstTables.Items[tb.FormattedTableName];
+                if (lvi != null)
+                {
+                    lvi.SubItems[columnTableDestination.Index].Text = tb.FormattedTableName;
+                    lvi.Tag = tb;
+                }
+                else
+                {
+                    CreateListViewItem(tb);
+                }
             }
         }
 

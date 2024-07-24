@@ -54,13 +54,13 @@ namespace SimpleDatabaseReplicator
         public List<string> Errors { get; set; } = new List<string>();
 
         public List<string> IgnoreFields { get; set; } = new List<string>();
-        public List<TableInfo> TablesAvailable { get; set; } = new List<TableInfo>();
+        public List<TableInfo> SourceTables { get; set; } = new List<TableInfo>();
+        public List<TableInfo> DestinationTables { get; set; } = new List<TableInfo>();
 
         [JsonIgnore]
         public bool IsRunning { get; set; }
 
-        public long LastTimeReplicated { get; set; }
-        private string connectionStringSource;
+        public DateTime LastReplicationTime { get; set; }
 
         public ReplicationTaskInfo()
         {
@@ -101,7 +101,7 @@ namespace SimpleDatabaseReplicator
                 DialectSource = DialectSource,
                 ConnectionStringDestination = ConnectionStringDestination,
                 ConnectionStringSource = ConnectionStringSource,
-                TablesAvailable = TablesAvailable,
+                SourceTables = SourceTables,
                 Uid = Guid.NewGuid().ToString()
             };
         }

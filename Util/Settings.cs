@@ -46,8 +46,8 @@ namespace SimpleDatabaseReplicator.Util
                 // Fix garbage data
                 foreach (var task in Default.ReplicationTasks)
                 {
-                    task.TablesAvailable = task.TablesAvailable.Where(t => !string.IsNullOrEmpty(t.TableName)).ToList();
-                    foreach (var table in task.TablesAvailable)
+                    task.SourceTables = task.SourceTables.Where(t => !string.IsNullOrEmpty(t.TableName)).ToList();
+                    foreach (var table in task.SourceTables)
                     {
                         //foreach (var column in table.Columns)
                         //{

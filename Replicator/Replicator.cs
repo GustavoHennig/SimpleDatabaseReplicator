@@ -59,13 +59,13 @@ namespace SimpleDatabaseReplicator
 
                 string status = "Table {0} of {1} - {2}";
 
-                int totalTables = job.TablesAvailable.Count(w => w.Checked);
+                int totalTables = job.SourceTables.Count(w => w.Checked);
                 int curTable = 1;
 
                 using (DbCon dbSource = DbCon.Create(sourceConnectionInfo))
                 using (DbCon dbDest = DbCon.Create(destinationConnectionInfo))
                 {
-                    foreach (TableInfo table in job.TablesAvailable.Where(w => w.Checked))
+                    foreach (TableInfo table in job.SourceTables.Where(w => w.Checked))
                     {
                         bool workDoneForThisTable = table.CompareEntireTableAtOnce;
 
@@ -151,7 +151,7 @@ namespace SimpleDatabaseReplicator
             }
             finally
             {
-                job.LastTimeReplicated = DateTime.Now.Ticks;
+                job.LastReplicationTime = DateTime.Now;
                 job.IsRunning = false;
             }
         }

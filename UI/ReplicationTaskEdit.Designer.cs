@@ -61,7 +61,7 @@ namespace SimpleDatabaseReplicator.UI
             txtTableFilter = new TextBox();
             lblTableFilter = new Label();
             lstTables = new ListView();
-            columnHeader1 = new ColumnHeader();
+            columnTableSource = new ColumnHeader();
             tabExceptions = new TabPage();
             grp = new GroupBox();
             btnRemoveField = new Button();
@@ -82,6 +82,7 @@ namespace SimpleDatabaseReplicator.UI
             lblJobName = new Label();
             toolTips = new ToolTip(components);
             tableLayoutPanel2 = new TableLayoutPanel();
+            columnTableDestination = new ColumnHeader();
             tabPages.SuspendLayout();
             tabConnections.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -308,7 +309,7 @@ namespace SimpleDatabaseReplicator.UI
             // 
             resources.ApplyResources(lstTables, "lstTables");
             lstTables.CheckBoxes = true;
-            lstTables.Columns.AddRange(new ColumnHeader[] { columnHeader1 });
+            lstTables.Columns.AddRange(new ColumnHeader[] { columnTableSource, columnTableDestination });
             tableLayoutPanel3.SetColumnSpan(lstTables, 2);
             lstTables.FullRowSelect = true;
             lstTables.Name = "lstTables";
@@ -317,9 +318,9 @@ namespace SimpleDatabaseReplicator.UI
             lstTables.View = View.Details;
             lstTables.ItemChecked += lstTables_ItemChecked;
             // 
-            // columnHeader1
+            // columnTableSource
             // 
-            resources.ApplyResources(columnHeader1, "columnHeader1");
+            resources.ApplyResources(columnTableSource, "columnTableSource");
             // 
             // tabExceptions
             // 
@@ -455,6 +456,10 @@ namespace SimpleDatabaseReplicator.UI
             tableLayoutPanel2.Controls.Add(tabPages, 0, 1);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
+            // columnTableDestination
+            // 
+            resources.ApplyResources(columnTableDestination, "columnTableDestination");
+            // 
             // ReplicationTaskEdit
             // 
             resources.ApplyResources(this, "$this");
@@ -528,12 +533,13 @@ namespace SimpleDatabaseReplicator.UI
         private Button btnMoveDown;
         private Button btnMoveUp;
         private TableLayoutPanel tableLayoutPanel1;
-        private ColumnHeader columnHeader1;
+        private ColumnHeader columnTableSource;
         private Button btnTestConnSource;
         private Button btnTestConnDest;
         private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel3;
         private TextBox txtTableFilter;
         private Label lblTableFilter;
+        private ColumnHeader columnTableDestination;
     }
 }

@@ -114,12 +114,17 @@ namespace SimpleDatabaseReplicator.UI
         private void Replicate(ReplicationTaskInfo job)
         {
             Replicator.AbortReplication = false;
+            btnAbort.Enabled = true;
             Thread thread = new Thread(() =>
             {
                 Replicator rt = new Replicator(new MessageHandler(
                     windowsFormsContext, job, LogStatus, LogError
                     ));
                 rt.Replicate(job);
+                windowsFormsContext.Post((object state) =>
+                {
+                    btnAbort.Enabled = false;
+                }, null);
 
             });
             thread.Name = "Replicator";
@@ -211,10 +216,10 @@ namespace SimpleDatabaseReplicator.UI
                 AddJobToTheList(job);
             }
 
-            if(Settings.Default.SplitterDistance > 0)
-            splitContainer1.SplitterDistance = Settings.Default.SplitterDistance;
+            if (Settings.Default.SplitterDistance > 0)
+                splitContainer1.SplitterDistance = Settings.Default.SplitterDistance;
 
-            foreach(var item in Settings.Default.ReplicationTasksColumnWidths)
+            foreach (var item in Settings.Default.ReplicationTasksColumnWidths)
             {
                 lvwJobs.Columns[item.Key].Width = item.Value;
             }

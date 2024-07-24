@@ -221,7 +221,6 @@ namespace SimpleDatabaseReplicator.UI
             // 
             // columnHeader1
             // 
-            columnHeader1.DisplayIndex = 1;
             columnHeader1.Text = "Name";
             columnHeader1.Width = 300;
             // 
@@ -239,7 +238,7 @@ namespace SimpleDatabaseReplicator.UI
             // 
             // columnHeader4
             // 
-            columnHeader4.DisplayIndex = 0;
+            columnHeader4.DisplayIndex = 1;
             columnHeader4.Text = "Attrs";
             // 
             // ReplicationTableEdit
