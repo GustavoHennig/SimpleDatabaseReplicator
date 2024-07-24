@@ -221,6 +221,7 @@ namespace SimpleDatabaseReplicator.UI
             // 
             splitContainer1.Panel2.Controls.Add(richTextBoxLog);
             tableLayoutPanel1.SetRowSpan(splitContainer1, 2);
+            splitContainer1.SplitterMoved += splitContainer1_SplitterMoved;
             // 
             // lvwJobs
             // 
@@ -233,6 +234,7 @@ namespace SimpleDatabaseReplicator.UI
             lvwJobs.Name = "lvwJobs";
             lvwJobs.UseCompatibleStateImageBehavior = false;
             lvwJobs.View = System.Windows.Forms.View.Details;
+            lvwJobs.ColumnWidthChanged += lvwJobs_ColumnWidthChanged;
             // 
             // columnHeader1
             // 

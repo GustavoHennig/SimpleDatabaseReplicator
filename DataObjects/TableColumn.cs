@@ -28,6 +28,7 @@ namespace SimpleDatabaseReplicator
         public bool IsAutoIncrement{ get; set; }
         public string AutoIncrementName{ get; set; }
         public bool Checked{ get; set; }
+        public string DbTypeName { get;  set; }
 
         public override string ToString()
         {

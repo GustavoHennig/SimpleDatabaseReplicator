@@ -62,10 +62,10 @@ namespace SimpleDatabaseReplicator.Util
         public DateTime MinDateTime = new DateTime(1800, 1, 1);
 
         public int SplitterDistance { get; set; }
-        public int ColumnWidthJobName { get; set; }
-        public int ColumnWidthStatus { get; set; }
 
-        public int ColumnWidthProgress { get; set; }
+        public Dictionary<int, int> ReplicationTasksColumnWidths { get; set; } = new Dictionary<int, int>();
+
         public string Culture { get; set; }
+        public Dictionary<int, int> TableEditColumnsColumnWidths { get; set; } = new Dictionary<int, int>();
     }
 }

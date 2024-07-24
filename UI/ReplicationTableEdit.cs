@@ -23,6 +23,8 @@ using System.Windows.Forms;
 using SimpleDatabaseReplicator.DB;
 using SimpleDatabaseReplicator.UI.Base;
 using System.Linq;
+using static System.Runtime.InteropServices.Marshalling.IIUnknownCacheStrategy;
+using SimpleDatabaseReplicator.Util;
 
 namespace SimpleDatabaseReplicator.UI
 {
@@ -68,7 +70,7 @@ namespace SimpleDatabaseReplicator.UI
                 this.tableSyncInfo.ColumnKeyName = txtColumnKey.Text;
 
 
-                List<TableColumn> checkedList = lstSource.CheckedItems.Cast<TableColumn>().ToList();
+                List<TableColumn> checkedList = GetCheckedItems().ToList();
 
                 foreach (var v in checkedList)
                     v.Checked = true;
@@ -84,6 +86,14 @@ namespace SimpleDatabaseReplicator.UI
             }
             this.DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private IEnumerable<TableColumn> GetCheckedItems()
+        {
+            foreach (ListViewItem item in lvwColumnsDetails.CheckedItems)
+            {
+                yield return (TableColumn)item.Tag;
+            }
         }
 
         private void GraphicMapping_Load(object sender, EventArgs e)
@@ -104,18 +114,14 @@ namespace SimpleDatabaseReplicator.UI
             LoadColumnsList();
 
 
-            //LoadTableList(lstDest, tableSyncInfo.DestinationTable);
-
-        }
-
-        private void LoadColumnList(CheckedListBox listComponent, TableInfo tableInfo)
-        {
-            listComponent.Items.Clear();
-            foreach (TableColumn c in tableInfo.Columns)
+            foreach (var item in Settings.Default.TableEditColumnsColumnWidths)
             {
-                listComponent.Items.Add(c);
+                lvwColumnsDetails.Columns[item.Key].Width = item.Value;
             }
+
         }
+
+
 
         internal void ReplicationTaskInfo(ReplicationTaskInfo jobEditting)
         {
@@ -142,16 +148,17 @@ namespace SimpleDatabaseReplicator.UI
 
         private void LoadColumnsList()
         {
-            LoadColumnList(lstSource, tableSyncInfo);
-
-            foreach (TableColumn item in tableSyncInfo.Columns.Where(w => w.Checked))
+            lvwColumnsDetails.Items.Clear();
+            foreach (TableColumn c in tableSyncInfo.Columns)
             {
-                int ret = lstSource.Items.IndexOf(item);
-                if (ret >= 0)
-                {
-                    lstSource.SetItemChecked(ret, true);
-                }
+                var item = lvwColumnsDetails.Items.Add(c.Name);
+                item.SubItems.Add(c.TypeName);
+                item.SubItems.Add(c.DbTypeName);
+                item.SubItems.Add((c.IsKey ? "PK" : ""));
+                item.Checked = c.Checked;
+                item.Tag = c;
             }
+
         }
 
         private void LoadSchema()
@@ -170,6 +177,11 @@ namespace SimpleDatabaseReplicator.UI
             {
                 lnkLoadSchema.Text = "Load Schema (failed)";
             }
+        }
+
+        private void lvwColumnsDetails_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
+        {
+            Settings.Default.TableEditColumnsColumnWidths[e.ColumnIndex] = lvwColumnsDetails.Columns[e.ColumnIndex].Width;
         }
     }
 }

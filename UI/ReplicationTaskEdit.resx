@@ -767,7 +767,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel3.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="lnkRetrieveTables.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -799,38 +799,8 @@
   <data name="&gt;&gt;lnkRetrieveTables.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="lstTables.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
-    <value>300</value>
-  </data>
-  <data name="lstTables.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 2</value>
-  </data>
-  <data name="lstTables.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="lstTables.Size" type="System.Drawing.Size, System.Drawing">
-    <value>834, 691</value>
-  </data>
-  <data name="lstTables.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;lstTables.Name" xml:space="preserve">
-    <value>lstTables</value>
-  </data>
-  <data name="&gt;&gt;lstTables.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lstTables.Parent" xml:space="preserve">
-    <value>tableLayoutPanel3</value>
-  </data>
-  <data name="&gt;&gt;lstTables.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="btnSelectAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>842, 31</value>
+    <value>842, 43</value>
   </data>
   <data name="btnSelectAll.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 6, 4, 6</value>
@@ -854,13 +824,13 @@
     <value>tableLayoutPanel3</value>
   </data>
   <data name="&gt;&gt;btnSelectAll.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="btnMoveDown.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="btnMoveDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>840, 451</value>
+    <value>840, 463</value>
   </data>
   <data name="btnMoveDown.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -884,10 +854,10 @@
     <value>tableLayoutPanel3</value>
   </data>
   <data name="&gt;&gt;btnMoveDown.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="btnUnselect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>842, 103</value>
+    <value>842, 115</value>
   </data>
   <data name="btnUnselect.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 6, 4, 6</value>
@@ -911,10 +881,10 @@
     <value>tableLayoutPanel3</value>
   </data>
   <data name="&gt;&gt;btnUnselect.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="btnMoveUp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>840, 387</value>
+    <value>840, 399</value>
   </data>
   <data name="btnMoveUp.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -938,10 +908,10 @@
     <value>tableLayoutPanel3</value>
   </data>
   <data name="&gt;&gt;btnMoveUp.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="btnAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>842, 175</value>
+    <value>842, 187</value>
   </data>
   <data name="btnAdd.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 6, 4, 6</value>
@@ -965,13 +935,13 @@
     <value>tableLayoutPanel3</value>
   </data>
   <data name="&gt;&gt;btnAdd.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="btnRemove.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="btnRemove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>842, 319</value>
+    <value>842, 331</value>
   </data>
   <data name="btnRemove.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 6, 4, 6</value>
@@ -995,10 +965,10 @@
     <value>tableLayoutPanel3</value>
   </data>
   <data name="&gt;&gt;btnRemove.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <data name="btnGraphMapping.Location" type="System.Drawing.Point, System.Drawing">
-    <value>842, 247</value>
+    <value>842, 259</value>
   </data>
   <data name="btnGraphMapping.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 6, 4, 6</value>
@@ -1022,7 +992,97 @@
     <value>tableLayoutPanel3</value>
   </data>
   <data name="&gt;&gt;btnGraphMapping.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="txtTableFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Right</value>
+  </data>
+  <data name="txtTableFilter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>537, 3</value>
+  </data>
+  <data name="txtTableFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>298, 31</value>
+  </data>
+  <data name="txtTableFilter.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="&gt;&gt;txtTableFilter.Name" xml:space="preserve">
+    <value>txtTableFilter</value>
+  </data>
+  <data name="&gt;&gt;txtTableFilter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtTableFilter.Parent" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;txtTableFilter.ZOrder" xml:space="preserve">
     <value>8</value>
+  </data>
+  <data name="lblTableFilter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Right</value>
+  </data>
+  <data name="lblTableFilter.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblTableFilter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>467, 0</value>
+  </data>
+  <data name="lblTableFilter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 37</value>
+  </data>
+  <data name="lblTableFilter.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="lblTableFilter.Text" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="lblTableFilter.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lblTableFilter.Name" xml:space="preserve">
+    <value>lblTableFilter</value>
+  </data>
+  <data name="&gt;&gt;lblTableFilter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblTableFilter.Parent" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;lblTableFilter.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="lstTables.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="columnHeader1.Text" xml:space="preserve">
+    <value>Table name</value>
+  </data>
+  <data name="columnHeader1.Width" type="System.Int32, mscorlib">
+    <value>300</value>
+  </data>
+  <data name="lstTables.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 39</value>
+  </data>
+  <data name="lstTables.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="lstTables.Size" type="System.Drawing.Size, System.Drawing">
+    <value>834, 654</value>
+  </data>
+  <data name="lstTables.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;lstTables.Name" xml:space="preserve">
+    <value>lstTables</value>
+  </data>
+  <data name="&gt;&gt;lstTables.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstTables.Parent" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
+  <data name="&gt;&gt;lstTables.ZOrder" xml:space="preserve">
+    <value>10</value>
   </data>
   <data name="tableLayoutPanel3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -1052,7 +1112,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lnkRetrieveTables" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lstTables" Row="0" RowSpan="8" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnSelectAll" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnMoveDown" Row="7" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnUnselect" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnMoveUp" Row="6" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnAdd" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnRemove" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnGraphMapping" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lnkRetrieveTables" Row="0" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="btnSelectAll" Row="1" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="btnMoveDown" Row="7" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="btnUnselect" Row="2" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="btnMoveUp" Row="6" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="btnAdd" Row="3" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="btnRemove" Row="5" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="btnGraphMapping" Row="4" RowSpan="1" Column="2" ColumnSpan="1" /&gt;&lt;Control Name="txtTableFilter" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblTableFilter" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lstTables" Row="1" RowSpan="7" Column="0" ColumnSpan="2" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100,AutoSize,100,AutoSize,0" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="tabTables.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 34</value>
@@ -1724,7 +1784,7 @@
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>EditJob</value>
+    <value>ReplicationTaskEdit</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>SimpleDatabaseReplicator.UI.Base.BaseForm, SimpleDatabaseReplicator, Culture=neutral, PublicKeyToken=null</value>

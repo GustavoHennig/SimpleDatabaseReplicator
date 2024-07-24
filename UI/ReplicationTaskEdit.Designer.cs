@@ -49,16 +49,19 @@ namespace SimpleDatabaseReplicator.UI
             lblConnString2 = new Label();
             linkLabel1 = new LinkLabel();
             tabTables = new TabPage();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            lnkRetrieveTables = new LinkLabel();
+            btnSelectAll = new Button();
+            btnMoveDown = new Button();
+            btnUnselect = new Button();
+            btnMoveUp = new Button();
+            btnAdd = new Button();
+            btnRemove = new Button();
+            btnGraphMapping = new Button();
+            txtTableFilter = new TextBox();
+            lblTableFilter = new Label();
             lstTables = new ListView();
             columnHeader1 = new ColumnHeader();
-            btnMoveDown = new Button();
-            btnMoveUp = new Button();
-            btnUnselect = new Button();
-            btnSelectAll = new Button();
-            lnkRetrieveTables = new LinkLabel();
-            btnGraphMapping = new Button();
-            btnRemove = new Button();
-            btnAdd = new Button();
             tabExceptions = new TabPage();
             grp = new GroupBox();
             btnRemoveField = new Button();
@@ -79,19 +82,18 @@ namespace SimpleDatabaseReplicator.UI
             lblJobName = new Label();
             toolTips = new ToolTip(components);
             tableLayoutPanel2 = new TableLayoutPanel();
-            tableLayoutPanel3 = new TableLayoutPanel();
             tabPages.SuspendLayout();
             tabConnections.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             grpOrigem.SuspendLayout();
             grpDestination.SuspendLayout();
             tabTables.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
             tabExceptions.SuspendLayout();
             grp.SuspendLayout();
             tabErrors.SuspendLayout();
             tabOthers.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
-            tableLayoutPanel3.SuspendLayout();
             SuspendLayout();
             // 
             // tabPages
@@ -219,49 +221,21 @@ namespace SimpleDatabaseReplicator.UI
             tabTables.Name = "tabTables";
             tabTables.UseVisualStyleBackColor = true;
             // 
-            // lstTables
+            // tableLayoutPanel3
             // 
-            resources.ApplyResources(lstTables, "lstTables");
-            lstTables.CheckBoxes = true;
-            lstTables.Columns.AddRange(new ColumnHeader[] { columnHeader1 });
-            lstTables.FullRowSelect = true;
-            lstTables.Name = "lstTables";
-            tableLayoutPanel3.SetRowSpan(lstTables, 8);
-            lstTables.UseCompatibleStateImageBehavior = false;
-            lstTables.View = View.Details;
-            lstTables.ItemChecked += lstTables_ItemChecked;
-            // 
-            // columnHeader1
-            // 
-            resources.ApplyResources(columnHeader1, "columnHeader1");
-            // 
-            // btnMoveDown
-            // 
-            resources.ApplyResources(btnMoveDown, "btnMoveDown");
-            btnMoveDown.Name = "btnMoveDown";
-            btnMoveDown.UseVisualStyleBackColor = true;
-            btnMoveDown.Click += btnMoveDown_Click;
-            // 
-            // btnMoveUp
-            // 
-            resources.ApplyResources(btnMoveUp, "btnMoveUp");
-            btnMoveUp.Name = "btnMoveUp";
-            btnMoveUp.UseVisualStyleBackColor = true;
-            btnMoveUp.Click += btnMoveUp_Click;
-            // 
-            // btnUnselect
-            // 
-            resources.ApplyResources(btnUnselect, "btnUnselect");
-            btnUnselect.Name = "btnUnselect";
-            btnUnselect.UseVisualStyleBackColor = true;
-            btnUnselect.Click += btnUnselect_Click;
-            // 
-            // btnSelectAll
-            // 
-            resources.ApplyResources(btnSelectAll, "btnSelectAll");
-            btnSelectAll.Name = "btnSelectAll";
-            btnSelectAll.UseVisualStyleBackColor = true;
-            btnSelectAll.Click += btnSelectAll_Click;
+            resources.ApplyResources(tableLayoutPanel3, "tableLayoutPanel3");
+            tableLayoutPanel3.Controls.Add(lnkRetrieveTables, 2, 0);
+            tableLayoutPanel3.Controls.Add(btnSelectAll, 2, 1);
+            tableLayoutPanel3.Controls.Add(btnMoveDown, 2, 7);
+            tableLayoutPanel3.Controls.Add(btnUnselect, 2, 2);
+            tableLayoutPanel3.Controls.Add(btnMoveUp, 2, 6);
+            tableLayoutPanel3.Controls.Add(btnAdd, 2, 3);
+            tableLayoutPanel3.Controls.Add(btnRemove, 2, 5);
+            tableLayoutPanel3.Controls.Add(btnGraphMapping, 2, 4);
+            tableLayoutPanel3.Controls.Add(txtTableFilter, 1, 0);
+            tableLayoutPanel3.Controls.Add(lblTableFilter, 0, 0);
+            tableLayoutPanel3.Controls.Add(lstTables, 0, 1);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
             // 
             // lnkRetrieveTables
             // 
@@ -270,12 +244,40 @@ namespace SimpleDatabaseReplicator.UI
             lnkRetrieveTables.TabStop = true;
             lnkRetrieveTables.LinkClicked += lnkRetrieveTables_LinkClicked;
             // 
-            // btnGraphMapping
+            // btnSelectAll
             // 
-            resources.ApplyResources(btnGraphMapping, "btnGraphMapping");
-            btnGraphMapping.Name = "btnGraphMapping";
-            btnGraphMapping.UseVisualStyleBackColor = true;
-            btnGraphMapping.Click += btnGraphMapping_Click;
+            resources.ApplyResources(btnSelectAll, "btnSelectAll");
+            btnSelectAll.Name = "btnSelectAll";
+            btnSelectAll.UseVisualStyleBackColor = true;
+            btnSelectAll.Click += btnSelectAll_Click;
+            // 
+            // btnMoveDown
+            // 
+            resources.ApplyResources(btnMoveDown, "btnMoveDown");
+            btnMoveDown.Name = "btnMoveDown";
+            btnMoveDown.UseVisualStyleBackColor = true;
+            btnMoveDown.Click += btnMoveDown_Click;
+            // 
+            // btnUnselect
+            // 
+            resources.ApplyResources(btnUnselect, "btnUnselect");
+            btnUnselect.Name = "btnUnselect";
+            btnUnselect.UseVisualStyleBackColor = true;
+            btnUnselect.Click += btnUnselect_Click;
+            // 
+            // btnMoveUp
+            // 
+            resources.ApplyResources(btnMoveUp, "btnMoveUp");
+            btnMoveUp.Name = "btnMoveUp";
+            btnMoveUp.UseVisualStyleBackColor = true;
+            btnMoveUp.Click += btnMoveUp_Click;
+            // 
+            // btnAdd
+            // 
+            resources.ApplyResources(btnAdd, "btnAdd");
+            btnAdd.Name = "btnAdd";
+            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnRemove
             // 
@@ -284,12 +286,40 @@ namespace SimpleDatabaseReplicator.UI
             btnRemove.UseVisualStyleBackColor = true;
             btnRemove.Click += btnRemove_Click;
             // 
-            // btnAdd
+            // btnGraphMapping
             // 
-            resources.ApplyResources(btnAdd, "btnAdd");
-            btnAdd.Name = "btnAdd";
-            btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += btnAdd_Click;
+            resources.ApplyResources(btnGraphMapping, "btnGraphMapping");
+            btnGraphMapping.Name = "btnGraphMapping";
+            btnGraphMapping.UseVisualStyleBackColor = true;
+            btnGraphMapping.Click += btnGraphMapping_Click;
+            // 
+            // txtTableFilter
+            // 
+            resources.ApplyResources(txtTableFilter, "txtTableFilter");
+            txtTableFilter.Name = "txtTableFilter";
+            txtTableFilter.TextChanged += txtTableFilter_TextChanged;
+            // 
+            // lblTableFilter
+            // 
+            resources.ApplyResources(lblTableFilter, "lblTableFilter");
+            lblTableFilter.Name = "lblTableFilter";
+            // 
+            // lstTables
+            // 
+            resources.ApplyResources(lstTables, "lstTables");
+            lstTables.CheckBoxes = true;
+            lstTables.Columns.AddRange(new ColumnHeader[] { columnHeader1 });
+            tableLayoutPanel3.SetColumnSpan(lstTables, 2);
+            lstTables.FullRowSelect = true;
+            lstTables.Name = "lstTables";
+            tableLayoutPanel3.SetRowSpan(lstTables, 7);
+            lstTables.UseCompatibleStateImageBehavior = false;
+            lstTables.View = View.Details;
+            lstTables.ItemChecked += lstTables_ItemChecked;
+            // 
+            // columnHeader1
+            // 
+            resources.ApplyResources(columnHeader1, "columnHeader1");
             // 
             // tabExceptions
             // 
@@ -425,26 +455,12 @@ namespace SimpleDatabaseReplicator.UI
             tableLayoutPanel2.Controls.Add(tabPages, 0, 1);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
-            // tableLayoutPanel3
-            // 
-            resources.ApplyResources(tableLayoutPanel3, "tableLayoutPanel3");
-            tableLayoutPanel3.Controls.Add(lnkRetrieveTables, 1, 0);
-            tableLayoutPanel3.Controls.Add(lstTables, 0, 0);
-            tableLayoutPanel3.Controls.Add(btnSelectAll, 1, 1);
-            tableLayoutPanel3.Controls.Add(btnMoveDown, 1, 7);
-            tableLayoutPanel3.Controls.Add(btnUnselect, 1, 2);
-            tableLayoutPanel3.Controls.Add(btnMoveUp, 1, 6);
-            tableLayoutPanel3.Controls.Add(btnAdd, 1, 3);
-            tableLayoutPanel3.Controls.Add(btnRemove, 1, 5);
-            tableLayoutPanel3.Controls.Add(btnGraphMapping, 1, 4);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            // 
-            // EditJob
+            // ReplicationTaskEdit
             // 
             resources.ApplyResources(this, "$this");
             AutoScaleMode = AutoScaleMode.Dpi;
             Controls.Add(tableLayoutPanel2);
-            Name = "EditJob";
+            Name = "ReplicationTaskEdit";
             tabPages.ResumeLayout(false);
             tabConnections.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
@@ -454,6 +470,8 @@ namespace SimpleDatabaseReplicator.UI
             grpDestination.ResumeLayout(false);
             grpDestination.PerformLayout();
             tabTables.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel3.PerformLayout();
             tabExceptions.ResumeLayout(false);
             grp.ResumeLayout(false);
             grp.PerformLayout();
@@ -462,8 +480,6 @@ namespace SimpleDatabaseReplicator.UI
             tabOthers.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
-            tableLayoutPanel3.ResumeLayout(false);
-            tableLayoutPanel3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -517,5 +533,7 @@ namespace SimpleDatabaseReplicator.UI
         private Button btnTestConnDest;
         private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel3;
+        private TextBox txtTableFilter;
+        private Label lblTableFilter;
     }
 }

@@ -30,7 +30,6 @@ namespace SimpleDatabaseReplicator.UI
         /// </summary>
         private void InitializeComponent()
         {
-            lstSource = new CheckedListBox();
             txtColumnKey = new TextBox();
             lblColumnKey = new Label();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -43,38 +42,33 @@ namespace SimpleDatabaseReplicator.UI
             btnCancel = new Button();
             btnOk = new Button();
             lnkLoadSchema = new LinkLabel();
+            lvwColumnsDetails = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
+            columnHeader4 = new ColumnHeader();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // lstSource
-            // 
-            lstSource.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutPanel1.SetColumnSpan(lstSource, 4);
-            lstSource.Location = new System.Drawing.Point(9, 108);
-            lstSource.Margin = new Padding(9, 9, 9, 9);
-            lstSource.Name = "lstSource";
-            lstSource.Size = new System.Drawing.Size(807, 760);
-            lstSource.TabIndex = 0;
             // 
             // txtColumnKey
             // 
             txtColumnKey.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtColumnKey.Location = new System.Drawing.Point(287, 1006);
-            txtColumnKey.Margin = new Padding(9, 9, 9, 9);
+            txtColumnKey.Location = new System.Drawing.Point(357, 813);
+            txtColumnKey.Margin = new Padding(9);
             txtColumnKey.Name = "txtColumnKey";
-            txtColumnKey.Size = new System.Drawing.Size(214, 31);
+            txtColumnKey.Size = new System.Drawing.Size(388, 31);
             txtColumnKey.TabIndex = 5;
             txtColumnKey.TextChanged += txtColumnKey_TextChanged;
             // 
             // lblColumnKey
             // 
             lblColumnKey.AutoSize = true;
-            lblColumnKey.Location = new System.Drawing.Point(9, 1006);
-            lblColumnKey.Margin = new Padding(9, 9, 9, 9);
+            lblColumnKey.Location = new System.Drawing.Point(9, 813);
+            lblColumnKey.Margin = new Padding(9);
             lblColumnKey.Name = "lblColumnKey";
-            lblColumnKey.Size = new System.Drawing.Size(260, 50);
+            lblColumnKey.Size = new System.Drawing.Size(330, 50);
             lblColumnKey.TabIndex = 6;
-            lblColumnKey.Text = "Column for range batch\r\n* must be numeric and indexed";
+            lblColumnKey.Text = "Column for range batch\r\n* must be numeric and UNIQUE indexed";
             // 
             // tableLayoutPanel1
             // 
@@ -86,7 +80,6 @@ namespace SimpleDatabaseReplicator.UI
             tableLayoutPanel1.Controls.Add(lblTableName, 0, 0);
             tableLayoutPanel1.Controls.Add(txtTableName, 1, 0);
             tableLayoutPanel1.Controls.Add(lblColumsList, 0, 1);
-            tableLayoutPanel1.Controls.Add(lstSource, 0, 2);
             tableLayoutPanel1.Controls.Add(chkEnableBatchExecution, 0, 3);
             tableLayoutPanel1.Controls.Add(lblBatch, 0, 4);
             tableLayoutPanel1.Controls.Add(txtBatchSize, 1, 4);
@@ -95,6 +88,7 @@ namespace SimpleDatabaseReplicator.UI
             tableLayoutPanel1.Controls.Add(btnCancel, 3, 6);
             tableLayoutPanel1.Controls.Add(btnOk, 1, 6);
             tableLayoutPanel1.Controls.Add(lnkLoadSchema, 3, 1);
+            tableLayoutPanel1.Controls.Add(lvwColumnsDetails, 0, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Margin = new Padding(5, 6, 5, 6);
@@ -108,7 +102,7 @@ namespace SimpleDatabaseReplicator.UI
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 25F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(825, 1156);
+            tableLayoutPanel1.Size = new System.Drawing.Size(1147, 963);
             tableLayoutPanel1.TabIndex = 7;
             // 
             // lblTableName
@@ -125,11 +119,11 @@ namespace SimpleDatabaseReplicator.UI
             // 
             txtTableName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.SetColumnSpan(txtTableName, 3);
-            txtTableName.Location = new System.Drawing.Point(287, 22);
+            txtTableName.Location = new System.Drawing.Point(357, 22);
             txtTableName.Margin = new Padding(9, 22, 9, 9);
             txtTableName.Name = "txtTableName";
             txtTableName.ReadOnly = true;
-            txtTableName.Size = new System.Drawing.Size(529, 31);
+            txtTableName.Size = new System.Drawing.Size(781, 31);
             txtTableName.TabIndex = 11;
             // 
             // lblColumsList
@@ -145,8 +139,8 @@ namespace SimpleDatabaseReplicator.UI
             // chkEnableBatchExecution
             // 
             chkEnableBatchExecution.AutoSize = true;
-            chkEnableBatchExecution.Location = new System.Drawing.Point(9, 910);
-            chkEnableBatchExecution.Margin = new Padding(9, 9, 9, 9);
+            chkEnableBatchExecution.Location = new System.Drawing.Point(9, 717);
+            chkEnableBatchExecution.Margin = new Padding(9);
             chkEnableBatchExecution.Name = "chkEnableBatchExecution";
             chkEnableBatchExecution.Size = new System.Drawing.Size(218, 29);
             chkEnableBatchExecution.TabIndex = 3;
@@ -156,8 +150,8 @@ namespace SimpleDatabaseReplicator.UI
             // lblBatch
             // 
             lblBatch.AutoSize = true;
-            lblBatch.Location = new System.Drawing.Point(9, 957);
-            lblBatch.Margin = new Padding(9, 9, 9, 9);
+            lblBatch.Location = new System.Drawing.Point(9, 764);
+            lblBatch.Margin = new Padding(9);
             lblBatch.Name = "lblBatch";
             lblBatch.Size = new System.Drawing.Size(91, 25);
             lblBatch.TabIndex = 12;
@@ -166,17 +160,17 @@ namespace SimpleDatabaseReplicator.UI
             // txtBatchSize
             // 
             txtBatchSize.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtBatchSize.Location = new System.Drawing.Point(287, 957);
-            txtBatchSize.Margin = new Padding(9, 9, 9, 9);
+            txtBatchSize.Location = new System.Drawing.Point(357, 764);
+            txtBatchSize.Margin = new Padding(9);
             txtBatchSize.Name = "txtBatchSize";
-            txtBatchSize.Size = new System.Drawing.Size(214, 31);
+            txtBatchSize.Size = new System.Drawing.Size(388, 31);
             txtBatchSize.TabIndex = 9;
             txtBatchSize.Text = "20000";
             // 
             // btnCancel
             // 
             btnCancel.DialogResult = DialogResult.Cancel;
-            btnCancel.Location = new System.Drawing.Point(624, 1076);
+            btnCancel.Location = new System.Drawing.Point(946, 883);
             btnCancel.Margin = new Padding(10, 11, 10, 11);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new System.Drawing.Size(190, 69);
@@ -189,7 +183,7 @@ namespace SimpleDatabaseReplicator.UI
             // 
             btnOk.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             tableLayoutPanel1.SetColumnSpan(btnOk, 2);
-            btnOk.Location = new System.Drawing.Point(414, 1076);
+            btnOk.Location = new System.Drawing.Point(736, 883);
             btnOk.Margin = new Padding(10, 11, 10, 11);
             btnOk.Name = "btnOk";
             btnOk.Size = new System.Drawing.Size(190, 69);
@@ -202,14 +196,51 @@ namespace SimpleDatabaseReplicator.UI
             // 
             lnkLoadSchema.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lnkLoadSchema.AutoSize = true;
-            lnkLoadSchema.Location = new System.Drawing.Point(703, 62);
+            lnkLoadSchema.Location = new System.Drawing.Point(1006, 62);
             lnkLoadSchema.Margin = new Padding(4, 0, 4, 0);
             lnkLoadSchema.Name = "lnkLoadSchema";
-            lnkLoadSchema.Size = new System.Drawing.Size(118, 25);
+            lnkLoadSchema.Size = new System.Drawing.Size(137, 25);
             lnkLoadSchema.TabIndex = 13;
             lnkLoadSchema.TabStop = true;
-            lnkLoadSchema.Text = "Load Schema";
+            lnkLoadSchema.Text = "Refresh Schema";
             lnkLoadSchema.LinkClicked += lnkLoadSchema_LinkClicked;
+            // 
+            // lvwColumnsDetails
+            // 
+            lvwColumnsDetails.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lvwColumnsDetails.CheckBoxes = true;
+            lvwColumnsDetails.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
+            tableLayoutPanel1.SetColumnSpan(lvwColumnsDetails, 4);
+            lvwColumnsDetails.Location = new System.Drawing.Point(3, 102);
+            lvwColumnsDetails.Name = "lvwColumnsDetails";
+            lvwColumnsDetails.Size = new System.Drawing.Size(1141, 603);
+            lvwColumnsDetails.TabIndex = 14;
+            lvwColumnsDetails.UseCompatibleStateImageBehavior = false;
+            lvwColumnsDetails.View = View.Details;
+            lvwColumnsDetails.ColumnWidthChanged += lvwColumnsDetails_ColumnWidthChanged;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.DisplayIndex = 1;
+            columnHeader1.Text = "Name";
+            columnHeader1.Width = 300;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.DisplayIndex = 2;
+            columnHeader2.Text = "Type";
+            columnHeader2.Width = 300;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.DisplayIndex = 3;
+            columnHeader3.Text = "DB Type";
+            columnHeader3.Width = 300;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.DisplayIndex = 0;
+            columnHeader4.Text = "Attrs";
             // 
             // ReplicationTableEdit
             // 
@@ -217,7 +248,7 @@ namespace SimpleDatabaseReplicator.UI
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new System.Drawing.Size(825, 1156);
+            ClientSize = new System.Drawing.Size(1147, 963);
             Controls.Add(tableLayoutPanel1);
             Margin = new Padding(5, 6, 5, 6);
             Name = "ReplicationTableEdit";
@@ -231,8 +262,6 @@ namespace SimpleDatabaseReplicator.UI
         }
 
         #endregion
-
-        private CheckedListBox lstSource;
         private System.Windows.Forms.TextBox txtColumnKey;
         private System.Windows.Forms.Label lblColumnKey;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -245,5 +274,10 @@ namespace SimpleDatabaseReplicator.UI
         private TextBox txtTableName;
         private Label lblBatch;
         private LinkLabel lnkLoadSchema;
+        private ListView lvwColumnsDetails;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader4;
     }
 }

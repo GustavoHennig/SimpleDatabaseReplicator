@@ -173,7 +173,7 @@ namespace SimpleDatabaseReplicator.UI
             {
                 using (DbCon db = DbCon.Create(JobEditting.ConnectionStringSource, JobEditting.DialectSource))
                 {
-                    
+
                     DbSchemaLoader.LoadTableInfoSchema(db, JobEditting.TablesAvailable.Where(w => w.Checked));
                 }
             }
@@ -369,6 +369,16 @@ namespace SimpleDatabaseReplicator.UI
             return DbCon.Create(connString, dbTypeSupported);
         }
 
+        private void txtTableFilter_TextChanged(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in lstTables.Items)
+            {
+                bool found = item.Text.Contains(txtTableFilter.Text);
+                item.BackColor = found ? Color.DeepSkyBlue : Color.White;
+                if (found)
+                    item.EnsureVisible();
+            }
+        }
     }
 
 

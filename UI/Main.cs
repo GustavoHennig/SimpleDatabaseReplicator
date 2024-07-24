@@ -210,6 +210,15 @@ namespace SimpleDatabaseReplicator.UI
             {
                 AddJobToTheList(job);
             }
+
+            if(Settings.Default.SplitterDistance > 0)
+            splitContainer1.SplitterDistance = Settings.Default.SplitterDistance;
+
+            foreach(var item in Settings.Default.ReplicationTasksColumnWidths)
+            {
+                lvwJobs.Columns[item.Key].Width = item.Value;
+            }
+
         }
 
         private void AddJobToTheList(ReplicationTaskInfo job)
@@ -364,6 +373,16 @@ namespace SimpleDatabaseReplicator.UI
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new SettingsForm().ShowDialog();
+        }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            Settings.Default.SplitterDistance = splitContainer1.SplitterDistance;
+        }
+
+        private void lvwJobs_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
+        {
+            Settings.Default.ReplicationTasksColumnWidths[e.ColumnIndex] = lvwJobs.Columns[e.ColumnIndex].Width;
         }
     }
 }

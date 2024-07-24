@@ -121,15 +121,6 @@
     <value>471, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="menuContext.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 132</value>
-  </data>
-  <data name="&gt;&gt;menuContext.Name" xml:space="preserve">
-    <value>menuContext</value>
-  </data>
-  <data name="&gt;&gt;menuContext.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>158, 32</value>
   </data>
@@ -154,6 +145,15 @@
   <data name="mniDelete.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="menuContext.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 132</value>
+  </data>
+  <data name="&gt;&gt;menuContext.Name" xml:space="preserve">
+    <value>menuContext</value>
+  </data>
+  <data name="&gt;&gt;menuContext.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="toolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>33, 17</value>
   </data>
@@ -177,17 +177,35 @@
   <data name="toolbarMain.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>None</value>
   </data>
+  <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 34</value>
+  </data>
+  <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="homepageToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 34</value>
+  </data>
+  <data name="homepageToolStripMenuItem1.Text" xml:space="preserve">
+    <value>Web site</value>
+  </data>
+  <data name="aboutToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 34</value>
+  </data>
+  <data name="aboutToolStripMenuItem1.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="toolStripDropDownButton1.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
   <data name="toolStripDropDownButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 68</value>
+    <value>94, 29</value>
   </data>
   <data name="toolStripDropDownButton1.Text" xml:space="preserve">
     <value>Options</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 73</value>
+    <value>6, 34</value>
   </data>
   <data name="tbtnNewJob.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -208,7 +226,7 @@
     <value>Edit</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 73</value>
+    <value>6, 34</value>
   </data>
   <data name="btnReplicateAll.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -232,7 +250,7 @@
     <value>Abort</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 73</value>
+    <value>6, 34</value>
   </data>
   <data name="toolbarMain.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
@@ -426,24 +444,6 @@
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="toolbarMain" Row="0" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="splitContainer1" Row="1" RowSpan="2" Column="0" ColumnSpan="2" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="AutoSize,0,Percent,66,666664,Percent,33,333332" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 34</value>
-  </data>
-  <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="homepageToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 34</value>
-  </data>
-  <data name="homepageToolStripMenuItem1.Text" xml:space="preserve">
-    <value>Web site</value>
-  </data>
-  <data name="aboutToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 34</value>
-  </data>
-  <data name="aboutToolStripMenuItem1.Text" xml:space="preserve">
-    <value>About</value>
   </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>811, 17</value>
