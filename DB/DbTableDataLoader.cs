@@ -35,7 +35,15 @@ namespace SimpleDatabaseReplicator.DB
         {
         }
 
-        public Table LoadTableData(TableInfo table, TableInfo sourceTableForDDLComparison = null, string columnKeyName = "", long minValue = -1, long maxValue = -1, string retrieveDataCondition = null, int limit = -1, int offset = -1)
+        public Table LoadTableData(TableInfo table,
+                                   TableInfo sourceTableForDDLComparison,
+                                   string columnKeyName,
+                                   string columnOrderByName,
+                                   long minValue,
+                                   long maxValue,
+                                   string retrieveDataCondition,
+                                   int limit,
+                                   long offset)
         {
 
             //SqlConnection con = new SqlConnection(ConnectionString);
@@ -56,8 +64,8 @@ namespace SimpleDatabaseReplicator.DB
                     //}
                 }
 
-                
-                        var db = new QueryFactory(dbConnection.DB, dbType.KataCompiler);
+
+                var db = new QueryFactory(dbConnection.DB, dbType.KataCompiler);
                 Query query = db.Query($"{table.TableSchema}.{table.TableName}");
 
 
@@ -69,19 +77,24 @@ namespace SimpleDatabaseReplicator.DB
                     query = query.Where(retrieveDataCondition);
                     whereForCount = retrieveDataCondition;
                 }
-                else if (!string.IsNullOrWhiteSpace(columnKeyName))
+                if (!string.IsNullOrWhiteSpace(columnKeyName) && minValue > -1 && maxValue > 0 && !columnKeyName.Contains(','))
                 {
                     query = query.WhereBetween(columnKeyName, minValue, maxValue);
                 }
-                else if (limit > -1 && offset > -1)
+                if (limit > 0 && offset > -1)
                 {
-                    query = query.Where(dbType.LimitOffset(limit, offset));
+                    query = query.Limit(limit).Offset(offset);
                 }
 
-                int progressMax = (int)dbConnection.CountRegs(table.TableName, whereForCount, dbType);
+                if (!string.IsNullOrWhiteSpace(columnOrderByName))
+                {
+                    query = query.OrderBy(columnOrderByName);
+                }
 
-            string sql1 = dbType.KataCompiler.Compile(query).ToString();
-            
+                int progressMax = (int)dbConnection.CountRegs(table.TableSchema, table.TableName, whereForCount);
+
+                string sql1 = dbType.KataCompiler.Compile(query).ToString();
+
 
                 using (IDataReader dr = dbConnection.ExecuteDataReader(sql1))
                 {
@@ -91,7 +104,7 @@ namespace SimpleDatabaseReplicator.DB
                     //ArrayList l = new ArrayList();
 
                     TableRow row;
-                    long                     t = DateTime.Now.Ticks;
+                    long t = DateTime.Now.Ticks;
 
                     while (dr.Read())
                     {
@@ -100,14 +113,14 @@ namespace SimpleDatabaseReplicator.DB
                         for (int i = 0; i < dr.FieldCount; i++)
                         {
                             object dbValue = dr.GetValue(i);
-                            if(dbValue == DBNull.Value)
+                            if (dbValue == DBNull.Value)
                             {
                                 dbValue = null;
                             }
                             row.Data.Add(dr.GetName(i), dbValue);
                         }
 
-                        row.BuildCompositeKey(table.Keys);
+                        row.BuildCompositeKey(table.Keys, table.ColumnKeyName);
                         tb.Data.Add(row.KeyValue, row);
 
                         if (Replicator.AbortReplication)

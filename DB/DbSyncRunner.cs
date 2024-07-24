@@ -82,7 +82,7 @@ namespace SimpleDatabaseReplicator.DB
                         {
                             if (ri.NotExistsInDestination)
                             {
-                                intAffected += db.Query(dest.TableInfo.TableName)
+                                intAffected += db.Query(dest.TableInfo.FormattedTableName)
                                 .Insert(values: ri.Data);
                             }
                             else

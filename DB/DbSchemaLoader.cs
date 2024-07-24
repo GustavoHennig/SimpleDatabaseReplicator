@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Dapper;
+using Npgsql;
+using SimpleDatabaseReplicator.SQL.Databases;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -49,11 +52,32 @@ namespace SimpleDatabaseReplicator.DB
 select * 
 from {dbType.FormatDbObj(table.TableSchema)}.{dbType.FormatDbObj(table.TableName)} WHERE 1 = 0";
 
+
+            if(db.DbConnectionInfo.DbType is PostgresDbType)
+            {
+                var pKeys = db.DB.Query<string>(@$"SELECT a.attname AS column_name
+FROM   pg_index i
+JOIN   pg_attribute a ON a.attrelid = i.indrelid
+                     AND a.attnum = ANY(i.indkey)
+WHERE  i.indrelid = '{table.TableSchema}.{table.TableName}'::regclass
+AND    i.indisprimary;");
+
+
+                foreach (var pk in pKeys)
+                {
+                    table.Keys.Add(pk);
+                }
+            }
+
             using (IDataReader dr = db.ExecuteDataReader(sql))
             {
 
                 //Monta o Header
                 DataTable dt = dr.GetSchemaTable(); // db
+
+                if (dr is NpgsqlDataReader drNpg) { 
+                    
+                }
 
                 TableColumn rf;
 
@@ -69,7 +93,7 @@ from {dbType.FormatDbObj(table.TableSchema)}.{dbType.FormatDbObj(table.TableName
                     rf.Checked = true;
                     //rf.Value = dr.GetValue(Convert.ToInt32(drr["ColumnOrdinal"]));
                     rf.Name = drr["ColumnName"].ToString();
-                    rf.IsKey = Convert.ToBoolean((drr["IsKey"] is DBNull ? false : drr["IsKey"]));
+                    rf.IsKey = Convert.ToBoolean((drr["IsKey"] is DBNull ? false : drr["IsKey"])) || table.Keys.Contains(rf.Name);
 
                     rf.DefinedSize = Convert.ToInt32(drr["ColumnSize"]);
                     if (drr["AllowDBNull"] is DBNull)
@@ -106,6 +130,9 @@ from {dbType.FormatDbObj(table.TableSchema)}.{dbType.FormatDbObj(table.TableName
                     table.ColumnKeyName = table.Keys[0];
                 }
             }
+
+             
+
         }
 
     }

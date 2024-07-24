@@ -67,31 +67,38 @@ namespace SimpleDatabaseReplicator
                 {
                     foreach (TableInfo table in job.SourceTables.Where(w => w.Checked))
                     {
-                        bool workDoneForThisTable = table.CompareEntireTableAtOnce;
+                        bool workDoneForThisTable = table.SynchronizationMode == TableInfo.SyncMode.AllAtOnce;
 
                         long curMinId = 0;
                         long curMaxId = 0;
-                        string columnKeyName = null;
+                        long offset = 0;
                         long maxId = 0;
 
-                        if (table.UseLimitOffset)
+                        // TODO: Enable a way to import without local comparison
+
+
+                        if (table.SynchronizationMode == TableInfo.SyncMode.ByIdRange)
                         {
-                            // It won't work yet, we need the same set of record from the other side for comparison
-                            // TODO: Enable a way to import without local comparison
-                        }
-                        
-                        if (!table.CompareEntireTableAtOnce)
-                        {
-                            columnKeyName = table.ColumnKeyName;
-                            if (!string.IsNullOrWhiteSpace(columnKeyName))
-                                maxId = dbSource.GetMax(table.TableName, columnKeyName);
+                            // disables limit/offset
+                            offset = -1;
+                            if (!string.IsNullOrWhiteSpace(table.ColumnKeyName))
+                                maxId = dbSource.GetMax(table.TableSchema,table.TableName, table.ColumnKeyName);
                         }
 
 
                         do
                         {
-                            curMinId = curMaxId;
-                            curMaxId = curMinId + table.IdRangeSize;
+                            if (table.SynchronizationMode == TableInfo.SyncMode.ByIdRange)
+                            {
+                                curMinId = curMaxId;
+                                curMaxId = curMinId + table.SyncRangeSize;
+                            }
+                            else if (table.SynchronizationMode == TableInfo.SyncMode.ByLimitOffset)
+                            {
+                                // It will require multiple runs for a full sync
+                                offset += table.SyncRangeSize;
+                            }
+
 
                             messageHandler.SendStatus(string.Format(status, curTable, totalTables, "Loading " + table + " [" + curMinId + "-" + curMaxId + "]"));
 
@@ -100,13 +107,13 @@ namespace SimpleDatabaseReplicator
 
                             Task<Table> taskTb1 = Task.Run(() =>
                             {
-                                return dblo1.LoadTableData(table, null, columnKeyName, curMinId, curMaxId, job.RetrieveDataCondition);
+                                return dblo1.LoadTableData(table, null, table.ColumnKeyName, table.ColumnOrderByName, curMinId, curMaxId,  job.RetrieveDataCondition, table.SyncRangeSize, offset);
                             });
 
                             //Load Destination Table (Sync)
                             DbTableDataLoader dblo2 = new DbTableDataLoader(dbDest, messageHandler);
 
-                            Table tb2 = dblo2.LoadTableData(table, table, columnKeyName, curMinId, curMaxId, job.RetrieveDataCondition);
+                            Table tb2 = dblo2.LoadTableData(table, table, table.ColumnKeyName, table.ColumnOrderByName, curMinId, curMaxId, job.RetrieveDataCondition, table.SyncRangeSize, offset);
 
                             //Wait finish loading Source Table
                             taskTb1.Wait();

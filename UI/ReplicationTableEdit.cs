@@ -25,6 +25,7 @@ using SimpleDatabaseReplicator.UI.Base;
 using System.Linq;
 using static System.Runtime.InteropServices.Marshalling.IIUnknownCacheStrategy;
 using SimpleDatabaseReplicator.Util;
+using static SimpleDatabaseReplicator.TableInfo;
 
 namespace SimpleDatabaseReplicator.UI
 {
@@ -54,21 +55,40 @@ namespace SimpleDatabaseReplicator.UI
             try
             {
 
+                SyncMode syncMode = (SyncMode)cmbSyncMode.SelectedIndex;
 
-                this.tableSyncInfo.CompareEntireTableAtOnce = !chkEnableBatchExecution.Checked;
 
-                if (int.TryParse(txtBatchSize.Text, out int idRangeSize))
+                if (syncMode == SyncMode.ByIdRange || syncMode == SyncMode.ByLimitOffset)
                 {
-                    this.tableSyncInfo.IdRangeSize = idRangeSize;
-                }
-                else
-                {
-                    //TODO: show error message
-                    this.tableSyncInfo.IdRangeSize = 10000;
+
+                    if (int.TryParse(txtBatchSize.Text, out int idRangeSize) && idRangeSize > 0)
+                    {
+                        this.tableSyncInfo.SyncRangeSize = idRangeSize;
+                    }
+                    else
+                    {
+                        //TODO: show error message
+                        throw new ApplicationException("Invalid Batch Size");
+                    }
+
+                    if (string.IsNullOrEmpty(txtColumnKey.Text))
+                    {
+                        txtColumnKey.Focus();
+                        throw new ApplicationException("Column Key is required for this mode");
+
+                    }
                 }
 
+                if (syncMode == SyncMode.ByLimitOffset && string.IsNullOrEmpty(txtColumnOrderBy.Text))
+                {
+                    txtColumnOrderBy.Focus();
+                    throw new ApplicationException("Column Order By is required for ByLimitOffset mode");
+
+                }
+
+                this.tableSyncInfo.SynchronizationMode = syncMode;
                 this.tableSyncInfo.ColumnKeyName = txtColumnKey.Text;
-
+                this.tableSyncInfo.ColumnOrderByName = txtColumnOrderBy.Text;
 
                 List<TableColumn> checkedList = GetCheckedItems().ToList();
 
@@ -79,13 +99,14 @@ namespace SimpleDatabaseReplicator.UI
                     v.Checked = false;
 
                 tableSyncInfo.TableName = txtTableName.Text;
+                this.DialogResult = DialogResult.OK;
+                Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            this.DialogResult = DialogResult.OK;
-            Close();
+
         }
 
         private IEnumerable<TableColumn> GetCheckedItems()
@@ -106,8 +127,9 @@ namespace SimpleDatabaseReplicator.UI
 
             txtColumnKey.Text = this.tableSyncInfo.ColumnKeyName;
             txtTableName.Text = tableSyncInfo.TableName;
-            chkEnableBatchExecution.Checked = !tableSyncInfo.CompareEntireTableAtOnce;
-            txtBatchSize.Text = tableSyncInfo.IdRangeSize.ToString();
+            cmbSyncMode.SelectedIndex = (int)tableSyncInfo.SynchronizationMode;
+            txtBatchSize.Text = tableSyncInfo.SyncRangeSize.ToString();
+            txtColumnOrderBy.Text = this.tableSyncInfo.ColumnOrderByName;
 
 
             //chkIndenticalSrcDst.Checked;
@@ -149,6 +171,7 @@ namespace SimpleDatabaseReplicator.UI
         private void LoadColumnsList()
         {
             lvwColumnsDetails.Items.Clear();
+
             foreach (TableColumn c in tableSyncInfo.Columns)
             {
                 var item = lvwColumnsDetails.Items.Add(c.Name);
@@ -157,7 +180,9 @@ namespace SimpleDatabaseReplicator.UI
                 item.SubItems.Add((c.IsKey ? "PK" : ""));
                 item.Checked = c.Checked;
                 item.Tag = c;
+
             }
+
 
         }
 
@@ -171,6 +196,8 @@ namespace SimpleDatabaseReplicator.UI
                 {
                     DbSchemaLoader.LoadTableInfoSchema(db, tableSyncInfo);
                 }
+                txtColumnKey.Text = string.Join(",", tableSyncInfo.Keys);
+
                 lnkLoadSchema.Text = "Load Schema (ok)";
             }
             catch (Exception)
@@ -182,6 +209,32 @@ namespace SimpleDatabaseReplicator.UI
         private void lvwColumnsDetails_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
         {
             Settings.Default.TableEditColumnsColumnWidths[e.ColumnIndex] = lvwColumnsDetails.Columns[e.ColumnIndex].Width;
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void cmbSyncMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+
+            if (cmbSyncMode.SelectedIndex == 0)
+            {
+                txtBatchSize.Enabled = false;
+                txtColumnKey.Enabled = true;
+            }
+            else if (cmbSyncMode.SelectedIndex == 1)
+            {
+                txtBatchSize.Enabled = true;
+                txtColumnKey.Enabled = true;
+            }
+            else
+            {
+                txtBatchSize.Enabled = true;
+                txtColumnKey.Enabled = true;
+            }
         }
     }
 }

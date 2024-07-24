@@ -100,9 +100,11 @@ namespace SimpleDatabaseReplicator.DB
         }
 
 
-        public long CountRegs(string table, string RetrieveDataCondition, BaseDbType dialect)
+        public long CountRegs(string tableSchema, string tableName, string RetrieveDataCondition)
         {
-            string sql = "select count(*) from " + dialect.FormatDbObj(table) + " " + RetrieveDataCondition;
+            string sql = @$"
+select count(*) 
+from {DbConnectionInfo.DbType.FormatDbObj(tableSchema)}.{DbConnectionInfo.DbType.FormatDbObj(tableName)} {RetrieveDataCondition}";
             using (IDataReader dr = this.ExecuteDataReader(sql))
                 if (dr.Read())
                 {
@@ -132,10 +134,12 @@ namespace SimpleDatabaseReplicator.DB
 
 
 
-        public long GetMax(string tableName, string fiedName)
+        public long GetMax(string tableSchema, string tableName, string fiedName)
         {
 
-            using (IDataReader dr = ExecuteDataReader("select max(" + DbConnectionInfo.DbType.FormatDbObj(fiedName) + ") mx from " + DbConnectionInfo.DbType.FormatDbObj(tableName)))
+            using (IDataReader dr = ExecuteDataReader(@$"
+select max({DbConnectionInfo.DbType.FormatDbObj(fiedName)}) mx 
+from {DbConnectionInfo.DbType.FormatDbObj(tableSchema)}.{DbConnectionInfo.DbType.FormatDbObj(tableName)}"))
             {
                 if (dr.Read())
                 {

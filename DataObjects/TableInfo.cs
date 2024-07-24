@@ -35,10 +35,11 @@ namespace SimpleDatabaseReplicator
         public string IdentityName { get; set; } = null;
         public long IdentityValue { get; set; } = 0;
         public bool Checked { get; set; } = false;
-        public bool CompareEntireTableAtOnce { get; set; } = true;
-        public bool UseLimitOffset { get; set; } = true;
+        public SyncMode SynchronizationMode { get; set; } = SyncMode.AllAtOnce;
+        
         public string ColumnKeyName { get; set; }
-        public int IdRangeSize { get; set; } = 20000;
+        public string ColumnOrderByName { get; set; }
+        public int SyncRangeSize { get; set; } = 20000;
 
         public TableInfo()
         {
@@ -63,7 +64,7 @@ namespace SimpleDatabaseReplicator
 
         public override string ToString()
         {
-            return  Columns.ToString();
+            return Columns.ToString();
         }
 
         public override bool Equals(object obj)
@@ -77,6 +78,12 @@ namespace SimpleDatabaseReplicator
         public override int GetHashCode()
         {
             return TableName.GetHashCode();
+        }
+        public enum SyncMode
+        {
+            AllAtOnce = 0,
+            ByIdRange = 1,
+            ByLimitOffset = 2
         }
     }
 }

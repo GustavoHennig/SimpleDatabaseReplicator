@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using static Mysqlx.Expect.Open.Types.Condition.Types;
 
 namespace SimpleDatabaseReplicator
 {
@@ -34,14 +35,23 @@ namespace SimpleDatabaseReplicator
         public Dictionary<string, object> Data = new Dictionary<string, object>();
 
 
-        public void BuildCompositeKey(List<string> keys)
+        public void BuildCompositeKey(List<string> keys, string manualDefinedKey)
         {
-            string key = "";
-            foreach (string lkey in keys)
+            string key;
+            if (keys.Count == 0 && !string.IsNullOrEmpty(manualDefinedKey))
             {
-                key += Convert.ToString(Data[lkey]);
+                key = Convert.ToString(Data[manualDefinedKey]);
+            }
+            else
+            {
+                key = "";
+                foreach (string lkey in keys)
+                {
+                    key += Convert.ToString(Data[lkey]);
+                }
             }
             KeyValue = key;
+
         }
 
         public override bool Equals(object obj)
