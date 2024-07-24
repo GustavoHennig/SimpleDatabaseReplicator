@@ -49,23 +49,24 @@ namespace SimpleDatabaseReplicator.UI
             label1 = new Label();
             txtColumnOrderBy = new TextBox();
             cmbSyncMode = new ComboBox();
+            propertyGrid1 = new PropertyGrid();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // txtColumnKey
             // 
             txtColumnKey.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtColumnKey.Location = new System.Drawing.Point(497, 720);
+            txtColumnKey.Location = new System.Drawing.Point(375, 797);
             txtColumnKey.Margin = new Padding(9);
             txtColumnKey.Name = "txtColumnKey";
-            txtColumnKey.Size = new System.Drawing.Size(431, 31);
+            txtColumnKey.Size = new System.Drawing.Size(234, 31);
             txtColumnKey.TabIndex = 5;
             txtColumnKey.TextChanged += txtColumnKey_TextChanged;
             // 
             // lblColumnKey
             // 
             lblColumnKey.AutoSize = true;
-            lblColumnKey.Location = new System.Drawing.Point(131, 720);
+            lblColumnKey.Location = new System.Drawing.Point(9, 797);
             lblColumnKey.Margin = new Padding(9);
             lblColumnKey.Name = "lblColumnKey";
             lblColumnKey.Size = new System.Drawing.Size(348, 75);
@@ -74,25 +75,27 @@ namespace SimpleDatabaseReplicator.UI
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnCount = 5;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 43.6117935F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 3.892944F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 61.07056F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34.8160858F));
             tableLayoutPanel1.Controls.Add(lblTableName, 0, 0);
             tableLayoutPanel1.Controls.Add(txtTableName, 1, 0);
             tableLayoutPanel1.Controls.Add(lblColumsList, 0, 1);
-            tableLayoutPanel1.Controls.Add(btnCancel, 3, 7);
-            tableLayoutPanel1.Controls.Add(btnOk, 1, 7);
-            tableLayoutPanel1.Controls.Add(lnkLoadSchema, 3, 1);
             tableLayoutPanel1.Controls.Add(lvwColumnsDetails, 0, 2);
-            tableLayoutPanel1.Controls.Add(lblBatch, 1, 4);
-            tableLayoutPanel1.Controls.Add(txtBatchSize, 2, 4);
-            tableLayoutPanel1.Controls.Add(lblColumnKey, 1, 5);
-            tableLayoutPanel1.Controls.Add(txtColumnKey, 2, 5);
-            tableLayoutPanel1.Controls.Add(label1, 1, 6);
-            tableLayoutPanel1.Controls.Add(txtColumnOrderBy, 2, 6);
-            tableLayoutPanel1.Controls.Add(cmbSyncMode, 1, 3);
+            tableLayoutPanel1.Controls.Add(cmbSyncMode, 0, 3);
+            tableLayoutPanel1.Controls.Add(lblBatch, 0, 4);
+            tableLayoutPanel1.Controls.Add(lblColumnKey, 0, 5);
+            tableLayoutPanel1.Controls.Add(label1, 0, 6);
+            tableLayoutPanel1.Controls.Add(txtColumnOrderBy, 1, 6);
+            tableLayoutPanel1.Controls.Add(txtColumnKey, 1, 5);
+            tableLayoutPanel1.Controls.Add(txtBatchSize, 1, 4);
+            tableLayoutPanel1.Controls.Add(propertyGrid1, 3, 2);
+            tableLayoutPanel1.Controls.Add(btnCancel, 4, 7);
+            tableLayoutPanel1.Controls.Add(btnOk, 3, 7);
+            tableLayoutPanel1.Controls.Add(lnkLoadSchema, 1, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Margin = new Padding(5, 6, 5, 6);
@@ -106,7 +109,8 @@ namespace SimpleDatabaseReplicator.UI
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new System.Drawing.Size(1147, 963);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(1246, 1040);
             tableLayoutPanel1.TabIndex = 7;
             tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
@@ -124,11 +128,11 @@ namespace SimpleDatabaseReplicator.UI
             // 
             txtTableName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tableLayoutPanel1.SetColumnSpan(txtTableName, 3);
-            txtTableName.Location = new System.Drawing.Point(131, 22);
+            txtTableName.Location = new System.Drawing.Point(375, 22);
             txtTableName.Margin = new Padding(9, 22, 9, 9);
             txtTableName.Name = "txtTableName";
             txtTableName.ReadOnly = true;
-            txtTableName.Size = new System.Drawing.Size(1007, 31);
+            txtTableName.Size = new System.Drawing.Size(642, 31);
             txtTableName.TabIndex = 11;
             // 
             // lblColumsList
@@ -143,11 +147,12 @@ namespace SimpleDatabaseReplicator.UI
             // 
             // btnCancel
             // 
+            btnCancel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btnCancel.DialogResult = DialogResult.Cancel;
-            btnCancel.Location = new System.Drawing.Point(947, 883);
+            btnCancel.Location = new System.Drawing.Point(1036, 960);
             btnCancel.Margin = new Padding(10, 11, 10, 11);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new System.Drawing.Size(190, 69);
+            btnCancel.Size = new System.Drawing.Size(200, 69);
             btnCancel.TabIndex = 7;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
@@ -156,8 +161,7 @@ namespace SimpleDatabaseReplicator.UI
             // btnOk
             // 
             btnOk.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            tableLayoutPanel1.SetColumnSpan(btnOk, 2);
-            btnOk.Location = new System.Drawing.Point(737, 883);
+            btnOk.Location = new System.Drawing.Point(826, 960);
             btnOk.Margin = new Padding(10, 11, 10, 11);
             btnOk.Name = "btnOk";
             btnOk.Size = new System.Drawing.Size(190, 69);
@@ -170,7 +174,7 @@ namespace SimpleDatabaseReplicator.UI
             // 
             lnkLoadSchema.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lnkLoadSchema.AutoSize = true;
-            lnkLoadSchema.Location = new System.Drawing.Point(1006, 62);
+            lnkLoadSchema.Location = new System.Drawing.Point(477, 62);
             lnkLoadSchema.Margin = new Padding(4, 0, 4, 0);
             lnkLoadSchema.Name = "lnkLoadSchema";
             lnkLoadSchema.Size = new System.Drawing.Size(137, 25);
@@ -184,10 +188,10 @@ namespace SimpleDatabaseReplicator.UI
             lvwColumnsDetails.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lvwColumnsDetails.CheckBoxes = true;
             lvwColumnsDetails.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
-            tableLayoutPanel1.SetColumnSpan(lvwColumnsDetails, 4);
+            tableLayoutPanel1.SetColumnSpan(lvwColumnsDetails, 3);
             lvwColumnsDetails.Location = new System.Drawing.Point(3, 102);
             lvwColumnsDetails.Name = "lvwColumnsDetails";
-            lvwColumnsDetails.Size = new System.Drawing.Size(1141, 504);
+            lvwColumnsDetails.Size = new System.Drawing.Size(636, 581);
             lvwColumnsDetails.TabIndex = 14;
             lvwColumnsDetails.UseCompatibleStateImageBehavior = false;
             lvwColumnsDetails.View = View.Details;
@@ -218,7 +222,7 @@ namespace SimpleDatabaseReplicator.UI
             // lblBatch
             // 
             lblBatch.AutoSize = true;
-            lblBatch.Location = new System.Drawing.Point(131, 671);
+            lblBatch.Location = new System.Drawing.Point(9, 748);
             lblBatch.Margin = new Padding(9);
             lblBatch.Name = "lblBatch";
             lblBatch.Size = new System.Drawing.Size(91, 25);
@@ -228,17 +232,17 @@ namespace SimpleDatabaseReplicator.UI
             // txtBatchSize
             // 
             txtBatchSize.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtBatchSize.Location = new System.Drawing.Point(497, 671);
+            txtBatchSize.Location = new System.Drawing.Point(375, 748);
             txtBatchSize.Margin = new Padding(9);
             txtBatchSize.Name = "txtBatchSize";
-            txtBatchSize.Size = new System.Drawing.Size(431, 31);
+            txtBatchSize.Size = new System.Drawing.Size(234, 31);
             txtBatchSize.TabIndex = 9;
             txtBatchSize.Text = "20000";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(131, 813);
+            label1.Location = new System.Drawing.Point(9, 890);
             label1.Margin = new Padding(9);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(218, 50);
@@ -248,10 +252,10 @@ namespace SimpleDatabaseReplicator.UI
             // txtColumnOrderBy
             // 
             txtColumnOrderBy.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtColumnOrderBy.Location = new System.Drawing.Point(497, 813);
+            txtColumnOrderBy.Location = new System.Drawing.Point(375, 890);
             txtColumnOrderBy.Margin = new Padding(9);
             txtColumnOrderBy.Name = "txtColumnOrderBy";
-            txtColumnOrderBy.Size = new System.Drawing.Size(431, 31);
+            txtColumnOrderBy.Size = new System.Drawing.Size(234, 31);
             txtColumnOrderBy.TabIndex = 5;
             txtColumnOrderBy.TextChanged += txtColumnKey_TextChanged;
             // 
@@ -262,12 +266,22 @@ namespace SimpleDatabaseReplicator.UI
             cmbSyncMode.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSyncMode.FormattingEnabled = true;
             cmbSyncMode.Items.AddRange(new object[] { "All at once (entire table in memory)", "Batch execution (using PK or UNIQUE column range)", "Batch execution using LIMIT OFFSET (may require multiple synchronizations to sync all rows)" });
-            cmbSyncMode.Location = new System.Drawing.Point(132, 619);
+            cmbSyncMode.Location = new System.Drawing.Point(10, 696);
             cmbSyncMode.Margin = new Padding(10);
             cmbSyncMode.Name = "cmbSyncMode";
-            cmbSyncMode.Size = new System.Drawing.Size(795, 33);
+            cmbSyncMode.Size = new System.Drawing.Size(598, 33);
             cmbSyncMode.TabIndex = 15;
             cmbSyncMode.SelectedIndexChanged += cmbSyncMode_SelectedIndexChanged;
+            // 
+            // propertyGrid1
+            // 
+            propertyGrid1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel1.SetColumnSpan(propertyGrid1, 2);
+            propertyGrid1.Location = new System.Drawing.Point(645, 102);
+            propertyGrid1.Name = "propertyGrid1";
+            tableLayoutPanel1.SetRowSpan(propertyGrid1, 5);
+            propertyGrid1.Size = new System.Drawing.Size(598, 844);
+            propertyGrid1.TabIndex = 16;
             // 
             // ReplicationTableEdit
             // 
@@ -275,7 +289,7 @@ namespace SimpleDatabaseReplicator.UI
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new System.Drawing.Size(1147, 963);
+            ClientSize = new System.Drawing.Size(1246, 1040);
             Controls.Add(tableLayoutPanel1);
             Margin = new Padding(5, 6, 5, 6);
             Name = "ReplicationTableEdit";
@@ -308,5 +322,6 @@ namespace SimpleDatabaseReplicator.UI
         private ComboBox cmbSyncMode;
         private Label label1;
         private TextBox txtColumnOrderBy;
+        private PropertyGrid propertyGrid1;
     }
 }

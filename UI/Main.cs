@@ -138,8 +138,10 @@ namespace SimpleDatabaseReplicator.UI
 
         private void LogStatus(string text)
         {
-            AppendToRtb(text + "\n", Color.Blue);
+            AppendToRtb(text, Color.Blue);
         }
+
+
 
         public void RefreshControls()
         {
@@ -388,6 +390,12 @@ namespace SimpleDatabaseReplicator.UI
         private void lvwJobs_ColumnWidthChanged(object sender, ColumnWidthChangedEventArgs e)
         {
             Settings.Default.ReplicationTasksColumnWidths[e.ColumnIndex] = lvwJobs.Columns[e.ColumnIndex].Width;
+        }
+
+        private void lvwJobs_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            EditSelectedItem();
+
         }
     }
 }

@@ -235,6 +235,7 @@ namespace SimpleDatabaseReplicator.UI
             lvwJobs.UseCompatibleStateImageBehavior = false;
             lvwJobs.View = System.Windows.Forms.View.Details;
             lvwJobs.ColumnWidthChanged += lvwJobs_ColumnWidthChanged;
+            lvwJobs.MouseDoubleClick += lvwJobs_MouseDoubleClick;
             // 
             // columnHeader1
             // 

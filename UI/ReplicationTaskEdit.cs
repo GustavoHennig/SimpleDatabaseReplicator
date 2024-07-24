@@ -67,9 +67,9 @@ namespace SimpleDatabaseReplicator.UI
 
 
             lstTables.Items.Clear();
-                PopulateListView(JobEditting.SourceTables, JobEditting.DestinationTables);
+            PopulateListView(JobEditting.SourceTables, JobEditting.DestinationTables);
 
- 
+
             lstExFields.Items.Clear();
             foreach (string item in JobEditting.IgnoreFields)
             {
@@ -333,6 +333,7 @@ namespace SimpleDatabaseReplicator.UI
                     int index = lvi.Index - 1;
                     lstTables.Items.RemoveAt(lvi.Index);
                     lstTables.Items.Insert(index, lvi);
+                    lvi.EnsureVisible();
                 }
             }
 
@@ -347,6 +348,7 @@ namespace SimpleDatabaseReplicator.UI
                     int index = lvi.Index + 1;
                     lstTables.Items.RemoveAt(lvi.Index);
                     lstTables.Items.Insert(index, lvi);
+                    lvi.EnsureVisible();
                 }
             }
         }
@@ -400,6 +402,11 @@ namespace SimpleDatabaseReplicator.UI
                 if (found)
                     item.EnsureVisible();
             }
+        }
+
+        private void lstTables_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            btnGraphMapping.PerformClick();
         }
     }
 

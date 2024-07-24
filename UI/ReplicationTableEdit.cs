@@ -48,6 +48,7 @@ namespace SimpleDatabaseReplicator.UI
         internal void SetTable(TableInfo tableSyncInfo)
         {
             this.tableSyncInfo = tableSyncInfo;
+            propertyGrid1.SelectedObject = tableSyncInfo;
         }
 
         private void btnOk_Click(object sender, EventArgs e)

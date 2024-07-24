@@ -36,14 +36,14 @@ namespace SimpleDatabaseReplicator
             }, null);
         }
 
-        public void SendStatus(string msg)
+        public void SendStatus(string msg, bool newLine = false)
         {
             source.Status = msg;
             source.StatusLog.Add(msg);
             windowsFormsContext.Post((state) =>
             {
                 
-                OnStatusUI(msg);
+                OnStatusUI(msg + (newLine ? "\n" :""));
             }, null);
         }
 

@@ -23,6 +23,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace SimpleDatabaseReplicator
 {
@@ -51,14 +52,6 @@ namespace SimpleDatabaseReplicator
                 DbConnectionInfo sourceConnectionInfo = new DbConnectionInfo(job.ConnectionStringSource, job.DialectSource);
                 DbConnectionInfo destinationConnectionInfo = new DbConnectionInfo(job.ConnectionStringDestination, job.DialectDestination);
 
-                /*
-                d.status += new DlgStatusMsg(r_status);
-                d.statuspgb += new DlgStatusPgb(r_statuspgb);
-                d.everros += new DlgStatusMsg(r_erros);
-                */
-
-                string status = "Table {0} of {1} - {2}";
-
                 int totalTables = job.SourceTables.Count(w => w.Checked);
                 int curTable = 1;
 
@@ -82,7 +75,7 @@ namespace SimpleDatabaseReplicator
                             // disables limit/offset
                             offset = -1;
                             if (!string.IsNullOrWhiteSpace(table.ColumnKeyName))
-                                maxId = dbSource.GetMax(table.TableSchema,table.TableName, table.ColumnKeyName);
+                                maxId = dbSource.GetMax(table.TableSchema, table.TableName, table.ColumnKeyName);
                         }
 
 
@@ -99,15 +92,22 @@ namespace SimpleDatabaseReplicator
                                 offset += table.SyncRangeSize;
                             }
 
+                            if (curMaxId > 0)
+                            {
+                                messageHandler.SendStatus($"Table {curTable} of {totalTables} - Loading {table.TableName} [{curMinId}-{curMaxId}]");
+                            }
+                            else
+                            {
+                                messageHandler.SendStatus($"Table {curTable} of {totalTables} - Loading {table.TableName} [{offset}]");
+                            }
 
-                            messageHandler.SendStatus(string.Format(status, curTable, totalTables, "Loading " + table + " [" + curMinId + "-" + curMaxId + "]"));
-
+                            Stopwatch sw = Stopwatch.StartNew();
                             //Load Source Table (Async)
                             DbTableDataLoader dblo1 = new DbTableDataLoader(dbSource, messageHandler);
 
                             Task<Table> taskTb1 = Task.Run(() =>
                             {
-                                return dblo1.LoadTableData(table, null, table.ColumnKeyName, table.ColumnOrderByName, curMinId, curMaxId,  job.RetrieveDataCondition, table.SyncRangeSize, offset);
+                                return dblo1.LoadTableData(table, null, table.ColumnKeyName, table.ColumnOrderByName, curMinId, curMaxId, job.RetrieveDataCondition, table.SyncRangeSize, offset);
                             });
 
                             //Load Destination Table (Sync)
@@ -122,10 +122,19 @@ namespace SimpleDatabaseReplicator
 
                             if (tb1.Data.Count == 0)
                             {
-                                workDoneForThisTable = curMaxId > maxId;
+                                if (table.SynchronizationMode == TableInfo.SyncMode.ByIdRange)
+                                {
+                                    workDoneForThisTable = curMaxId > maxId;
+                                }
+                                else if (table.SynchronizationMode == TableInfo.SyncMode.ByLimitOffset)
+                                {
+                                    workDoneForThisTable = true;
+                                }
                             }
 
-                            messageHandler.SendStatus(string.Format(status, curTable, totalTables, "Syncing " + table));
+                            messageHandler.SendStatus($"({sw.ElapsedMilliseconds / 1000}s)", true);
+                            messageHandler.SendStatus($"Table {curTable} of {totalTables} - Syncing {table.TableName}", true);
+                            sw.Restart();
 
                             //Execute Synchronization
                             DbSyncRunner dbSyncRunner = new DbSyncRunner(dbDest, messageHandler);

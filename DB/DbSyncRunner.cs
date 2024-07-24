@@ -21,6 +21,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SqlKata;
 using SqlKata.Execution;
+using System.Diagnostics;
 
 namespace SimpleDatabaseReplicator.DB
 {
@@ -67,66 +68,97 @@ namespace SimpleDatabaseReplicator.DB
             {
                 int intAffected = 0;
                 int nroRegs = 0;
-                int prg = 0;
-                int max = l.Count;
+                int max = l.Count(t => t.DifferentFromDestination);
+                int cntErrors = 0;
+                int cntSkipped = 0;
 
-                //SqlQueryGenerator rib = new SqlQueryGenerator(dest.TableInfo);
+                if (max == 0)
+                {
+                    messageHandler.SendStatus($"Syncing {dest.TableInfo.TableName}: nothing different", true);
+                    return;
+                }
 
                 var db = new QueryFactory(dbConnection.DB, dbType.KataCompiler);
 
+                Stopwatch sw = Stopwatch.StartNew();
                 foreach (TableRow ri in l)
                 {
-                    if (ri.DifferentFromDestination)
+                    if (!ri.DifferentFromDestination)
+                        continue;
+                    try
                     {
-                        try
+                        if (ri.NotExistsInDestination)
                         {
-                            if (ri.NotExistsInDestination)
+
+                            //TODO: read config before this check
+                            //TODO: should no enter for AllAtOnce
+                            bool exists = false;
+                            if (dest.TableInfo.SynchronizationMode == TableInfo.SyncMode.ByLimitOffset)
                             {
-                                intAffected += db.Query(dest.TableInfo.FormattedTableName)
-                                .Insert(values: ri.Data);
-                            }
-                            else
-                            {
-                                var query = db.Query(dest.TableInfo.TableName);
+                                throw new ApplicationException("AllAtOnce not implemented");
+
+                                var query = db.Query(dest.TableInfo.FormattedTableName);
 
                                 foreach (var key in dest.TableInfo.Keys)
                                 {
                                     query = query.Where(key, ri.Data[key]);
                                 }
-
-                                intAffected += query.Update(ri.Data);
-
-                                // For debug:
-                                //dbType.KataCompiler.Compile(db.Query(dest.TableInfo.TableName).Where(dest.TableInfo.ColumnKeyName, ri.Key).AsUpdate(ri.Data)).Sql.ToString();
+                                exists = db.Exists(query);
                             }
-                            ///db.Query(dest.TableInfo.TableName).Where(dest.TableInfo.ColumnKeyName, ri.Key).AsUpdate(ri.Data).ToString(); 
 
-                            if (!string.IsNullOrEmpty(postUpdateSQL))
+                            if (!exists)
                             {
-                                // TODO: It's needed to run on source
-                                //  bd.ExecuteSQL(rib.getPostUpdate(JobCallBack.PostUpdateSQL));
+                                intAffected += db
+                                    .Query(dest.TableInfo.FormattedTableName)
+                                    .Insert(values: ri.Data);
+                            }
+                            else
+                            {
+                                cntSkipped++;
                             }
                         }
-                        catch (Exception error)
+                        else
                         {
-                            messageHandler.SendError(error.Message);
+                            var query = db.Query(dest.TableInfo.TableName);
+
+                            foreach (var key in dest.TableInfo.Keys)
+                            {
+                                query = query.Where(key, ri.Data[key]);
+                            }
+
+                            intAffected += query.Update(ri.Data);
+
+                            // For debug:
+                            //dbType.KataCompiler.Compile(db.Query(dest.TableInfo.TableName).Where(dest.TableInfo.ColumnKeyName, ri.Key).AsUpdate(ri.Data)).Sql.ToString();
                         }
+                        ///db.Query(dest.TableInfo.TableName).Where(dest.TableInfo.ColumnKeyName, ri.Key).AsUpdate(ri.Data).ToString(); 
 
-                        nroRegs++;
-
-                        prg++;
-                        if (prg > 300)
+                        if (!string.IsNullOrEmpty(postUpdateSQL))
                         {
-                            messageHandler.SendStatus(string.Format("Syncing {0}: {1}/{2}  (OK: {3} | Errors: {4})", dest.TableInfo.TableName, nroRegs, max, intAffected, (nroRegs - intAffected)));
-                            OnProgress(nroRegs, max);
-                            prg = 0;
-
+                            // TODO: It's needed to run on source
+                            //  bd.ExecuteSQL(rib.getPostUpdate(JobCallBack.PostUpdateSQL));
                         }
-                        if (Replicator.AbortReplication)
-                            throw new ApplicationException("Aborted");
+                    }
+                    catch (Exception error)
+                    {
+                        cntErrors++;
+                        messageHandler.SendError(error.Message);
                     }
 
+                    nroRegs++;
+
+                    if (sw.ElapsedMilliseconds > 500)
+                    {
+
+                        messageHandler.SendStatus($"Syncing {dest.TableInfo.TableName}: {nroRegs}/{max}  (Affected: {intAffected} | Skipped: {cntSkipped} | Errors: {cntErrors}){sw.ElapsedMilliseconds}ms", true);
+                        OnProgress(nroRegs, max);
+                        sw.Restart();
+                    }
+                    if (Replicator.AbortReplication)
+                        throw new ApplicationException("Aborted");
                 }
+
+
             }
             catch (ApplicationException)
             {

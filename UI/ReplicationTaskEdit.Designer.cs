@@ -62,6 +62,7 @@ namespace SimpleDatabaseReplicator.UI
             lblTableFilter = new Label();
             lstTables = new ListView();
             columnTableSource = new ColumnHeader();
+            columnTableDestination = new ColumnHeader();
             tabExceptions = new TabPage();
             grp = new GroupBox();
             btnRemoveField = new Button();
@@ -82,7 +83,6 @@ namespace SimpleDatabaseReplicator.UI
             lblJobName = new Label();
             toolTips = new ToolTip(components);
             tableLayoutPanel2 = new TableLayoutPanel();
-            columnTableDestination = new ColumnHeader();
             tabPages.SuspendLayout();
             tabConnections.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -317,10 +317,15 @@ namespace SimpleDatabaseReplicator.UI
             lstTables.UseCompatibleStateImageBehavior = false;
             lstTables.View = View.Details;
             lstTables.ItemChecked += lstTables_ItemChecked;
+            lstTables.MouseDoubleClick += lstTables_MouseDoubleClick;
             // 
             // columnTableSource
             // 
             resources.ApplyResources(columnTableSource, "columnTableSource");
+            // 
+            // columnTableDestination
+            // 
+            resources.ApplyResources(columnTableDestination, "columnTableDestination");
             // 
             // tabExceptions
             // 
@@ -455,10 +460,6 @@ namespace SimpleDatabaseReplicator.UI
             tableLayoutPanel2.Controls.Add(txtJobName, 1, 0);
             tableLayoutPanel2.Controls.Add(tabPages, 0, 1);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
-            // 
-            // columnTableDestination
-            // 
-            resources.ApplyResources(columnTableDestination, "columnTableDestination");
             // 
             // ReplicationTaskEdit
             // 
