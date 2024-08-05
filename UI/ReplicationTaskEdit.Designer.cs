@@ -36,17 +36,8 @@ namespace SimpleDatabaseReplicator.UI
             tabConnections = new TabPage();
             tableLayoutPanel1 = new TableLayoutPanel();
             grpOrigem = new GroupBox();
-            btnTestConnSource = new Button();
-            cmdSource = new ComboBox();
-            txtStringSource = new TextBox();
-            lblSgbd1 = new Label();
-            lblConnString1 = new Label();
+            connectionStringSetupSource = new ConnectionStringSetup();
             grpDestination = new GroupBox();
-            btnTestConnDest = new Button();
-            cmdDest = new ComboBox();
-            txtStringDestination = new TextBox();
-            lblSgbd2 = new Label();
-            lblConnString2 = new Label();
             linkLabel1 = new LinkLabel();
             tabTables = new TabPage();
             tableLayoutPanel3 = new TableLayoutPanel();
@@ -83,6 +74,7 @@ namespace SimpleDatabaseReplicator.UI
             lblJobName = new Label();
             toolTips = new ToolTip(components);
             tableLayoutPanel2 = new TableLayoutPanel();
+            connectionStringSetupDestination = new ConnectionStringSetup();
             tabPages.SuspendLayout();
             tabConnections.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -127,86 +119,22 @@ namespace SimpleDatabaseReplicator.UI
             // grpOrigem
             // 
             resources.ApplyResources(grpOrigem, "grpOrigem");
-            grpOrigem.Controls.Add(btnTestConnSource);
-            grpOrigem.Controls.Add(cmdSource);
-            grpOrigem.Controls.Add(txtStringSource);
-            grpOrigem.Controls.Add(lblSgbd1);
-            grpOrigem.Controls.Add(lblConnString1);
+            grpOrigem.Controls.Add(connectionStringSetupSource);
             grpOrigem.Name = "grpOrigem";
             grpOrigem.TabStop = false;
             // 
-            // btnTestConnSource
+            // connectionStringSetupSource
             // 
-            resources.ApplyResources(btnTestConnSource, "btnTestConnSource");
-            btnTestConnSource.Name = "btnTestConnSource";
-            btnTestConnSource.UseVisualStyleBackColor = true;
-            btnTestConnSource.Click += btnTestConnSource_Click;
-            // 
-            // cmdSource
-            // 
-            resources.ApplyResources(cmdSource, "cmdSource");
-            cmdSource.BackColor = System.Drawing.Color.Linen;
-            cmdSource.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmdSource.FormattingEnabled = true;
-            cmdSource.Name = "cmdSource";
-            // 
-            // txtStringSource
-            // 
-            resources.ApplyResources(txtStringSource, "txtStringSource");
-            txtStringSource.BackColor = System.Drawing.Color.Linen;
-            txtStringSource.Name = "txtStringSource";
-            // 
-            // lblSgbd1
-            // 
-            resources.ApplyResources(lblSgbd1, "lblSgbd1");
-            lblSgbd1.Name = "lblSgbd1";
-            // 
-            // lblConnString1
-            // 
-            resources.ApplyResources(lblConnString1, "lblConnString1");
-            lblConnString1.Name = "lblConnString1";
+            resources.ApplyResources(connectionStringSetupSource, "connectionStringSetupSource");
+            connectionStringSetupSource.Name = "connectionStringSetupSource";
+            connectionStringSetupSource.Load += connectionStringSetup1_Load;
             // 
             // grpDestination
             // 
             resources.ApplyResources(grpDestination, "grpDestination");
-            grpDestination.Controls.Add(btnTestConnDest);
-            grpDestination.Controls.Add(cmdDest);
-            grpDestination.Controls.Add(txtStringDestination);
-            grpDestination.Controls.Add(lblSgbd2);
-            grpDestination.Controls.Add(lblConnString2);
+            grpDestination.Controls.Add(connectionStringSetupDestination);
             grpDestination.Name = "grpDestination";
             grpDestination.TabStop = false;
-            // 
-            // btnTestConnDest
-            // 
-            resources.ApplyResources(btnTestConnDest, "btnTestConnDest");
-            btnTestConnDest.Name = "btnTestConnDest";
-            btnTestConnDest.UseVisualStyleBackColor = true;
-            btnTestConnDest.Click += btnTestConnDest_Click;
-            // 
-            // cmdDest
-            // 
-            resources.ApplyResources(cmdDest, "cmdDest");
-            cmdDest.BackColor = System.Drawing.Color.Linen;
-            cmdDest.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmdDest.FormattingEnabled = true;
-            cmdDest.Name = "cmdDest";
-            // 
-            // txtStringDestination
-            // 
-            resources.ApplyResources(txtStringDestination, "txtStringDestination");
-            txtStringDestination.BackColor = System.Drawing.Color.Linen;
-            txtStringDestination.Name = "txtStringDestination";
-            // 
-            // lblSgbd2
-            // 
-            resources.ApplyResources(lblSgbd2, "lblSgbd2");
-            lblSgbd2.Name = "lblSgbd2";
-            // 
-            // lblConnString2
-            // 
-            resources.ApplyResources(lblConnString2, "lblConnString2");
-            lblConnString2.Name = "lblConnString2";
             // 
             // linkLabel1
             // 
@@ -461,6 +389,11 @@ namespace SimpleDatabaseReplicator.UI
             tableLayoutPanel2.Controls.Add(tabPages, 0, 1);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
+            // connectionStringSetupDestination
+            // 
+            resources.ApplyResources(connectionStringSetupDestination, "connectionStringSetupDestination");
+            connectionStringSetupDestination.Name = "connectionStringSetupDestination";
+            // 
             // ReplicationTaskEdit
             // 
             resources.ApplyResources(this, "$this");
@@ -472,9 +405,7 @@ namespace SimpleDatabaseReplicator.UI
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             grpOrigem.ResumeLayout(false);
-            grpOrigem.PerformLayout();
             grpDestination.ResumeLayout(false);
-            grpDestination.PerformLayout();
             tabTables.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
@@ -494,15 +425,7 @@ namespace SimpleDatabaseReplicator.UI
         private System.Windows.Forms.TabControl tabPages;
         private System.Windows.Forms.TabPage tabConnections;
         private System.Windows.Forms.GroupBox grpDestination;
-        private ComboBox cmdDest;
-        private TextBox txtStringDestination;
-        private System.Windows.Forms.Label lblSgbd2;
-        private System.Windows.Forms.Label lblConnString2;
         private System.Windows.Forms.GroupBox grpOrigem;
-        private ComboBox cmdSource;
-        private TextBox txtStringSource;
-        private System.Windows.Forms.Label lblSgbd1;
-        private System.Windows.Forms.Label lblConnString1;
         private System.Windows.Forms.TabPage tabTables;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnAdd;
@@ -535,12 +458,12 @@ namespace SimpleDatabaseReplicator.UI
         private Button btnMoveUp;
         private TableLayoutPanel tableLayoutPanel1;
         private ColumnHeader columnTableSource;
-        private Button btnTestConnSource;
-        private Button btnTestConnDest;
         private TableLayoutPanel tableLayoutPanel2;
         private TableLayoutPanel tableLayoutPanel3;
         private TextBox txtTableFilter;
         private Label lblTableFilter;
         private ColumnHeader columnTableDestination;
+        private ConnectionStringSetup connectionStringSetupSource;
+        private ConnectionStringSetup connectionStringSetupDestination;
     }
 }

@@ -33,7 +33,7 @@ namespace SimpleDatabaseReplicator.DB
         public string ConnectionString { get; set; } = "";
         public BaseDbType DbType { get; set; }
 
-        public DbConnectionInfo(string connStr, DbTypeSupported type)
+        public DbConnectionInfo(string connStr, DbTypeEnum type)
         {
             this.ConnectionString = connStr;
             this.DbType = BaseDbType.CreateInstance(type);

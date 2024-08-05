@@ -193,7 +193,7 @@ namespace SimpleDatabaseReplicator.UI
             try
             {
                 lnkLoadSchema.Text = "Load Schema (...)";
-                using (DbCon db = DbCon.Create(replicationTaskInfo.ConnectionStringSource, replicationTaskInfo.DialectSource))
+                using (DbCon db = DbCon.Create(replicationTaskInfo.ConnectionStringSource, replicationTaskInfo.DbProviderSource))
                 {
                     DbSchemaLoader.LoadTableInfoSchema(db, tableSyncInfo);
                 }

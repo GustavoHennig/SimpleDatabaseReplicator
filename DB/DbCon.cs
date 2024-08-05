@@ -21,6 +21,7 @@ using System.Data;
 using SimpleDatabaseReplicator.SQL;
 using System.Data.Common;
 using SimpleDatabaseReplicator.SQL.Databases;
+using Npgsql;
 
 
 namespace SimpleDatabaseReplicator.DB
@@ -43,7 +44,7 @@ namespace SimpleDatabaseReplicator.DB
             return new DbCon(dbConnectionInfo);
         }
 
-        internal static DbCon Create(string connStr, BaseDbType.DbTypeSupported dbType)
+        internal static DbCon Create(string connStr, DbTypeEnum dbType)
         {
             return Create(new DbConnectionInfo(connStr, dbType));
         }

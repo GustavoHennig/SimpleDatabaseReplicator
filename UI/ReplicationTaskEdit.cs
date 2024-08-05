@@ -56,16 +56,6 @@ namespace SimpleDatabaseReplicator.UI
         private void LoadData()
         {
 
-            foreach (FieldInfo mi in typeof(BaseDbType.DbTypeSupported).GetFields())
-            {
-                if (mi.IsLiteral && mi.IsStatic)
-                {
-                    cmdSource.Items.Insert(Convert.ToInt32(mi.GetRawConstantValue()), mi.Name);
-                    cmdDest.Items.Insert(Convert.ToInt32(mi.GetRawConstantValue()), mi.Name);
-                }
-            }
-
-
             lstTables.Items.Clear();
             PopulateListView(JobEditting.SourceTables, JobEditting.DestinationTables);
 
@@ -81,11 +71,13 @@ namespace SimpleDatabaseReplicator.UI
                 lstErros.Items.Add(erro);
             }
 
-            txtStringDestination.Text = JobEditting.ConnectionStringDestination;
-            txtStringSource.Text = JobEditting.ConnectionStringSource;
+            connectionStringSetupSource.DbProvider = JobEditting.DbProviderSource;
+            connectionStringSetupDestination.DbProvider = JobEditting.DbProviderDestination;
 
-            cmdSource.SelectedIndex = Convert.ToInt32(JobEditting.DialectSource);
-            cmdDest.SelectedIndex = Convert.ToInt32(JobEditting.DialectDestination);
+            connectionStringSetupDestination.ConnectionString = JobEditting.ConnectionStringDestination;
+            connectionStringSetupSource.ConnectionString = JobEditting.ConnectionStringSource;
+
+            
             txtJobName.Text = JobEditting.JobName;
 
 
@@ -160,10 +152,10 @@ namespace SimpleDatabaseReplicator.UI
 
         private void SaveChanges()
         {
-            JobEditting.ConnectionStringDestination = txtStringDestination.Text;
-            JobEditting.ConnectionStringSource = txtStringSource.Text;
-            JobEditting.DialectDestination = (BaseDbType.DbTypeSupported)cmdDest.SelectedIndex;
-            JobEditting.DialectSource = (BaseDbType.DbTypeSupported)cmdSource.SelectedIndex;
+            JobEditting.ConnectionStringDestination = connectionStringSetupDestination.ConnectionString;
+            JobEditting.ConnectionStringSource =  connectionStringSetupSource.ConnectionString;
+            JobEditting.DbProviderDestination =  connectionStringSetupDestination.DbProvider;
+            JobEditting.DbProviderSource = connectionStringSetupSource.DbProvider;
 
             JobEditting.SourceTables = lstTables.Items.Cast<ListViewItem>().Select(s => s.Tag as TableInfo).ToList();
 
@@ -172,7 +164,7 @@ namespace SimpleDatabaseReplicator.UI
 
             try
             {
-                using (DbCon db = DbCon.Create(JobEditting.ConnectionStringSource, JobEditting.DialectSource))
+                using (DbCon db = DbCon.Create(JobEditting.ConnectionStringSource, JobEditting.DbProviderSource))
                 {
 
                     DbSchemaLoader.LoadTableInfoSchema(db, JobEditting.SourceTables.Where(w => w.Checked));
@@ -249,11 +241,11 @@ namespace SimpleDatabaseReplicator.UI
             try
             {
                 List<TableInfo> tablesSource;
-                using (DbCon db = DbCon.Create(txtStringSource.Text, (BaseDbType.DbTypeSupported)cmdSource.SelectedIndex))
+                using (DbCon db = DbCon.Create(connectionStringSetupSource.ConnectionString, connectionStringSetupSource.DbProvider))
                     tablesSource = DbSchemaLoader.GetAllTables(db);
 
                 List<TableInfo> tablesDestination;
-                using (DbCon db = DbCon.Create(txtStringDestination.Text, (BaseDbType.DbTypeSupported)cmdDest.SelectedIndex))
+                using (DbCon db = DbCon.Create(connectionStringSetupDestination.ConnectionString, connectionStringSetupDestination.DbProvider))
                     tablesDestination = DbSchemaLoader.GetAllTables(db);
 
                 PopulateListView(tablesSource, tablesDestination);
@@ -358,41 +350,6 @@ namespace SimpleDatabaseReplicator.UI
             (e.Item.Tag as TableInfo).Checked = e.Item.Checked;
         }
 
-        private void btnTestConnDest_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using (DbCon db = TestCreatingDbConnection(txtStringDestination.Text, (BaseDbType.DbTypeSupported)cmdDest.SelectedIndex))
-
-                    btnTestConnDest.Text = "Test (ok)";
-            }
-            catch (Exception)
-            {
-                btnTestConnDest.Text = "Test (error)";
-            }
-
-
-        }
-
-        private void btnTestConnSource_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using (DbCon db = TestCreatingDbConnection(txtStringSource.Text, (BaseDbType.DbTypeSupported)cmdSource.SelectedIndex))
-                    btnTestConnSource.Text = "Test (ok)";
-            }
-            catch (Exception)
-            {
-                btnTestConnSource.Text = "Test (error)";
-            }
-        }
-
-
-        private DbCon TestCreatingDbConnection(string connString, BaseDbType.DbTypeSupported dbTypeSupported)
-        {
-            return DbCon.Create(connString, dbTypeSupported);
-        }
-
         private void txtTableFilter_TextChanged(object sender, EventArgs e)
         {
             foreach (ListViewItem item in lstTables.Items)
@@ -407,6 +364,11 @@ namespace SimpleDatabaseReplicator.UI
         private void lstTables_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             btnGraphMapping.PerformClick();
+        }
+
+        private void connectionStringSetup1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

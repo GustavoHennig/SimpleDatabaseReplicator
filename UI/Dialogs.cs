@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SimpleDatabaseReplicator.UI
 {
@@ -24,6 +25,17 @@ namespace SimpleDatabaseReplicator.UI
 
             return InputBox(Caption, "");
 
+        }
+
+        internal static void Show(string msg)
+        {
+            MessageBox.Show(msg);
+        }
+
+        internal static void ShowError(Exception ex)
+        {
+            MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            ;
         }
     }
 }

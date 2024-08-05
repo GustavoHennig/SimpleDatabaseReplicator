@@ -41,7 +41,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
         public abstract string SetIdentityCommand(string name, object value);
         public abstract string GetSequenceName(string table, string field);
         public abstract string AllTablesCommand { get; }
-        public DbTypeSupported DbType;
+        
 
         /// <summary>
         /// TODO: Initialize this value in a factory
@@ -59,41 +59,25 @@ namespace SimpleDatabaseReplicator.SQL.Databases
             return Delimiter + dbObjName + Delimiter;
         }
 
-        public static BaseDbType CreateInstance(DbTypeSupported type)
+        public static BaseDbType CreateInstance(DbTypeEnum type)
         {
-            switch (type)
-            {
-                case DbTypeSupported.SqlServer:
-                    return new SqlServerDbType();
-                case DbTypeSupported.Access:
-                    return new AccessDbType();
-                case DbTypeSupported.Firebird:
-                    return new FirebirdDbType();
-                case DbTypeSupported.Postgres:
-                    return new PostgresDbType();
-                case DbTypeSupported.MySql:
-                    return new MysqlDbType();
-                case DbTypeSupported.SqlLite:
-                    return new SqLiteDbType();
-                case DbTypeSupported.Oracle:
-                    return new OracleDbType();
-                default:
-                    throw new Exception(Resources.DbNotSup);
-            }
+
+            return type.DbTypeFactory.Invoke();
+
 
         }
 
-        public enum DbTypeSupported
-        {
-            SqlServer = 0,
-            Access = 1,
-            Firebird = 2,
-            SqlLite = 3,
-            Postgres = 4,
-            Oracle = 5,
-            MySql = 6,
-            Odbc = 7
+        //public enum DbTypeSupported
+        //{
+        //    SqlServer = 0,
+        //    Access = 1,
+        //    Firebird = 2,
+        //    SqlLite = 3,
+        //    Postgres = 4,
+        //    Oracle = 5,
+        //    MySql = 6,
+        //    Odbc = 7
 
-        }
+        //}
     }
 }

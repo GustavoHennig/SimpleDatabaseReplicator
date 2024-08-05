@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
+using Ardalis.SmartEnum.SystemTextJson;
 using SimpleDatabaseReplicator.SQL;
 using SimpleDatabaseReplicator.SQL.Databases;
 
@@ -29,8 +30,10 @@ namespace SimpleDatabaseReplicator
 
         public bool Enabled { get; set; }
 
-        public BaseDbType.DbTypeSupported DialectSource { get; set; }
-        public BaseDbType.DbTypeSupported DialectDestination { get; set; }
+        [JsonConverter(typeof(SmartEnumNameConverter<DbTypeEnum, int>))]
+        public DbTypeEnum DbProviderSource { get; set; }
+        [JsonConverter(typeof(SmartEnumNameConverter<DbTypeEnum, int>))]
+        public DbTypeEnum DbProviderDestination { get; set; }
 
         public string ConnectionStringSource { get; set; }
         public string ConnectionStringDestination { get; set; }
@@ -97,8 +100,8 @@ namespace SimpleDatabaseReplicator
                 IgnoreFields = IgnoreFields,
                 PostUpdateSQL = PostUpdateSQL,
                 RetrieveDataCondition = RetrieveDataCondition,
-                DialectDestination = DialectDestination,
-                DialectSource = DialectSource,
+                DbProviderDestination = DbProviderDestination,
+                DbProviderSource = DbProviderSource,
                 ConnectionStringDestination = ConnectionStringDestination,
                 ConnectionStringSource = ConnectionStringSource,
                 SourceTables = SourceTables,

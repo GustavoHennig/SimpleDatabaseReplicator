@@ -49,8 +49,8 @@ namespace SimpleDatabaseReplicator
             {
                 job.IsRunning = true;
 
-                DbConnectionInfo sourceConnectionInfo = new DbConnectionInfo(job.ConnectionStringSource, job.DialectSource);
-                DbConnectionInfo destinationConnectionInfo = new DbConnectionInfo(job.ConnectionStringDestination, job.DialectDestination);
+                DbConnectionInfo sourceConnectionInfo = new DbConnectionInfo(job.ConnectionStringSource, job.DbProviderSource);
+                DbConnectionInfo destinationConnectionInfo = new DbConnectionInfo(job.ConnectionStringDestination, job.DbProviderDestination);
 
                 int totalTables = job.SourceTables.Count(w => w.Checked);
                 int curTable = 1;
