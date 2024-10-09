@@ -122,31 +122,31 @@
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 32</value>
+    <value>124, 22</value>
   </data>
   <data name="addToolStripMenuItem.Text" xml:space="preserve">
     <value>Add</value>
   </data>
   <data name="editToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 32</value>
+    <value>124, 22</value>
   </data>
   <data name="editToolStripMenuItem1.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="mniDuplicate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 32</value>
+    <value>124, 22</value>
   </data>
   <data name="mniDuplicate.Text" xml:space="preserve">
     <value>Duplicate</value>
   </data>
   <data name="mniDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 32</value>
+    <value>124, 22</value>
   </data>
   <data name="mniDelete.Text" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="menuContext.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 132</value>
+    <value>125, 92</value>
   </data>
   <data name="&gt;&gt;menuContext.Name" xml:space="preserve">
     <value>menuContext</value>
@@ -178,19 +178,19 @@
     <value>None</value>
   </data>
   <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 34</value>
+    <value>119, 22</value>
   </data>
   <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="homepageToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 34</value>
+    <value>119, 22</value>
   </data>
   <data name="homepageToolStripMenuItem1.Text" xml:space="preserve">
     <value>Web site</value>
   </data>
   <data name="aboutToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 34</value>
+    <value>119, 22</value>
   </data>
   <data name="aboutToolStripMenuItem1.Text" xml:space="preserve">
     <value>About</value>
@@ -199,19 +199,19 @@
     <value>Magenta</value>
   </data>
   <data name="toolStripDropDownButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 29</value>
+    <value>62, 28</value>
   </data>
   <data name="toolStripDropDownButton1.Text" xml:space="preserve">
     <value>Options</value>
   </data>
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 34</value>
+    <value>6, 31</value>
   </data>
   <data name="tbtnNewJob.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
   <data name="tbtnNewJob.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 29</value>
+    <value>59, 28</value>
   </data>
   <data name="tbtnNewJob.Text" xml:space="preserve">
     <value>New</value>
@@ -220,19 +220,19 @@
     <value>Magenta</value>
   </data>
   <data name="btnEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 29</value>
+    <value>55, 28</value>
   </data>
   <data name="btnEdit.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 34</value>
+    <value>6, 31</value>
   </data>
   <data name="btnReplicateAll.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
   <data name="btnReplicateAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 29</value>
+    <value>105, 28</value>
   </data>
   <data name="btnReplicateAll.Text" xml:space="preserve">
     <value>Run Checked</value>
@@ -244,19 +244,19 @@
     <value>Magenta</value>
   </data>
   <data name="btnAbort.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 29</value>
+    <value>65, 28</value>
   </data>
   <data name="btnAbort.Text" xml:space="preserve">
     <value>Abort</value>
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 34</value>
+    <value>6, 31</value>
   </data>
   <data name="toolbarMain.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
   <data name="toolbarMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1268, 34</value>
+    <value>845, 31</value>
   </data>
   <data name="toolbarMain.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -280,11 +280,11 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="splitContainer1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 38</value>
+    <value>2, 34</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="splitContainer1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+    <value>2, 3, 2, 3</value>
   </data>
   <data name="splitContainer1.Orientation" type="System.Windows.Forms.Orientation, System.Windows.Forms">
     <value>Horizontal</value>
@@ -314,10 +314,10 @@
     <value>0, 0</value>
   </data>
   <data name="lvwJobs.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 6, 4, 6</value>
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="lvwJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1262, 443</value>
+    <value>841, 291</value>
   </data>
   <data name="lvwJobs.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -353,10 +353,10 @@
     <value>0, 0</value>
   </data>
   <data name="richTextBoxLog.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+    <value>2, 3, 2, 3</value>
   </data>
   <data name="richTextBoxLog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1262, 441</value>
+    <value>841, 290</value>
   </data>
   <data name="richTextBoxLog.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -389,13 +389,13 @@
     <value>1</value>
   </data>
   <data name="splitContainer1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1262, 889</value>
+    <value>841, 584</value>
   </data>
   <data name="splitContainer1.SplitterDistance" type="System.Int32, mscorlib">
-    <value>443</value>
+    <value>291</value>
   </data>
   <data name="splitContainer1.SplitterWidth" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="splitContainer1.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -419,13 +419,13 @@
     <value>0, 0</value>
   </data>
   <data name="tableLayoutPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 4, 3, 4</value>
+    <value>2, 3, 2, 3</value>
   </data>
   <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1268, 931</value>
+    <value>845, 621</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -455,10 +455,10 @@
     <value>56</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>144, 144</value>
+    <value>96, 96</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1268, 931</value>
+    <value>845, 621</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -764,7 +764,7 @@
 </value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 6, 4, 6</value>
+    <value>3, 4, 3, 4</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Simple Database Replicator (Alpha)</value>

@@ -116,7 +116,6 @@ namespace SimpleDatabaseReplicator.UI
             // 
             // toolStripStatusLabel1
             // 
-            toolStripStatusLabel1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 2);
             toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             resources.ApplyResources(toolStripStatusLabel1, "toolStripStatusLabel1");
             // 
@@ -266,6 +265,7 @@ namespace SimpleDatabaseReplicator.UI
             Controls.Add(tableLayoutPanel1);
             Name = "Main";
             FormClosing += Main_FormClosing;
+            Load += Main_Load;
             menuContext.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();

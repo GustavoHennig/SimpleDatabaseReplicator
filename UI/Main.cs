@@ -57,6 +57,11 @@ namespace SimpleDatabaseReplicator.UI
             timer1.Enabled = true;
 
         }
+        
+        private void Main_Load(object sender, EventArgs e)
+        {
+            Text = $"{Text} {Assembly.GetExecutingAssembly(). GetName().Version.ToString()}";
+        }
 
         private void btnReplica_Click(object sender, EventArgs e)
         {
@@ -397,5 +402,6 @@ namespace SimpleDatabaseReplicator.UI
             EditSelectedItem();
 
         }
+
     }
 }
