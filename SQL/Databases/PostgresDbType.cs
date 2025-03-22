@@ -52,7 +52,6 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 
         }
 
-
         public override string AllTablesCommand
         {
             get
@@ -77,7 +76,7 @@ namespace SimpleDatabaseReplicator.SQL.Databases
 
         public override string LimitOffset(int limit, int offset)
         {
-            return $" limite {limit} offset {offset}";
+            return $" limit {limit} offset {offset}";
         }
     }
 }

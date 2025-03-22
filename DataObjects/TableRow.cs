@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+using SimpleDatabaseReplicator.DataObjects;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,68 +33,32 @@ namespace SimpleDatabaseReplicator
         /// </summary>
         public string KeyValue;
 
-        public Dictionary<string, object> Data = new Dictionary<string, object>();
+        public Dictionary<string, TableCell> Data = new Dictionary<string, TableCell>();
 
-
+        public IEnumerable<KeyValuePair< string, object>> GetValues()
+        {
+            foreach (KeyValuePair<string, TableCell> kv in Data)
+            {
+                yield return new KeyValuePair<string, object>(kv.Key, kv.Value.Value);
+            }
+        }
         public void BuildCompositeKey(List<string> keys, string manualDefinedKey)
         {
             string key;
             if (keys.Count == 0 && !string.IsNullOrEmpty(manualDefinedKey))
             {
-                key = Convert.ToString(Data[manualDefinedKey]);
+                key = Convert.ToString(Data[manualDefinedKey].Value);
             }
             else
             {
                 key = "";
                 foreach (string lkey in keys)
                 {
-                    key += Convert.ToString(Data[lkey]);
+                    key += Convert.ToString(Data[lkey].Value);
                 }
             }
             KeyValue = key;
 
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj != null)
-            {
-                try
-                {
-                    TableRow ri = (TableRow)obj;
-
-
-                    foreach (string k in Data.Keys)
-                    {
-                        if (ri.Data.ContainsKey(k))
-                        {
-                            if (!ObjectComparison.EquivalentValue(Data[k], ri.Data[k]))
-                            {
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            //TODO: Schema is different
-                        }
-                    }
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    Debug.Print(e.Message);
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
         }
     }
 }

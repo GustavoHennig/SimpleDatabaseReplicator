@@ -74,7 +74,7 @@ namespace SimpleDatabaseReplicator.DB
 
                 if (max == 0)
                 {
-                    messageHandler.SendStatus($"Syncing {dest.TableInfo.TableName}: nothing different", true);
+                    messageHandler.SendStatus($"Syncing {dest.TableInfo.TableName}: nothing different", null, true);
                     return;
                 }
 
@@ -101,7 +101,7 @@ namespace SimpleDatabaseReplicator.DB
 
                                 foreach (var key in dest.TableInfo.Keys)
                                 {
-                                    query = query.Where(key, ri.Data[key]);
+                                    query = query.Where(key, ri.Data[key].Value);
                                 }
                                 exists = db.Exists(query);
                             }
@@ -110,7 +110,7 @@ namespace SimpleDatabaseReplicator.DB
                             {
                                 intAffected += db
                                     .Query(dest.TableInfo.FormattedTableName)
-                                    .Insert(values: ri.Data);
+                                    .Insert( values: ri.GetValues());
                             }
                             else
                             {
@@ -123,10 +123,10 @@ namespace SimpleDatabaseReplicator.DB
 
                             foreach (var key in dest.TableInfo.Keys)
                             {
-                                query = query.Where(key, ri.Data[key]);
+                                query = query.Where(key, ri.Data[key].Value);
                             }
 
-                            intAffected += query.Update(ri.Data);
+                            intAffected += query.Update(ri.GetValues());
 
                             // For debug:
                             //dbType.KataCompiler.Compile(db.Query(dest.TableInfo.TableName).Where(dest.TableInfo.ColumnKeyName, ri.Key).AsUpdate(ri.Data)).Sql.ToString();
@@ -142,7 +142,7 @@ namespace SimpleDatabaseReplicator.DB
                     catch (Exception error)
                     {
                         cntErrors++;
-                        messageHandler.SendError(error.Message);
+                        messageHandler.SendError(error.Message, null);
                     }
 
                     nroRegs++;
@@ -150,7 +150,7 @@ namespace SimpleDatabaseReplicator.DB
                     if (sw.ElapsedMilliseconds > 500)
                     {
 
-                        messageHandler.SendStatus($"Syncing {dest.TableInfo.TableName}: {nroRegs}/{max}  (Affected: {intAffected} | Skipped: {cntSkipped} | Errors: {cntErrors}){sw.ElapsedMilliseconds}ms", true);
+                        messageHandler.SendStatus($"Syncing {dest.TableInfo.TableName}: {nroRegs}/{max}  (Affected: {intAffected} | Skipped: {cntSkipped} | Errors: {cntErrors}){sw.ElapsedMilliseconds}ms", null, true);
                         OnProgress(nroRegs, max);
                         sw.Restart();
                     }
@@ -166,7 +166,7 @@ namespace SimpleDatabaseReplicator.DB
             }
             catch (Exception e)
             {
-                messageHandler.SendError(e.Message);
+                messageHandler.SendError(e.Message, null);
             }
         }
 

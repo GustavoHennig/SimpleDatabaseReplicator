@@ -30,220 +30,220 @@ namespace SimpleDatabaseReplicator.UI
         /// </summary>
         private void InitializeComponent()
         {
-            cbProvider = new ComboBox();
-            tbHost = new TextBox();
-            tbPort = new TextBox();
-            tbUsername = new TextBox();
-            tbPassword = new TextBox();
-            tbDatabase = new TextBox();
-            tbConnectionString = new TextBox();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            btnTest = new Button();
-            tableLayoutPanel1.SuspendLayout();
-            SuspendLayout();
+            this.cbProvider = new ComboBox();
+            this.tbHost = new TextBox();
+            this.tbPort = new TextBox();
+            this.tbUsername = new TextBox();
+            this.tbPassword = new TextBox();
+            this.tbDatabase = new TextBox();
+            this.tbConnectionString = new TextBox();
+            this.tableLayoutPanel1 = new TableLayoutPanel();
+            this.label1 = new Label();
+            this.label2 = new Label();
+            this.label3 = new Label();
+            this.label4 = new Label();
+            this.label5 = new Label();
+            this.label6 = new Label();
+            this.label7 = new Label();
+            this.btnTest = new Button();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.SuspendLayout();
             // 
             // cbProvider
             // 
-            cbProvider.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutPanel1.SetColumnSpan(cbProvider, 3);
-            cbProvider.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbProvider.Location = new System.Drawing.Point(161, 3);
-            cbProvider.Name = "cbProvider";
-            cbProvider.Size = new System.Drawing.Size(602, 33);
-            cbProvider.TabIndex = 7;
-            cbProvider.SelectedIndexChanged += cbProvider_SelectedIndexChanged;
+            this.cbProvider.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.tableLayoutPanel1.SetColumnSpan(this.cbProvider, 3);
+            this.cbProvider.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.cbProvider.Location = new System.Drawing.Point(161, 3);
+            this.cbProvider.Name = "cbProvider";
+            this.cbProvider.Size = new System.Drawing.Size(602, 33);
+            this.cbProvider.TabIndex = 7;
+            this.cbProvider.SelectedIndexChanged += this.cbProvider_SelectedIndexChanged;
             // 
             // tbHost
             // 
-            tbHost.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tbHost.Location = new System.Drawing.Point(161, 42);
-            tbHost.Name = "tbHost";
-            tbHost.Size = new System.Drawing.Size(214, 31);
-            tbHost.TabIndex = 8;
+            this.tbHost.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.tbHost.Location = new System.Drawing.Point(161, 42);
+            this.tbHost.Name = "tbHost";
+            this.tbHost.Size = new System.Drawing.Size(214, 31);
+            this.tbHost.TabIndex = 8;
             // 
             // tbPort
             // 
-            tbPort.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tbPort.Location = new System.Drawing.Point(474, 42);
-            tbPort.Name = "tbPort";
-            tbPort.Size = new System.Drawing.Size(289, 31);
-            tbPort.TabIndex = 9;
+            this.tbPort.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.tbPort.Location = new System.Drawing.Point(474, 42);
+            this.tbPort.Name = "tbPort";
+            this.tbPort.Size = new System.Drawing.Size(289, 31);
+            this.tbPort.TabIndex = 9;
             // 
             // tbUsername
             // 
-            tbUsername.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tbUsername.Location = new System.Drawing.Point(163, 81);
-            tbUsername.Margin = new Padding(5);
-            tbUsername.Name = "tbUsername";
-            tbUsername.Size = new System.Drawing.Size(210, 31);
-            tbUsername.TabIndex = 10;
+            this.tbUsername.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.tbUsername.Location = new System.Drawing.Point(163, 81);
+            this.tbUsername.Margin = new Padding(5);
+            this.tbUsername.Name = "tbUsername";
+            this.tbUsername.Size = new System.Drawing.Size(210, 31);
+            this.tbUsername.TabIndex = 10;
             // 
             // tbPassword
             // 
-            tbPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tbPassword.Location = new System.Drawing.Point(474, 79);
-            tbPassword.Name = "tbPassword";
-            tbPassword.Size = new System.Drawing.Size(289, 31);
-            tbPassword.TabIndex = 11;
+            this.tbPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.tbPassword.Location = new System.Drawing.Point(474, 79);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.Size = new System.Drawing.Size(289, 31);
+            this.tbPassword.TabIndex = 11;
             // 
             // tbDatabase
             // 
-            tbDatabase.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tbDatabase.Location = new System.Drawing.Point(163, 122);
-            tbDatabase.Margin = new Padding(5);
-            tbDatabase.Name = "tbDatabase";
-            tbDatabase.Size = new System.Drawing.Size(210, 31);
-            tbDatabase.TabIndex = 12;
+            this.tbDatabase.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.tbDatabase.Location = new System.Drawing.Point(163, 122);
+            this.tbDatabase.Margin = new Padding(5);
+            this.tbDatabase.Name = "tbDatabase";
+            this.tbDatabase.Size = new System.Drawing.Size(210, 31);
+            this.tbDatabase.TabIndex = 12;
             // 
             // tbConnectionString
             // 
-            tbConnectionString.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tableLayoutPanel1.SetColumnSpan(tbConnectionString, 3);
-            tbConnectionString.Location = new System.Drawing.Point(163, 163);
-            tbConnectionString.Margin = new Padding(5);
-            tbConnectionString.Multiline = true;
-            tbConnectionString.Name = "tbConnectionString";
-            tbConnectionString.Size = new System.Drawing.Size(598, 60);
-            tbConnectionString.TabIndex = 13;
+            this.tbConnectionString.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.tableLayoutPanel1.SetColumnSpan(this.tbConnectionString, 3);
+            this.tbConnectionString.Location = new System.Drawing.Point(163, 163);
+            this.tbConnectionString.Margin = new Padding(5);
+            this.tbConnectionString.Multiline = true;
+            this.tbConnectionString.Name = "tbConnectionString";
+            this.tbConnectionString.Size = new System.Drawing.Size(598, 60);
+            this.tbConnectionString.TabIndex = 13;
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 4;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel1.Controls.Add(cbProvider, 1, 0);
-            tableLayoutPanel1.Controls.Add(tbHost, 1, 1);
-            tableLayoutPanel1.Controls.Add(tbPort, 3, 1);
-            tableLayoutPanel1.Controls.Add(tbUsername, 1, 2);
-            tableLayoutPanel1.Controls.Add(tbPassword, 3, 2);
-            tableLayoutPanel1.Controls.Add(tbDatabase, 1, 3);
-            tableLayoutPanel1.Controls.Add(tbConnectionString, 1, 4);
-            tableLayoutPanel1.Controls.Add(label1, 0, 0);
-            tableLayoutPanel1.Controls.Add(label2, 0, 1);
-            tableLayoutPanel1.Controls.Add(label3, 2, 1);
-            tableLayoutPanel1.Controls.Add(label4, 0, 2);
-            tableLayoutPanel1.Controls.Add(label5, 2, 2);
-            tableLayoutPanel1.Controls.Add(label6, 0, 3);
-            tableLayoutPanel1.Controls.Add(label7, 0, 4);
-            tableLayoutPanel1.Controls.Add(btnTest, 3, 3);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 5;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(766, 228);
-            tableLayoutPanel1.TabIndex = 14;
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.cbProvider, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.tbHost, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tbPort, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tbUsername, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tbPassword, 3, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tbDatabase, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.tbConnectionString, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.btnTest, 3, 3);
+            this.tableLayoutPanel1.Dock = DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(766, 228);
+            this.tableLayoutPanel1.TabIndex = 14;
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(78, 39);
-            label1.TabIndex = 14;
-            label1.Text = "Provider";
-            label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 39);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Provider";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(3, 39);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(50, 37);
-            label2.TabIndex = 14;
-            label2.Text = "Host";
-            label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 39);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 37);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Host";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(381, 39);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(44, 25);
-            label3.TabIndex = 14;
-            label3.Text = "Port";
-            label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(381, 39);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 25);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Port";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(3, 76);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(91, 41);
-            label4.TabIndex = 14;
-            label4.Text = "Username";
-            label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 76);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(91, 41);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Username";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
             // 
-            label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(381, 76);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(87, 25);
-            label5.TabIndex = 14;
-            label5.Text = "Password";
-            label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(381, 76);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(87, 25);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Password";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label6
             // 
-            label6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(3, 117);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(86, 41);
-            label6.TabIndex = 14;
-            label6.Text = "Database";
-            label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 117);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(86, 41);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Database";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label7
             // 
-            label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(3, 158);
-            label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(152, 70);
-            label7.TabIndex = 14;
-            label7.Text = "Connection string";
-            label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 158);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(152, 70);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Connection string";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnTest
             // 
-            btnTest.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btnTest.Location = new System.Drawing.Point(474, 120);
-            btnTest.Name = "btnTest";
-            btnTest.Size = new System.Drawing.Size(289, 35);
-            btnTest.TabIndex = 15;
-            btnTest.Text = "Test";
-            btnTest.UseVisualStyleBackColor = true;
-            btnTest.Click += btnTest_Click;
+            this.btnTest.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            this.btnTest.Location = new System.Drawing.Point(474, 120);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(289, 35);
+            this.btnTest.TabIndex = 15;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += this.btnTest_Click;
             // 
             // ConnectionStringSetup
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(tableLayoutPanel1);
-            Name = "ConnectionStringSetup";
-            Size = new System.Drawing.Size(766, 228);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Name = "ConnectionStringSetup";
+            this.Size = new System.Drawing.Size(766, 228);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.ResumeLayout(false);
         }
 
         #endregion

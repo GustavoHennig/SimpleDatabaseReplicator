@@ -22,6 +22,7 @@ namespace SimpleDatabaseReplicator.UI
 {
     public partial class ConnectionStringSetup : UserControl
     {
+        bool doNotUpdateConnectionString = false;
 
         public ConnectionStringSetup()
         {
@@ -49,7 +50,8 @@ namespace SimpleDatabaseReplicator.UI
         private void UpdateConnectionString(object sender = null, EventArgs e = null)
         {
 
-
+            if(doNotUpdateConnectionString)
+                return;
 
             DbTypeEnum dbType = cbProvider.SelectedItem as DbTypeEnum;
 
@@ -166,7 +168,7 @@ namespace SimpleDatabaseReplicator.UI
         {
             try
             {
-
+                doNotUpdateConnectionString = true;
 
                 DbTypeEnum dbType = cbProvider.SelectedItem as DbTypeEnum;
 
@@ -223,8 +225,11 @@ namespace SimpleDatabaseReplicator.UI
 
                 Dialogs.ShowError(ex);
             }
+            finally
+            {
+                doNotUpdateConnectionString = false;
+            }
+
         }
-
-
     }
 }

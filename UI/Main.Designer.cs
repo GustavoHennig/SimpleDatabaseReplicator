@@ -45,237 +45,246 @@ namespace SimpleDatabaseReplicator.UI
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            menuContext = new System.Windows.Forms.ContextMenuStrip(components);
-            addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            editToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            mniDuplicate = new System.Windows.Forms.ToolStripMenuItem();
-            mniDelete = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            toolTips = new System.Windows.Forms.ToolTip(components);
-            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            toolbarMain = new System.Windows.Forms.ToolStrip();
-            toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            homepageToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            tbtnNewJob = new System.Windows.Forms.ToolStripButton();
-            btnEdit = new System.Windows.Forms.ToolStripButton();
-            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            btnReplicateAll = new System.Windows.Forms.ToolStripButton();
-            btnAbort = new System.Windows.Forms.ToolStripButton();
-            toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            splitContainer1 = new System.Windows.Forms.SplitContainer();
-            lvwJobs = new System.Windows.Forms.ListView();
-            columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            richTextBoxLog = new System.Windows.Forms.RichTextBox();
-            timer1 = new System.Windows.Forms.Timer(components);
-            menuContext.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
-            toolbarMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
-            splitContainer1.Panel1.SuspendLayout();
-            splitContainer1.Panel2.SuspendLayout();
-            splitContainer1.SuspendLayout();
-            SuspendLayout();
+            this.menuContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniDuplicate = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolTips = new System.Windows.Forms.ToolTip(this.components);
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.toolbarMain = new System.Windows.Forms.ToolStrip();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.homepageToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbtnNewJob = new System.Windows.Forms.ToolStripButton();
+            this.btnEdit = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnReplicateAll = new System.Windows.Forms.ToolStripButton();
+            this.btnAbort = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnPreview = new System.Windows.Forms.ToolStripButton();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lvwJobs = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.menuContext.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.toolbarMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)this.splitContainer1).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.SuspendLayout();
             // 
             // menuContext
             // 
-            menuContext.ImageScalingSize = new Size(24, 24);
-            menuContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { addToolStripMenuItem, editToolStripMenuItem1, mniDuplicate, mniDelete });
-            menuContext.Name = "contextMenuStrip1";
-            resources.ApplyResources(menuContext, "menuContext");
+            this.menuContext.ImageScalingSize = new Size(24, 24);
+            this.menuContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.addToolStripMenuItem, this.editToolStripMenuItem1, this.mniDuplicate, this.mniDelete });
+            this.menuContext.Name = "contextMenuStrip1";
+            resources.ApplyResources(this.menuContext, "menuContext");
             // 
             // addToolStripMenuItem
             // 
-            addToolStripMenuItem.Name = "addToolStripMenuItem";
-            resources.ApplyResources(addToolStripMenuItem, "addToolStripMenuItem");
-            addToolStripMenuItem.Click += tbtnNewJob_Click;
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            resources.ApplyResources(this.addToolStripMenuItem, "addToolStripMenuItem");
+            this.addToolStripMenuItem.Click += this.tbtnNewJob_Click;
             // 
             // editToolStripMenuItem1
             // 
-            editToolStripMenuItem1.Name = "editToolStripMenuItem1";
-            resources.ApplyResources(editToolStripMenuItem1, "editToolStripMenuItem1");
-            editToolStripMenuItem1.Click += btnEdit_Click;
+            this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
+            resources.ApplyResources(this.editToolStripMenuItem1, "editToolStripMenuItem1");
+            this.editToolStripMenuItem1.Click += this.btnEdit_Click;
             // 
             // mniDuplicate
             // 
-            mniDuplicate.Name = "mniDuplicate";
-            resources.ApplyResources(mniDuplicate, "mniDuplicate");
-            mniDuplicate.Click += mniDuplicate_Click;
+            this.mniDuplicate.Name = "mniDuplicate";
+            resources.ApplyResources(this.mniDuplicate, "mniDuplicate");
+            this.mniDuplicate.Click += this.mniDuplicate_Click;
             // 
             // mniDelete
             // 
-            mniDelete.Name = "mniDelete";
-            resources.ApplyResources(mniDelete, "mniDelete");
-            mniDelete.Click += mniDelete_Click;
+            this.mniDelete.Name = "mniDelete";
+            resources.ApplyResources(this.mniDelete, "mniDelete");
+            this.mniDelete.Click += this.mniDelete_Click;
             // 
             // toolStripStatusLabel1
             // 
-            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            resources.ApplyResources(toolStripStatusLabel1, "toolStripStatusLabel1");
+            this.toolStripStatusLabel1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 2);
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            resources.ApplyResources(this.toolStripStatusLabel1, "toolStripStatusLabel1");
             // 
             // toolTips
             // 
-            toolTips.IsBalloon = true;
+            this.toolTips.IsBalloon = true;
             // 
             // tableLayoutPanel1
             // 
-            resources.ApplyResources(tableLayoutPanel1, "tableLayoutPanel1");
-            tableLayoutPanel1.Controls.Add(toolbarMain, 0, 0);
-            tableLayoutPanel1.Controls.Add(splitContainer1, 0, 1);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
+            this.tableLayoutPanel1.Controls.Add(this.toolbarMain, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.splitContainer1, 0, 1);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // toolbarMain
             // 
-            resources.ApplyResources(toolbarMain, "toolbarMain");
-            tableLayoutPanel1.SetColumnSpan(toolbarMain, 2);
-            toolbarMain.ImageScalingSize = new Size(24, 24);
-            toolbarMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripDropDownButton1, toolStripSeparator3, tbtnNewJob, btnEdit, toolStripSeparator1, btnReplicateAll, btnAbort, toolStripSeparator2 });
-            toolbarMain.Name = "toolbarMain";
+            resources.ApplyResources(this.toolbarMain, "toolbarMain");
+            this.tableLayoutPanel1.SetColumnSpan(this.toolbarMain, 2);
+            this.toolbarMain.ImageScalingSize = new Size(24, 24);
+            this.toolbarMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.toolStripDropDownButton1, this.toolStripSeparator3, this.tbtnNewJob, this.btnEdit, this.toolStripSeparator1, this.btnReplicateAll, this.btnAbort, this.toolStripSeparator2, this.btnPreview });
+            this.toolbarMain.Name = "toolbarMain";
             // 
             // toolStripDropDownButton1
             // 
-            toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { optionsToolStripMenuItem, homepageToolStripMenuItem1, aboutToolStripMenuItem1 });
-            resources.ApplyResources(toolStripDropDownButton1, "toolStripDropDownButton1");
-            toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.optionsToolStripMenuItem, this.homepageToolStripMenuItem1, this.aboutToolStripMenuItem1 });
+            resources.ApplyResources(this.toolStripDropDownButton1, "toolStripDropDownButton1");
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             // 
             // optionsToolStripMenuItem
             // 
-            optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            resources.ApplyResources(optionsToolStripMenuItem, "optionsToolStripMenuItem");
-            optionsToolStripMenuItem.Click += optionsToolStripMenuItem_Click;
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
+            this.optionsToolStripMenuItem.Click += this.optionsToolStripMenuItem_Click;
             // 
             // homepageToolStripMenuItem1
             // 
-            homepageToolStripMenuItem1.Name = "homepageToolStripMenuItem1";
-            resources.ApplyResources(homepageToolStripMenuItem1, "homepageToolStripMenuItem1");
-            homepageToolStripMenuItem1.Click += homepageToolStripMenuItem1_Click;
+            this.homepageToolStripMenuItem1.Name = "homepageToolStripMenuItem1";
+            resources.ApplyResources(this.homepageToolStripMenuItem1, "homepageToolStripMenuItem1");
+            this.homepageToolStripMenuItem1.Click += this.homepageToolStripMenuItem1_Click;
             // 
             // aboutToolStripMenuItem1
             // 
-            aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            resources.ApplyResources(aboutToolStripMenuItem1, "aboutToolStripMenuItem1");
-            aboutToolStripMenuItem1.Click += aboutToolStripMenuItem1_Click;
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            resources.ApplyResources(this.aboutToolStripMenuItem1, "aboutToolStripMenuItem1");
+            this.aboutToolStripMenuItem1.Click += this.aboutToolStripMenuItem1_Click;
             // 
             // toolStripSeparator3
             // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            resources.ApplyResources(toolStripSeparator3, "toolStripSeparator3");
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // tbtnNewJob
             // 
-            tbtnNewJob.Image = Properties.Resources.file_64;
-            resources.ApplyResources(tbtnNewJob, "tbtnNewJob");
-            tbtnNewJob.Name = "tbtnNewJob";
-            tbtnNewJob.Click += tbtnNewJob_Click;
+            this.tbtnNewJob.Image = Properties.Resources.file_64;
+            resources.ApplyResources(this.tbtnNewJob, "tbtnNewJob");
+            this.tbtnNewJob.Name = "tbtnNewJob";
+            this.tbtnNewJob.Click += this.tbtnNewJob_Click;
             // 
             // btnEdit
             // 
-            btnEdit.Image = Properties.Resources.edit_property_64;
-            resources.ApplyResources(btnEdit, "btnEdit");
-            btnEdit.Name = "btnEdit";
-            btnEdit.Click += btnEdit_Click;
+            this.btnEdit.Image = Properties.Resources.edit_property_64;
+            resources.ApplyResources(this.btnEdit, "btnEdit");
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Click += this.btnEdit_Click;
             // 
             // toolStripSeparator1
             // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(toolStripSeparator1, "toolStripSeparator1");
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // btnReplicateAll
             // 
-            btnReplicateAll.Image = Properties.Resources.play_64;
-            resources.ApplyResources(btnReplicateAll, "btnReplicateAll");
-            btnReplicateAll.Name = "btnReplicateAll";
-            btnReplicateAll.Click += btnReplicateAll_Click;
+            this.btnReplicateAll.Image = Properties.Resources.play_64;
+            resources.ApplyResources(this.btnReplicateAll, "btnReplicateAll");
+            this.btnReplicateAll.Name = "btnReplicateAll";
+            this.btnReplicateAll.Click += this.btnReplicateAll_Click;
             // 
             // btnAbort
             // 
-            resources.ApplyResources(btnAbort, "btnAbort");
-            btnAbort.Image = Properties.Resources.cancel_64;
-            btnAbort.Name = "btnAbort";
-            btnAbort.Click += btnAbort_Click;
+            resources.ApplyResources(this.btnAbort, "btnAbort");
+            this.btnAbort.Image = Properties.Resources.cancel_64;
+            this.btnAbort.Name = "btnAbort";
+            this.btnAbort.Click += this.btnAbort_Click;
             // 
             // toolStripSeparator2
             // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            resources.ApplyResources(toolStripSeparator2, "toolStripSeparator2");
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            // 
+            // btnPreview
+            // 
+            this.btnPreview.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            resources.ApplyResources(this.btnPreview, "btnPreview");
+            this.btnPreview.Name = "btnPreview";
+            this.btnPreview.Click += this.btnPreview_Click;
             // 
             // splitContainer1
             // 
-            resources.ApplyResources(splitContainer1, "splitContainer1");
-            tableLayoutPanel1.SetColumnSpan(splitContainer1, 2);
-            splitContainer1.Name = "splitContainer1";
+            resources.ApplyResources(this.splitContainer1, "splitContainer1");
+            this.tableLayoutPanel1.SetColumnSpan(this.splitContainer1, 2);
+            this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            splitContainer1.Panel1.Controls.Add(lvwJobs);
+            this.splitContainer1.Panel1.Controls.Add(this.lvwJobs);
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(richTextBoxLog);
-            tableLayoutPanel1.SetRowSpan(splitContainer1, 2);
-            splitContainer1.SplitterMoved += splitContainer1_SplitterMoved;
+            this.splitContainer1.Panel2.Controls.Add(this.richTextBoxLog);
+            this.tableLayoutPanel1.SetRowSpan(this.splitContainer1, 2);
+            this.splitContainer1.SplitterMoved += this.splitContainer1_SplitterMoved;
             // 
             // lvwJobs
             // 
-            lvwJobs.CheckBoxes = true;
-            lvwJobs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3 });
-            lvwJobs.ContextMenuStrip = menuContext;
-            resources.ApplyResources(lvwJobs, "lvwJobs");
-            lvwJobs.FullRowSelect = true;
-            lvwJobs.MultiSelect = false;
-            lvwJobs.Name = "lvwJobs";
-            lvwJobs.UseCompatibleStateImageBehavior = false;
-            lvwJobs.View = System.Windows.Forms.View.Details;
-            lvwJobs.ColumnWidthChanged += lvwJobs_ColumnWidthChanged;
-            lvwJobs.MouseDoubleClick += lvwJobs_MouseDoubleClick;
+            this.lvwJobs.CheckBoxes = true;
+            this.lvwJobs.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { this.columnHeader1, this.columnHeader2, this.columnHeader3 });
+            this.lvwJobs.ContextMenuStrip = this.menuContext;
+            resources.ApplyResources(this.lvwJobs, "lvwJobs");
+            this.lvwJobs.FullRowSelect = true;
+            this.lvwJobs.MultiSelect = false;
+            this.lvwJobs.Name = "lvwJobs";
+            this.lvwJobs.UseCompatibleStateImageBehavior = false;
+            this.lvwJobs.View = System.Windows.Forms.View.Details;
+            this.lvwJobs.ColumnWidthChanged += this.lvwJobs_ColumnWidthChanged;
+            this.lvwJobs.MouseDoubleClick += this.lvwJobs_MouseDoubleClick;
             // 
             // columnHeader1
             // 
-            resources.ApplyResources(columnHeader1, "columnHeader1");
+            resources.ApplyResources(this.columnHeader1, "columnHeader1");
             // 
             // columnHeader2
             // 
-            resources.ApplyResources(columnHeader2, "columnHeader2");
+            resources.ApplyResources(this.columnHeader2, "columnHeader2");
             // 
             // columnHeader3
             // 
-            resources.ApplyResources(columnHeader3, "columnHeader3");
+            resources.ApplyResources(this.columnHeader3, "columnHeader3");
             // 
             // richTextBoxLog
             // 
-            resources.ApplyResources(richTextBoxLog, "richTextBoxLog");
-            richTextBoxLog.Name = "richTextBoxLog";
+            resources.ApplyResources(this.richTextBoxLog, "richTextBoxLog");
+            this.richTextBoxLog.Name = "richTextBoxLog";
             // 
             // timer1
             // 
-            timer1.Interval = 1000;
-            timer1.Tick += timer1_Tick;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += this.timer1_Tick;
             // 
             // Main
             // 
             resources.ApplyResources(this, "$this");
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            Controls.Add(tableLayoutPanel1);
-            Name = "Main";
-            FormClosing += Main_FormClosing;
-            Load += Main_Load;
-            menuContext.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
-            toolbarMain.ResumeLayout(false);
-            toolbarMain.PerformLayout();
-            splitContainer1.Panel1.ResumeLayout(false);
-            splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
-            splitContainer1.ResumeLayout(false);
-            ResumeLayout(false);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Name = "Main";
+            this.FormClosing += this.Main_FormClosing;
+            this.Load += this.Main_Load;
+            this.menuContext.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.toolbarMain.ResumeLayout(false);
+            this.toolbarMain.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)this.splitContainer1).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.ResumeLayout(false);
         }
 
 
@@ -308,5 +317,6 @@ namespace SimpleDatabaseReplicator.UI
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.RichTextBox richTextBoxLog;
         private System.Windows.Forms.ContextMenuStrip menuContext;
+        private System.Windows.Forms.ToolStripButton btnPreview;
     }
 }

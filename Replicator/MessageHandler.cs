@@ -17,32 +17,32 @@ namespace SimpleDatabaseReplicator
         private TaskEvent OnStatusUI;
         private TaskEvent OnErrorUI;
         private SynchronizationContext windowsFormsContext;
-        private ReplicationTaskInfo source;
 
-        public MessageHandler(SynchronizationContext windowsFormsContext, ReplicationTaskInfo source, TaskEvent onStatusUI, TaskEvent onErrorUI)
+        public MessageHandler(SynchronizationContext windowsFormsContext, TaskEvent onStatusUI, TaskEvent onErrorUI)
         {
             this.OnStatusUI = onStatusUI;
             this.OnErrorUI = onErrorUI;
             this.windowsFormsContext = windowsFormsContext;
-            this.source = source;
         }
 
-        public void SendError(string msg)
+        public void SendError(string msg, ReplicationTaskInfo source)
         {
-            source.Errors.Add(msg);
+            source?.Errors.Add(msg);
             windowsFormsContext.Post((state) =>
             {
                 OnErrorUI(msg);
             }, null);
         }
 
-        public void SendStatus(string msg, bool newLine = false)
+        public void SendStatus(string msg, ReplicationTaskInfo source, bool newLine = false)
         {
-            source.Status = msg;
-            source.StatusLog.Add(msg);
+            if (source != null)
+            {
+                source.Status = msg;
+                source.StatusLog.Add(msg);
+            }
             windowsFormsContext.Post((state) =>
             {
-                
                 OnStatusUI(msg + (newLine ? "\n" :""));
             }, null);
         }

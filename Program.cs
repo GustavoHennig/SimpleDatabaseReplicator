@@ -46,7 +46,7 @@ namespace SimpleDatabaseReplicator
                     SynchronousSynchronizationContext sync = new SynchronousSynchronizationContext();
                     Replicator r = new Replicator(new MessageHandler(
                         sync,
-                        job, msg => Console.WriteLine(msg), msg => Console.WriteLine(msg)
+                        msg => Console.WriteLine(msg), msg => Console.WriteLine(msg)
                         ));
                     r.Replicate(job);
                     return;

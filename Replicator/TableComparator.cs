@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+using SimpleDatabaseReplicator.DataObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,7 +34,8 @@ namespace SimpleDatabaseReplicator
                 {
                     if (dest.Data.ContainsKey(riS.KeyValue))
                     {
-                        if (!riS.Equals(dest.Data[riS.KeyValue]))
+
+                        if (!TableRowComparator.Compare(riS, dest.Data[riS.KeyValue], true))
                         {
                             riS.DifferentFromDestination = true;
                             riS.NotExistsInDestination = false;

@@ -117,7 +117,7 @@ namespace SimpleDatabaseReplicator.DB
                             {
                                 dbValue = null;
                             }
-                            row.Data.Add(dr.GetName(i), dbValue);
+                            row.Data.Add(dr.GetName(i), new DataObjects.TableCell( dbValue));
                         }
 
                         row.BuildCompositeKey(table.Keys, table.ColumnKeyName);
@@ -148,7 +148,7 @@ namespace SimpleDatabaseReplicator.DB
 
             catch (Exception e)
             {
-                messageHandler.SendError(e.Message);
+                messageHandler.SendError(e.Message, null);
                 Debug.WriteLine(e.Message);
             }
             return tb;

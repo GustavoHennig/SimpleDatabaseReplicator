@@ -57,10 +57,10 @@ namespace SimpleDatabaseReplicator.UI
             timer1.Enabled = true;
 
         }
-        
+
         private void Main_Load(object sender, EventArgs e)
         {
-            Text = $"{Text} {Assembly.GetExecutingAssembly(). GetName().Version.ToString()}";
+            Text = $"{Text} {Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
         }
 
         private void btnReplica_Click(object sender, EventArgs e)
@@ -123,7 +123,7 @@ namespace SimpleDatabaseReplicator.UI
             Thread thread = new Thread(() =>
             {
                 Replicator rt = new Replicator(new MessageHandler(
-                    windowsFormsContext, job, LogStatus, LogError
+                    windowsFormsContext, LogStatus, LogError
                     ));
                 rt.Replicate(job);
                 windowsFormsContext.Post((object state) =>
@@ -403,5 +403,19 @@ namespace SimpleDatabaseReplicator.UI
 
         }
 
+        private void btnPreview_Click(object sender, EventArgs e)
+        {
+            try
+            {
+            DataPreview dataPreview = new DataPreview();
+            ListViewItem lvw = lvwJobs.SelectedItems[0];
+            dataPreview.SetData(lvw.Tag as ReplicationTaskInfo);
+            dataPreview.Show();
+                    }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
