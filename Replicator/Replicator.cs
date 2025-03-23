@@ -1,29 +1,9 @@
-/**
- * Copyright 2006-2018 Gustavo Augusto Hennig
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- **/
+using SimpleDatabaseReplicator.DB;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using SimpleDatabaseReplicator.DB;
-using System.Collections;
-using System.Collections.Specialized;
-using System.Linq;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
-using Dapper;
 
 namespace SimpleDatabaseReplicator
 {
@@ -34,14 +14,12 @@ namespace SimpleDatabaseReplicator
         public delegate void TaskProgress(double value, double max);
         public delegate void TaskEvent(ReplicationTaskInfo source, string message);
 
-        MessageHandler messageHandler;
+        private readonly MessageHandler _messageHandler;
 
         public Replicator(MessageHandler messageHandler)
         {
-
-            this.messageHandler = messageHandler;
+            _messageHandler = messageHandler;
         }
-
 
         public void Replicate(ReplicationTaskInfo job)
         {
@@ -49,28 +27,27 @@ namespace SimpleDatabaseReplicator
             {
                 job.IsRunning = true;
 
-                DbConnectionInfo sourceConnectionInfo = new DbConnectionInfo(job.ConnectionStringSource, job.DbProviderSource);
-                DbConnectionInfo destinationConnectionInfo = new DbConnectionInfo(job.ConnectionStringDestination, job.DbProviderDestination);
+                var sourceConnectionInfo = new DbConnectionInfo(job.ConnectionStringSource, job.DbProviderSource);
+                var destinationConnectionInfo = new DbConnectionInfo(job.ConnectionStringDestination, job.DbProviderDestination);
 
                 int totalTables = job.SourceTables.Count(w => w.Checked);
                 int curTable = 1;
 
-                using (DbCon dbSource = DbCon.Create(sourceConnectionInfo))
-                using (DbCon dbDest = DbCon.Create(destinationConnectionInfo))
+                using (var dbSource = DbCon.Create(sourceConnectionInfo))
+                using (var dbDest = DbCon.Create(destinationConnectionInfo))
                 {
-                    foreach (TableInfo table in job.SourceTables.Where(w => w.Checked))
+                    foreach (var table in job.SourceTables.Where(w => w.Checked))
                     {
-                        curTable = this.ExecuteTableReplication(job, totalTables, curTable, dbSource, dbDest, table);
+                        curTable = ExecuteTableReplication(job, totalTables, curTable, dbSource, dbDest, table);
                     }
                 }
 
-                messageHandler.SendStatus("Finished", job);
+                _messageHandler.SendStatus("Finished", job);
             }
             catch (Exception e)
             {
-                messageHandler.SendError(e.Message, job);
-                messageHandler.SendStatus("Error " + e.Message, job);
-
+                _messageHandler.SendError(e.Message, job);
+                _messageHandler.SendStatus("Error " + e.Message, job);
             }
             finally
             {
@@ -81,219 +58,81 @@ namespace SimpleDatabaseReplicator
 
         private int ExecuteTableReplication(ReplicationTaskInfo job, int totalTables, int curTable, DbCon dbSource, DbCon dbDest, TableInfo table)
         {
+            var syncParams = InitializeSyncParameters(table, dbSource);
             bool workDoneForThisTable = table.SynchronizationMode == TableInfo.SyncMode.AllAtOnce;
-
-            long curMinId = 0;
-            long curMaxId = 0;
-            long offset = 0;
-            long maxId = 0;
-
-            // TODO: Enable a way to import without local comparison
-
-
-            if (table.SynchronizationMode == TableInfo.SyncMode.ByIdRange)
-            {
-                // disables limit/offset
-                offset = -1;
-                if (!string.IsNullOrWhiteSpace(table.ColumnKeyName))
-                    maxId = dbSource.GetMax(table.TableSchema, table.TableName, table.ColumnKeyName);
-            }
-
 
             do
             {
-                if (table.SynchronizationMode == TableInfo.SyncMode.ByIdRange)
-                {
-                    curMinId = curMaxId;
-                    curMaxId = curMinId + table.SyncRangeSize;
-                }
-                else if (table.SynchronizationMode == TableInfo.SyncMode.ByLimitOffset)
-                {
-                    // It will require multiple runs for a full sync
-                    offset += table.SyncRangeSize;
-                }
+                UpdateSyncRanges(table, ref syncParams);
 
-                if (curMaxId > 0)
+                LogSyncStatus(job, totalTables, curTable, table, syncParams);
+
+                var sw = Stopwatch.StartNew();
+                
+                // Load tables in parallel
+                var tableData = LoadSourceAndDestinationTables(job, table, dbSource, dbDest, syncParams);
+                Table sourceTable = tableData.SourceTable;
+                Table destTable = tableData.DestinationTable;
+
+                if (sourceTable.Data.Count == 0)
                 {
-                    messageHandler.SendStatus($"Table {curTable} of {totalTables} - Loading {table.TableName} [{curMinId}-{curMaxId}]", job);
-                }
-                else
-                {
-                    messageHandler.SendStatus($"Table {curTable} of {totalTables} - Loading {table.TableName} [{offset}]", job);
+                    workDoneForThisTable = CheckIfWorkDoneForTable(table, syncParams);
                 }
 
-                Stopwatch sw = Stopwatch.StartNew();
-                //Load Source Table (Async)
-                DbTableDataLoader dblo1 = new DbTableDataLoader(dbSource, messageHandler);
+                LogSyncProgress(job, sw);
 
-                Task<Table> taskTb1 = Task.Run(() =>
-                {
-                    return dblo1.LoadTableData(table, null, table.ColumnKeyName, table.ColumnOrderByName, curMinId, curMaxId, job.RetrieveDataCondition, table.SyncRangeSize, offset);
-                });
-
-                //Load Destination Table (Sync)
-                DbTableDataLoader dblo2 = new DbTableDataLoader(dbDest, messageHandler);
-
-                Table tb2 = dblo2.LoadTableData(table, table, table.ColumnKeyName, table.ColumnOrderByName, curMinId, curMaxId, job.RetrieveDataCondition, table.SyncRangeSize, offset);
-
-                //Wait finish loading Source Table
-                taskTb1.Wait();
-                Table tb1 = taskTb1.Result;
-
-
-                if (tb1.Data.Count == 0)
-                {
-                    if (table.SynchronizationMode == TableInfo.SyncMode.ByIdRange)
-                    {
-                        workDoneForThisTable = curMaxId > maxId;
-                    }
-                    else if (table.SynchronizationMode == TableInfo.SyncMode.ByLimitOffset)
-                    {
-                        workDoneForThisTable = true;
-                    }
-                }
-
-                messageHandler.SendStatus($"({sw.ElapsedMilliseconds / 1000}s)", job, true);
-                messageHandler.SendStatus($"Table {curTable} of {totalTables} - Syncing {table.TableName}", job, true);
-                sw.Restart();
-
-                //Execute Synchronization
-                DbSyncRunner dbSyncRunner = new DbSyncRunner(dbDest, messageHandler);
-                dbSyncRunner.OnProgress = delegate (double v, double max)
-                {
-                    job.OnProgress(CalcProgress(curMinId, curMaxId, maxId, v, max), 100);
-                };
-
-                dbSyncRunner.ExecuteInstructions(tb1, tb2);
-
-
-                job.OnProgress(CalcProgress(curMinId, curMaxId, maxId, 100, 100), 100);
+                // Execute Synchronization
+                SynchronizeTables(job, sourceTable, destTable, dbDest, syncParams);
 
                 if (Replicator.AbortReplication)
                     throw new ApplicationException("Aborted");
 
             } while (!workDoneForThisTable);
 
-            curTable++;
-            return curTable;
+            return curTable + 1;
         }
 
-        private double CalcProgress(double curMinId, double curMaxId, double maxId, double batchValue, double batchCount)
-        {
-
-            /*
-             batchCount 100
-             batchValue  X
-             */
-            if (batchCount == 0)
-                batchCount = 1;
-            double batchPercent = (batchValue * 100) / batchCount;
-
-
-
-            if (maxId > 0 && curMaxId > 0)
-            {
-                /*
-                 curMaxId = 100
-                 curMinId = 0
-                */
-                double partValue = curMinId;
-
-                batchPercent = (partValue * 100) / maxId;
-            }
-            else
-            {
-                return batchPercent;
-            }
-
-
-
-            return batchPercent;
-
-        }
-
-        public ReplicationPreviewResult Preview(ReplicationTaskInfo job, TableInfo selectedTable)
+        public ReplicationPreviewResult Preview(ReplicationTaskInfo job, TableInfo selectedTable, SyncParameters syncParameters)
         {
             try
             {
                 job.IsRunning = true;
 
-                DbConnectionInfo sourceConnectionInfo = new DbConnectionInfo(job.ConnectionStringSource, job.DbProviderSource);
-                DbConnectionInfo destinationConnectionInfo = new DbConnectionInfo(job.ConnectionStringDestination, job.DbProviderDestination);
+                var sourceConnectionInfo = new DbConnectionInfo(job.ConnectionStringSource, job.DbProviderSource);
+                var destinationConnectionInfo = new DbConnectionInfo(job.ConnectionStringDestination, job.DbProviderDestination);
 
                 List<TableRow> modifiedRows = new List<TableRow>();
-                Table destTable;
-                using (DbCon dbSource = DbCon.Create(sourceConnectionInfo))
-                using (DbCon dbDest = DbCon.Create(destinationConnectionInfo))
+                Table destTable = null;
+
+                using (var dbSource = DbCon.Create(sourceConnectionInfo))
+                using (var dbDest = DbCon.Create(destinationConnectionInfo))
                 {
-                    // Load the selected table
-                    messageHandler.SendStatus($"Loading table: {selectedTable.TableName} from source...", job);
+                    _messageHandler.SendStatus($"Loading table: {selectedTable.TableName} from source...", job);
 
-                    long curMinId = 0;
-                    long curMaxId = 0;
-                    long offset = -1;
-                    long maxId = 0;
+                    var syncParams = InitializeSyncParameters(selectedTable, dbSource);
+                    UpdateSyncRanges(selectedTable, ref syncParams);
 
-                    if (selectedTable.SynchronizationMode == TableInfo.SyncMode.ByIdRange)
-                    {
-                        // disables limit/offset
-                        offset = -1;
-                        if (!string.IsNullOrWhiteSpace(selectedTable.ColumnKeyName))
-                            maxId = dbSource.GetMax(selectedTable.TableSchema, selectedTable.TableName, selectedTable.ColumnKeyName);
-                    }
-
-                    if (selectedTable.SynchronizationMode == TableInfo.SyncMode.ByIdRange)
-                    {
-                        curMaxId = curMinId + selectedTable.SyncRangeSize;
-                    }
-                    else if (selectedTable.SynchronizationMode == TableInfo.SyncMode.ByLimitOffset)
-                    {
-                        // Preview with offset
-                        offset += selectedTable.SyncRangeSize;
-                    }
-
-                    // Load Source Table
-                    DbTableDataLoader dbSourceLoader = new DbTableDataLoader(dbSource, messageHandler);
-                    Table sourceTable = dbSourceLoader.LoadTableData(
-                        selectedTable,
-                        null,
-                        selectedTable.ColumnKeyName,
-                        selectedTable.ColumnOrderByName,
-                        curMinId,
-                        curMaxId,
-                        job.RetrieveDataCondition,
-                        selectedTable.SyncRangeSize,
-                        offset
-                    );
-
-                    // Load Destination Table
-                    DbTableDataLoader dbDestLoader = new DbTableDataLoader(dbDest, messageHandler);
-                    destTable = dbDestLoader.LoadTableData(
-                        selectedTable,
-                        selectedTable,
-                        selectedTable.ColumnKeyName,
-                        selectedTable.ColumnOrderByName,
-                        curMinId,
-                        curMaxId,
-                        job.RetrieveDataCondition,
-                        selectedTable.SyncRangeSize,
-                        offset
-                    );
+                    // Load tables using the same method as replication
+                    var tableData = LoadSourceAndDestinationTables(job, selectedTable, dbSource, dbDest, syncParams);
+                    Table sourceTable = tableData.SourceTable;
+                    destTable = tableData.DestinationTable;
 
                     // Compare tables and get differences
-                    TableComparator tc = new TableComparator();
+                    var tc = new TableComparator();
                     modifiedRows = tc.SearchForObjectDifferences(sourceTable, destTable);
 
-                    messageHandler.SendStatus($"Preview complete. Found {modifiedRows.Count} differences.", job);
+                    _messageHandler.SendStatus($"Preview complete. Found {modifiedRows.Count} differences.", job);
                 }
 
-                return new ReplicationPreviewResult { ModifiedRows = modifiedRows,
-                TableDestination = destTable};
+                return new ReplicationPreviewResult { 
+                    ModifiedRows = modifiedRows,
+                    TableDestination = destTable
+                };
             }
             catch (Exception e)
             {
-                messageHandler.SendError(e.Message, job);
-                messageHandler.SendStatus("Error " + e.Message, job);
+                _messageHandler.SendError(e.Message, job);
+                _messageHandler.SendStatus("Error " + e.Message, job);
                 return null;
             }
             finally
@@ -302,6 +141,175 @@ namespace SimpleDatabaseReplicator
             }
         }
 
+        #region Helper Methods
+
+        private SyncParameters InitializeSyncParameters(TableInfo table, DbCon dbSource)
+        {
+            var result = new SyncParameters
+            {
+                CurMinId = 0,
+                CurMaxId = 0,
+                Offset = -1,
+                MaxId = 0
+            };
+
+            if (table.SynchronizationMode == TableInfo.SyncMode.ByIdRange)
+            {
+                // Disables limit/offset
+                result.Offset = -1;
+                
+                if (!string.IsNullOrWhiteSpace(table.ColumnKeyName))
+                    result.MaxId = dbSource.GetMax(table.TableSchema, table.TableName, table.ColumnKeyName);
+            }
+
+            return result;
+        }
+
+        private void UpdateSyncRanges(TableInfo table, ref SyncParameters syncParams)
+        {
+            if (table.SynchronizationMode == TableInfo.SyncMode.ByIdRange)
+            {
+                syncParams.CurMinId = syncParams.CurMaxId;
+                syncParams.CurMaxId = syncParams.CurMinId + table.SyncRangeSize;
+            }
+            else if (table.SynchronizationMode == TableInfo.SyncMode.ByLimitOffset)
+            {
+                // It will require multiple runs for a full sync
+                syncParams.Offset += table.SyncRangeSize;
+            }
+        }
+
+        private void LogSyncStatus(ReplicationTaskInfo job, int totalTables, int curTable, TableInfo table, SyncParameters syncParams)
+        {
+            if (syncParams.CurMaxId > 0)
+            {
+                _messageHandler.SendStatus($"Table {curTable} of {totalTables} - Loading {table.TableName} [{syncParams.CurMinId}-{syncParams.CurMaxId}]", job);
+            }
+            else
+            {
+                _messageHandler.SendStatus($"Table {curTable} of {totalTables} - Loading {table.TableName} [{syncParams.Offset}]", job);
+            }
+        }
+
+        private void LogSyncProgress(ReplicationTaskInfo job, Stopwatch sw)
+        {
+            _messageHandler.SendStatus($"({sw.ElapsedMilliseconds / 1000}s)", job, true);
+            _messageHandler.SendStatus($"Syncing...", job, true);
+            sw.Restart();
+        }
+
+        private bool CheckIfWorkDoneForTable(TableInfo table, SyncParameters syncParams)
+        {
+            if (table.SynchronizationMode == TableInfo.SyncMode.ByIdRange)
+            {
+                return syncParams.CurMaxId > syncParams.MaxId;
+            }
+            else if (table.SynchronizationMode == TableInfo.SyncMode.ByLimitOffset)
+            {
+                return true;
+            }
+            
+            return false;
+        }
+
+        private TableLoadResult LoadSourceAndDestinationTables(
+            ReplicationTaskInfo job, 
+            TableInfo table, 
+            DbCon dbSource, 
+            DbCon dbDest, 
+            SyncParameters syncParams)
+        {
+            // Load Source Table (Async)
+            var dbSourceLoader = new DbTableDataLoader(dbSource, _messageHandler);
+            Task<Table> taskSourceTable = Task.Run(() =>
+            {
+                return dbSourceLoader.LoadTableData(
+                    table, 
+                    null, 
+                    table.ColumnKeyName, 
+                    table.ColumnOrderByName, 
+                    syncParams.CurMinId, 
+                    syncParams.CurMaxId, 
+                    job.RetrieveDataCondition, 
+                    table.SyncRangeSize, 
+                    syncParams.Offset
+                );
+            });
+
+            // Load Destination Table (Sync)
+            var dbDestLoader = new DbTableDataLoader(dbDest, _messageHandler);
+            Table destTable = dbDestLoader.LoadTableData(
+                table, 
+                table, 
+                table.ColumnKeyName, 
+                table.ColumnOrderByName, 
+                syncParams.CurMinId, 
+                syncParams.CurMaxId, 
+                job.RetrieveDataCondition, 
+                table.SyncRangeSize, 
+                syncParams.Offset
+            );
+
+            // Wait for source table to finish loading
+            taskSourceTable.Wait();
+            Table sourceTable = taskSourceTable.Result;
+
+            return new TableLoadResult
+            {
+                SourceTable = sourceTable,
+                DestinationTable = destTable
+            };
+        }
+
+        private void SynchronizeTables(
+            ReplicationTaskInfo job, 
+            Table sourceTable, 
+            Table destTable, 
+            DbCon dbDest, 
+            SyncParameters syncParams)
+        {
+            var dbSyncRunner = new DbSyncRunner(dbDest, _messageHandler);
+            dbSyncRunner.OnProgress = (v, max) =>
+            {
+                job.OnProgress(CalcProgress(syncParams.CurMinId, syncParams.CurMaxId, syncParams.MaxId, v, max), 100);
+            };
+
+            dbSyncRunner.ExecuteInstructions(sourceTable, destTable);
+            job.OnProgress(CalcProgress(syncParams.CurMinId, syncParams.CurMaxId, syncParams.MaxId, 100, 100), 100);
+        }
+
+        private double CalcProgress(double curMinId, double curMaxId, double maxId, double batchValue, double batchCount)
+        {
+            if (batchCount == 0)
+                batchCount = 1;
+                
+            double batchPercent = (batchValue * 100) / batchCount;
+
+            if (maxId > 0 && curMaxId > 0)
+            {
+                double partValue = curMinId;
+                batchPercent = (partValue * 100) / maxId;
+            }
+
+            return batchPercent;
+        }
+
+        #endregion
+    }
+
+    public class SyncParameters
+    {
+        public string KeyField { get; set; }
+        public long CurMinId { get; set; }
+        public long CurMaxId { get; set; }
+        public long Offset { get; set; }
+        public long MaxId { get; set; }
+    }
+
+    public class TableLoadResult
+    {
+        public Table SourceTable { get; set; }
+        public Table DestinationTable { get; set; }
     }
 
     public class ReplicationPreviewResult

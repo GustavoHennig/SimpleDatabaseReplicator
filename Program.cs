@@ -58,18 +58,23 @@ namespace SimpleDatabaseReplicator
                 }
             }
 
+
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2); // .NET Core 3.1+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new Main());
         }
 
 
 
 
-    class SynchronousSynchronizationContext : SynchronizationContext
-    {
-        public override void Post(SendOrPostCallback d, object state)
+        class SynchronousSynchronizationContext : SynchronizationContext
         {
-            this.Send(d, state);
+            public override void Post(SendOrPostCallback d, object state)
+            {
+                this.Send(d, state);
+            }
         }
     }
-}
 }

@@ -28,7 +28,7 @@ namespace SimpleDatabaseReplicator.UI
             windowsFormsContext = SynchronizationContext.Current;
             dataGridView1.CellFormatting += this.DataGridView1_CellFormatting;
             messageHandler = new MessageHandler(windowsFormsContext, LogStatus, LogError);
-      replicator=      new Replicator(messageHandler);
+            replicator = new Replicator(messageHandler);
 
         }
 
@@ -51,10 +51,10 @@ namespace SimpleDatabaseReplicator.UI
         {
             this.replicationTaskInfo = replicationTaskInfo;
 
-            toolStripDropDownButton1.DropDownItems.Clear();
+            cmbTables.Items.Clear();
             foreach (var item in replicationTaskInfo.SourceTables.Where(t => t.Checked))
             {
-                toolStripDropDownButton1.DropDownItems.Add(item.FormattedTableName);
+                cmbTables.Items.Add(item.FormattedTableName);
             }
 
         }
@@ -70,8 +70,8 @@ namespace SimpleDatabaseReplicator.UI
             Replicator.AbortReplication = false;
 
             // Check if a table is selected
-            if (toolStripDropDownButton1.Text == "toolStripDropDownButton1" ||
-                string.IsNullOrEmpty(toolStripDropDownButton1.Text))
+            if (cmbTables.Text == "toolStripDropDownButton1" ||
+                string.IsNullOrEmpty(cmbTables.Text))
             {
                 MessageBox.Show("Please select a table first", "Table Selection",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -79,8 +79,7 @@ namespace SimpleDatabaseReplicator.UI
             }
 
             // Find the selected table info
-            TableInfo selectedTable = job.SourceTables.FirstOrDefault(t =>
-                t.FormattedTableName == toolStripDropDownButton1.Text);
+            TableInfo selectedTable = GetSelectedTableInfo();
 
             if (selectedTable == null)
             {
@@ -92,9 +91,20 @@ namespace SimpleDatabaseReplicator.UI
             // Set the selected table as checked for preview
             selectedTable.Checked = true;
 
+            int.TryParse(txtFilterMin.Text, out int min);
+            int.TryParse(txtFilterMax.Text, out int max);
+            var syncParameters = new SyncParameters
+            {
+                CurMaxId = max,
+                CurMinId = min,
+                KeyField = cmbFilterFields.Text
+            };
             Thread thread = new Thread(() =>
             {
-                previewResult = replicator.Preview(job, selectedTable);
+
+
+
+                previewResult = replicator.Preview(job, selectedTable, syncParameters);
 
                 windowsFormsContext.Post((object state) =>
                 {
@@ -104,6 +114,17 @@ namespace SimpleDatabaseReplicator.UI
 
             thread.Name = "PreviewReplicator";
             thread.Start();
+        }
+
+        public TableInfo GetSelectedTableInfo()
+        {
+            string selectedTableName = cmbTables.Text;
+
+            // Find the selected table info
+            TableInfo selectedTable = replicationTaskInfo.SourceTables.FirstOrDefault(t =>
+                t.FormattedTableName == selectedTableName);
+
+            return selectedTable;
         }
 
         private void DisplayPreviewResults(TableInfo tableInfo)
@@ -212,7 +233,7 @@ namespace SimpleDatabaseReplicator.UI
             }
 
             // If you have a status strip or label, update it here
-            Text = $"DataPreview - {text}";
+            lblStatusBar.Text = $"{text}";
         }
 
         private void LogError(string message)
@@ -226,13 +247,13 @@ namespace SimpleDatabaseReplicator.UI
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void toolStripDropDownButton1_Click(object sender, EventArgs e)
+        private void cmbTables_SelectedIndexChanged(object sender, EventArgs e)
         {
-        }
+            var tableInfo = GetSelectedTableInfo();
 
-        private void toolStripDropDownButton1_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            toolStripDropDownButton1.Text = e.ClickedItem.Text;
+            cmbFilterFields.Items.Clear();
+            cmbFilterFields.Items.AddRange(tableInfo.Columns.Select(c => c.Name).ToArray());
+            cmbFilterFields.SelectedIndex = cmbFilterFields.Items.IndexOf(tableInfo.ColumnKeyName);
 
         }
 
@@ -255,5 +276,7 @@ namespace SimpleDatabaseReplicator.UI
 
             MessageBox.Show("Sync complete");
         }
+
+
     }
 }

@@ -178,19 +178,19 @@
     <value>None</value>
   </data>
   <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 34</value>
+    <value>270, 34</value>
   </data>
   <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="homepageToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 34</value>
+    <value>270, 34</value>
   </data>
   <data name="homepageToolStripMenuItem1.Text" xml:space="preserve">
     <value>Web site</value>
   </data>
   <data name="aboutToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 34</value>
+    <value>270, 34</value>
   </data>
   <data name="aboutToolStripMenuItem1.Text" xml:space="preserve">
     <value>About</value>
@@ -255,12 +255,12 @@
   <data name="btnPreview.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAEESURBVEhL3ZKvDoJQFId5Dk0238GGr2DXbqBa3Cw6uy+g
-        RZozaTM4gxvZQHA6kc05/2CAetzP7bIrF0Hk3iLbx91O+L5xLloQBKQSDS/TNMkwDKnAGQYw0HVdKnAK
-        Ae/+kIK0wPV0JHvWI3veo4M1kR+wBjot24UQFpEW4OUAX6I2MJMc2K2GoRzrwp18HXDOHjUXp9cZFaeR
-        GoC0OnWpODq8zqyRxMDGvYdyRtbIx8B6f6Py2HmT/xKJDVRqjY/ytAhm/FwI1FtdKg23gjCOaITdFz8X
-        An3rIoiSYDL+Z2BzrDl3gMmiPwPAmrHu3IEksG6sXVkAwPlHAZVovu93VKKpfp4ISreGcqlKAwAAAABJ
-        RU5ErkJggg==
+        YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAEKSURBVEhL3ZG9DsFQHMXvczDZvIOtXsHObuhqkViI3Quw
+        6CYmNoMYJJ0NBiFFIoIytOuf0+TeXP3yde+iyS+3OcP53Z4y3/dJJ4HAsiwyTVMp6BQCBIZhKAWdEcHV
+        vSlBmeB82NFy1KLluEWOPRC5MoHdMWhazwi4RJlALgf4EuT6BI+5kCsTrGddUY658E+QvyXYHq9UnRyC
+        U87f4aUApcXhnrI9Jzg/laQKFntXlHM+lSQK5psL5fvbp/JvJLGCQqmSWM5JkiCT84igXGtSrruKLQ0T
+        luAdmZxHBG37FFuWBC/j5XKOmX8WAH7rcI6ZMffPgjQwN2bXJgDo/COBTpjneQ2dML0PY3cISreGe8HM
+        qgAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="btnPreview.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
@@ -280,7 +280,7 @@
     <value>0, 0, 3, 0</value>
   </data>
   <data name="toolbarMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1268, 34</value>
+    <value>1307, 34</value>
   </data>
   <data name="toolbarMain.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -340,7 +340,7 @@
     <value>4, 6, 4, 6</value>
   </data>
   <data name="lvwJobs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1262, 443</value>
+    <value>1301, 452</value>
   </data>
   <data name="lvwJobs.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -379,7 +379,7 @@
     <value>3, 4, 3, 4</value>
   </data>
   <data name="richTextBoxLog.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1262, 443</value>
+    <value>1301, 453</value>
   </data>
   <data name="richTextBoxLog.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -412,10 +412,10 @@
     <value>1</value>
   </data>
   <data name="splitContainer1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1262, 890</value>
+    <value>1301, 909</value>
   </data>
   <data name="splitContainer1.SplitterDistance" type="System.Int32, mscorlib">
-    <value>443</value>
+    <value>452</value>
   </data>
   <data name="splitContainer1.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -445,7 +445,7 @@
     <value>3</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1268, 932</value>
+    <value>1307, 951</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -478,7 +478,7 @@
     <value>144, 144</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1268, 932</value>
+    <value>1307, 951</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

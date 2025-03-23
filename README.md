@@ -4,7 +4,7 @@ This is a very simple database data synchronizer. It loads a bunch of rows from 
 
 This project was created in 2006 to resolve a database benchmarking problem, then it was abandoned. Now, I am resurrecting the project and fixing the old, ugly code.
 
-> [!IMPORTANT]
+
 > Since this is a very old project, it was created by an inexperienced developer, so don't expect good code quality. I am trying to fix it, but it is a slow process.
 
 ## Replication Purpose
