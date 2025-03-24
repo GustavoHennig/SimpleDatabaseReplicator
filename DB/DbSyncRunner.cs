@@ -108,6 +108,7 @@ namespace SimpleDatabaseReplicator.DB
 
                             if (!exists)
                             {
+                                // todo: improve this, very slow
                                 intAffected += db
                                     .Query(dest.TableInfo.FormattedTableName)
                                     .Insert( values: ri.GetValues());

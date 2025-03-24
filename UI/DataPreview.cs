@@ -59,13 +59,12 @@ namespace SimpleDatabaseReplicator.UI
 
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private async void btnRunComparison_Click(object sender, EventArgs e)
         {
 
-            RunPreview(replicationTaskInfo);
-            dataGridView1.Refresh();
+            await RunPreview(replicationTaskInfo);
         }
-        private void RunPreview(ReplicationTaskInfo job)
+        private async Task RunPreview(ReplicationTaskInfo job)
         {
             Replicator.AbortReplication = false;
 
@@ -99,21 +98,24 @@ namespace SimpleDatabaseReplicator.UI
                 CurMinId = min,
                 KeyField = cmbFilterFields.Text
             };
-            Thread thread = new Thread(() =>
+
+            try
             {
 
 
+                btnRunComparison.Enabled = false;
+                previewResult = await Task.Run(() => replicator.Preview(job, selectedTable, syncParameters));
 
-                previewResult = replicator.Preview(job, selectedTable, syncParameters);
-
-                windowsFormsContext.Post((object state) =>
-                {
-                    DisplayPreviewResults(selectedTable);
-                }, null);
-            });
-
-            thread.Name = "PreviewReplicator";
-            thread.Start();
+                DisplayPreviewResults(selectedTable);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnRunComparison.Enabled = true;
+            }
         }
 
         public TableInfo GetSelectedTableInfo()
@@ -218,6 +220,7 @@ namespace SimpleDatabaseReplicator.UI
 
             // Format the DataGridView
             dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            dataGridView1.Refresh();
 
             // Display summary in status bar
             LogStatus($"Preview results: {modifiedRows.Count} differences found ({modifiedRows.Count(r => r.NotExistsInDestination)} inserts, {modifiedRows.Count(r => !r.NotExistsInDestination)} updates)");
@@ -257,26 +260,44 @@ namespace SimpleDatabaseReplicator.UI
 
         }
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private async void btnApplyChangesToDB_Click(object sender, EventArgs e)
         {
-            DbConnectionInfo destinationConnectionInfo = new DbConnectionInfo(replicationTaskInfo.ConnectionStringDestination, replicationTaskInfo.DbProviderDestination);
-
-            using DbCon dbDest = DbCon.Create(destinationConnectionInfo);
-
-            //Execute Synchronization
-
-            DbSyncRunner dbSyncRunner = new DbSyncRunner(dbDest, messageHandler);
-            dbSyncRunner.OnProgress = delegate (double v, double max)
+            try
             {
-                //job.OnProgress(CalcProgress(curMinId, curMaxId, maxId, v, max), 100);
-            };
+                // Disable the button during execution
+                btnApplyChangesToDB.Enabled = false;
 
-            dbSyncRunner.ExecuteSyncIntoTable(previewResult.ModifiedRows, previewResult.TableDestination);
+                DbConnectionInfo destinationConnectionInfo = new DbConnectionInfo(replicationTaskInfo.ConnectionStringDestination, replicationTaskInfo.DbProviderDestination);
 
+                using DbCon dbDest = DbCon.Create(destinationConnectionInfo);
 
-            MessageBox.Show("Sync complete");
+                //Execute Synchronization
+                DbSyncRunner dbSyncRunner = new DbSyncRunner(dbDest, messageHandler);
+                dbSyncRunner.OnProgress = delegate (double v, double max)
+                {
+                    //job.OnProgress(CalcProgress(curMinId, curMaxId, maxId, v, max), 100);
+                };
+
+                // Run the sync operation asynchronously
+                await Task.Run(() => dbSyncRunner.ExecuteSyncIntoTable(previewResult.ModifiedRows, previewResult.TableDestination));
+
+                MessageBox.Show("Sync complete", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Re-enable the button when done
+                btnApplyChangesToDB.Enabled = true;
+            }
         }
 
+        private void btnAbort_Click(object sender, EventArgs e)
+        {
+            Replicator.AbortReplication = true;
 
+        }
     }
 }

@@ -33,8 +33,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStripCommands = new System.Windows.Forms.ToolStrip();
             this.cmbTables = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.btnRunComparison = new System.Windows.Forms.ToolStripButton();
+            this.btnApplyChangesToDB = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatusBar = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
@@ -46,6 +46,7 @@
             this.lblMax = new System.Windows.Forms.ToolStripLabel();
             this.txtFilterMax = new System.Windows.Forms.ToolStripTextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnAbort = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)this.dataGridView1).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStripCommands.SuspendLayout();
@@ -92,10 +93,10 @@
             this.toolStripCommands.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             this.toolStripCommands.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStripCommands.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.toolStripCommands.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.cmbTables, this.toolStripButton1, this.toolStripButton2 });
-            this.toolStripCommands.Location = new System.Drawing.Point(4, 0);
+            this.toolStripCommands.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.cmbTables, this.btnRunComparison, this.btnApplyChangesToDB, this.btnAbort });
+            this.toolStripCommands.Location = new System.Drawing.Point(4, 33);
             this.toolStripCommands.Name = "toolStripCommands";
-            this.toolStripCommands.Size = new System.Drawing.Size(611, 34);
+            this.toolStripCommands.Size = new System.Drawing.Size(743, 34);
             this.toolStripCommands.TabIndex = 1;
             this.toolStripCommands.Text = "toolStrip1";
             // 
@@ -106,25 +107,25 @@
             this.cmbTables.Text = "Select Table";
             this.cmbTables.SelectedIndexChanged += this.cmbTables_SelectedIndexChanged;
             // 
-            // toolStripButton1
+            // btnRunComparison
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = (System.Drawing.Image)resources.GetObject("toolStripButton1.Image");
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(146, 29);
-            this.toolStripButton1.Text = "Run comparison";
-            this.toolStripButton1.Click += this.toolStripButton1_Click;
+            this.btnRunComparison.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnRunComparison.Image = (System.Drawing.Image)resources.GetObject("btnRunComparison.Image");
+            this.btnRunComparison.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRunComparison.Name = "btnRunComparison";
+            this.btnRunComparison.Size = new System.Drawing.Size(146, 29);
+            this.btnRunComparison.Text = "Run comparison";
+            this.btnRunComparison.Click += this.btnRunComparison_Click;
             // 
-            // toolStripButton2
+            // btnApplyChangesToDB
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Image = (System.Drawing.Image)resources.GetObject("toolStripButton2.Image");
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(183, 29);
-            this.toolStripButton2.Text = "Apply changes to DB";
-            this.toolStripButton2.Click += this.toolStripButton2_Click;
+            this.btnApplyChangesToDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnApplyChangesToDB.Image = (System.Drawing.Image)resources.GetObject("btnApplyChangesToDB.Image");
+            this.btnApplyChangesToDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnApplyChangesToDB.Name = "btnApplyChangesToDB";
+            this.btnApplyChangesToDB.Size = new System.Drawing.Size(183, 29);
+            this.btnApplyChangesToDB.Text = "Apply changes to DB";
+            this.btnApplyChangesToDB.Click += this.btnApplyChangesToDB_Click;
             // 
             // statusStrip1
             // 
@@ -170,7 +171,7 @@
             this.toolStripFilters.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStripFilters.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.lblFilter, this.cmbFilterFields, this.lblMin, this.txtFilterMin, this.lblMax, this.txtFilterMax });
             this.toolStripFilters.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStripFilters.Location = new System.Drawing.Point(4, 34);
+            this.toolStripFilters.Location = new System.Drawing.Point(4, 0);
             this.toolStripFilters.Name = "toolStripFilters";
             this.toolStripFilters.Size = new System.Drawing.Size(635, 33);
             this.toolStripFilters.TabIndex = 2;
@@ -225,6 +226,16 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1537, 1153);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
+            // btnAbort
+            // 
+            this.btnAbort.Enabled = false;
+            this.btnAbort.Image = Properties.Resources.cancel_64;
+            this.btnAbort.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAbort.Name = "btnAbort";
+            this.btnAbort.Size = new System.Drawing.Size(86, 29);
+            this.btnAbort.Text = "Abort";
+            this.btnAbort.Click += this.btnAbort_Click;
+            // 
             // DataPreview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
@@ -256,8 +267,8 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ToolStrip toolStripCommands;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton btnRunComparison;
+        private System.Windows.Forms.ToolStripButton btnApplyChangesToDB;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblStatusBar;
         private System.Windows.Forms.ToolStripComboBox cmbTables;
@@ -270,5 +281,6 @@
         private System.Windows.Forms.ToolStripLabel lblMin;
         private System.Windows.Forms.ToolStripLabel lblMax;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.ToolStripButton btnAbort;
     }
 }
