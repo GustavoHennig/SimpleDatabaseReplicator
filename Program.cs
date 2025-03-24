@@ -48,7 +48,7 @@ namespace SimpleDatabaseReplicator
                         sync,
                         msg => Console.WriteLine(msg), msg => Console.WriteLine(msg)
                         ));
-                    r.Replicate(job);
+                    r.Replicate(job, CancellationToken.None);
                     return;
                 }
                 else

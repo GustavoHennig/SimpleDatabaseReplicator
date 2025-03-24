@@ -38,6 +38,7 @@ namespace SimpleDatabaseReplicator.UI
     {
 
         SynchronizationContext windowsFormsContext;
+        private CancellationTokenSource cancellationTokenSource;
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
@@ -118,14 +119,16 @@ namespace SimpleDatabaseReplicator.UI
 
         private void Replicate(ReplicationTaskInfo job)
         {
-            Replicator.AbortReplication = false;
+            cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken cancellationToken = cancellationTokenSource.Token;
+
             btnAbort.Enabled = true;
             Thread thread = new Thread(() =>
             {
                 Replicator rt = new Replicator(new MessageHandler(
                     windowsFormsContext, LogStatus, LogError
                     ));
-                rt.Replicate(job);
+                rt.Replicate(job, cancellationToken);
                 windowsFormsContext.Post((object state) =>
                 {
                     btnAbort.Enabled = false;
@@ -269,7 +272,10 @@ namespace SimpleDatabaseReplicator.UI
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Replicator.AbortReplication = true;
+            if (cancellationTokenSource != null)
+            {
+                cancellationTokenSource.Cancel();
+            }
             Settings.Save();
         }
 
@@ -317,7 +323,11 @@ namespace SimpleDatabaseReplicator.UI
 
         private void btnAbort_Click(object sender, EventArgs e)
         {
-            Replicator.AbortReplication = true;
+            if (cancellationTokenSource != null)
+            {
+                cancellationTokenSource.Cancel();
+                btnAbort.Enabled = false;
+            }
 
         }
 

@@ -5,12 +5,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
+using System.Threading;
+
 namespace SimpleDatabaseReplicator
 {
     public class Replicator
     {
-        public static bool AbortReplication;
-
         public delegate void TaskProgress(double value, double max);
         public delegate void TaskEvent(ReplicationTaskInfo source, string message);
 
@@ -21,7 +21,7 @@ namespace SimpleDatabaseReplicator
             _messageHandler = messageHandler;
         }
 
-        public void Replicate(ReplicationTaskInfo job)
+        public void Replicate(ReplicationTaskInfo job, CancellationToken cancellationToken)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace SimpleDatabaseReplicator
                 {
                     foreach (var table in job.SourceTables.Where(w => w.Checked))
                     {
-                        curTable = ExecuteTableReplication(job, totalTables, curTable, dbSource, dbDest, table);
+                        curTable = ExecuteTableReplication(job, totalTables, curTable, dbSource, dbDest, table, cancellationToken);
                     }
                 }
 
@@ -56,7 +56,7 @@ namespace SimpleDatabaseReplicator
             }
         }
 
-        private int ExecuteTableReplication(ReplicationTaskInfo job, int totalTables, int curTable, DbCon dbSource, DbCon dbDest, TableInfo table)
+        private int ExecuteTableReplication(ReplicationTaskInfo job, int totalTables, int curTable, DbCon dbSource, DbCon dbDest, TableInfo table, CancellationToken cancellationToken)
         {
             var syncParams = InitializeSyncParameters(table, dbSource);
             bool workDoneForThisTable = table.SynchronizationMode == TableInfo.SyncMode.AllAtOnce;
@@ -70,7 +70,7 @@ namespace SimpleDatabaseReplicator
                 var sw = Stopwatch.StartNew();
                 
                 // Load tables in parallel
-                var tableData = LoadSourceAndDestinationTables(job, table, dbSource, dbDest, syncParams);
+                var tableData = LoadSourceAndDestinationTables(job, table, dbSource, dbDest, syncParams, cancellationToken);
                 Table sourceTable = tableData.SourceTable;
                 Table destTable = tableData.DestinationTable;
 
@@ -82,17 +82,16 @@ namespace SimpleDatabaseReplicator
                 LogSyncProgress(job, sw);
 
                 // Execute Synchronization
-                SynchronizeTables(job, sourceTable, destTable, dbDest, syncParams);
-
-                if (Replicator.AbortReplication)
-                    throw new ApplicationException("Aborted");
-
+                SynchronizeTables(job, sourceTable, destTable, dbDest, syncParams, cancellationToken);
+                if(cancellationToken.IsCancellationRequested){
+                    throw new OperationCanceledException("Replication was cancelled.");
+                }
             } while (!workDoneForThisTable);
 
             return curTable + 1;
         }
 
-        public ReplicationPreviewResult Preview(ReplicationTaskInfo job, TableInfo selectedTable, SyncParameters syncParameters)
+        public ReplicationPreviewResult Preview(ReplicationTaskInfo job, TableInfo selectedTable, SyncParameters syncParameters, CancellationToken cancellationToken)
         {
             try
             {
@@ -110,10 +109,19 @@ namespace SimpleDatabaseReplicator
                     _messageHandler.SendStatus($"Loading table: {selectedTable.TableName} from source...", job);
 
                     var syncParams = InitializeSyncParameters(selectedTable, dbSource);
+
+                    if(syncParameters.CurMaxId > 0 && syncParameters.CurMinId > -1 && !string.IsNullOrEmpty(syncParameters.KeyField))
+                    {
+                        syncParams.CurMinId = syncParameters.CurMinId;
+                        syncParams.CurMaxId = syncParameters.CurMaxId;
+                        syncParams.KeyField = syncParameters.KeyField;
+
+                    }
+
                     UpdateSyncRanges(selectedTable, ref syncParams);
 
                     // Load tables using the same method as replication
-                    var tableData = LoadSourceAndDestinationTables(job, selectedTable, dbSource, dbDest, syncParams);
+                    var tableData = LoadSourceAndDestinationTables(job, selectedTable, dbSource, dbDest, syncParams, cancellationToken);
                     Table sourceTable = tableData.SourceTable;
                     destTable = tableData.DestinationTable;
 
@@ -217,7 +225,8 @@ namespace SimpleDatabaseReplicator
             TableInfo table, 
             DbCon dbSource, 
             DbCon dbDest, 
-            SyncParameters syncParams)
+            SyncParameters syncParams,
+            CancellationToken cancellationToken)
         {
             // Load Source Table (Async)
             var dbSourceLoader = new DbTableDataLoader(dbSource, _messageHandler);
@@ -226,32 +235,34 @@ namespace SimpleDatabaseReplicator
                 return dbSourceLoader.LoadTableData(
                     table, 
                     null, 
-                    table.ColumnKeyName, 
+                    syncParams.KeyField ?? table.ColumnKeyName, 
                     table.ColumnOrderByName, 
                     syncParams.CurMinId, 
                     syncParams.CurMaxId, 
                     job.RetrieveDataCondition, 
                     table.SyncRangeSize, 
-                    syncParams.Offset
+                    syncParams.Offset,
+                    cancellationToken
                 );
-            });
+            }, cancellationToken);
 
             // Load Destination Table (Sync)
             var dbDestLoader = new DbTableDataLoader(dbDest, _messageHandler);
             Table destTable = dbDestLoader.LoadTableData(
                 table, 
                 table, 
-                table.ColumnKeyName, 
+                syncParams.KeyField ?? table.ColumnKeyName, 
                 table.ColumnOrderByName, 
                 syncParams.CurMinId, 
                 syncParams.CurMaxId, 
                 job.RetrieveDataCondition, 
                 table.SyncRangeSize, 
-                syncParams.Offset
+                syncParams.Offset,
+                cancellationToken
             );
 
             // Wait for source table to finish loading
-            taskSourceTable.Wait();
+            taskSourceTable.Wait(cancellationToken);
             Table sourceTable = taskSourceTable.Result;
 
             return new TableLoadResult
@@ -266,7 +277,8 @@ namespace SimpleDatabaseReplicator
             Table sourceTable, 
             Table destTable, 
             DbCon dbDest, 
-            SyncParameters syncParams)
+            SyncParameters syncParams,
+            CancellationToken cancellationToken)
         {
             var dbSyncRunner = new DbSyncRunner(dbDest, _messageHandler);
             dbSyncRunner.OnProgress = (v, max) =>
@@ -274,7 +286,7 @@ namespace SimpleDatabaseReplicator
                 job.OnProgress(CalcProgress(syncParams.CurMinId, syncParams.CurMaxId, syncParams.MaxId, v, max), 100);
             };
 
-            dbSyncRunner.ExecuteInstructions(sourceTable, destTable);
+            dbSyncRunner.ExecuteInstructions(sourceTable, destTable, cancellationToken);
             job.OnProgress(CalcProgress(syncParams.CurMinId, syncParams.CurMaxId, syncParams.MaxId, 100, 100), 100);
         }
 

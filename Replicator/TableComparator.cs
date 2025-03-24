@@ -27,30 +27,33 @@ namespace SimpleDatabaseReplicator
         {
             List<TableRow> ret = new List<TableRow>();
 
-            if (source != null && dest != null)
-            {
-                //Compares each source row with the same in the destination (using dictionary keys)
-                foreach (TableRow riS in source.Data.Values)
-                {
-                    if (dest.Data.ContainsKey(riS.KeyValue))
-                    {
+            // Early exit optimization: If no differences are found, return immediately
+            if (source == null || dest == null) return ret;
 
-                        if (!TableRowComparator.Compare(riS, dest.Data[riS.KeyValue], true))
-                        {
-                            riS.DifferentFromDestination = true;
-                            riS.NotExistsInDestination = false;
-                            ret.Add(riS);
-                        }
-                    }
-                    else
+
+            //Compares each source row with the same in the destination (using dictionary keys)
+            foreach (TableRow riS in source.Data.Values)
+            {
+                if (dest.Data.ContainsKey(riS.KeyValue))
+                {
+
+                    if (!TableRowComparator.Compare(riS, dest.Data[riS.KeyValue], true))
                     {
                         riS.DifferentFromDestination = true;
-                        riS.NotExistsInDestination = true;
+                        riS.NotExistsInDestination = false;
                         ret.Add(riS);
                     }
                 }
+                else
+                {
+                    riS.DifferentFromDestination = true;
+                    riS.NotExistsInDestination = true;
+                    ret.Add(riS);
+                }
             }
+
             return ret;
         }
     }
+
 }

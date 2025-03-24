@@ -43,7 +43,8 @@ namespace SimpleDatabaseReplicator.DB
                                    long maxValue,
                                    string retrieveDataCondition,
                                    int limit,
-                                   long offset)
+                                   long offset,
+                                   CancellationToken cancellationToken)
         {
 
             //SqlConnection con = new SqlConnection(ConnectionString);
@@ -108,6 +109,8 @@ namespace SimpleDatabaseReplicator.DB
 
                     while (dr.Read())
                     {
+                        cancellationToken.ThrowIfCancellationRequested();
+
                         row = new TableRow();
 
                         for (int i = 0; i < dr.FieldCount; i++)
@@ -123,8 +126,6 @@ namespace SimpleDatabaseReplicator.DB
                         row.BuildCompositeKey(table.Keys, table.ColumnKeyName);
                         tb.Data.Add(row.KeyValue, row);
 
-                        if (Replicator.AbortReplication)
-                            throw new ApplicationException("Aborted");
                     }
 
 
@@ -145,7 +146,10 @@ namespace SimpleDatabaseReplicator.DB
                     }
                 }
             }
-
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 messageHandler.SendError(e.Message, null);

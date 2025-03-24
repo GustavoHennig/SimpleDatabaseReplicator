@@ -18,6 +18,8 @@ namespace SimpleDatabaseReplicator.UI
         ReplicationTaskInfo replicationTaskInfo;
         SynchronizationContext windowsFormsContext;
         private List<TableRow> currentModifiedRows;
+        private CancellationTokenSource cancellationTokenSource;
+        private CancellationToken cancellationToken;
 
         Replicator replicator;
         ReplicationPreviewResult previewResult;
@@ -66,7 +68,9 @@ namespace SimpleDatabaseReplicator.UI
         }
         private async Task RunPreview(ReplicationTaskInfo job)
         {
-            Replicator.AbortReplication = false;
+            // Create a new CancellationTokenSource for each preview run
+            cancellationTokenSource = new CancellationTokenSource();
+            cancellationToken = cancellationTokenSource.Token;
 
             // Check if a table is selected
             if (cmbTables.Text == "toolStripDropDownButton1" ||
@@ -90,7 +94,11 @@ namespace SimpleDatabaseReplicator.UI
             // Set the selected table as checked for preview
             selectedTable.Checked = true;
 
-            int.TryParse(txtFilterMin.Text, out int min);
+            if(!int.TryParse(txtFilterMin.Text, out int min))
+            {
+                min = -1;
+            }
+
             int.TryParse(txtFilterMax.Text, out int max);
             var syncParameters = new SyncParameters
             {
@@ -101,10 +109,9 @@ namespace SimpleDatabaseReplicator.UI
 
             try
             {
-
-
                 btnRunComparison.Enabled = false;
-                previewResult = await Task.Run(() => replicator.Preview(job, selectedTable, syncParameters));
+                btnAbort.Enabled = true;
+                previewResult = await Task.Run(() => replicator.Preview(job, selectedTable, syncParameters, cancellationToken));
 
                 DisplayPreviewResults(selectedTable);
             }
@@ -115,6 +122,7 @@ namespace SimpleDatabaseReplicator.UI
             finally
             {
                 btnRunComparison.Enabled = true;
+                btnAbort.Enabled = false;
             }
         }
 
@@ -266,6 +274,10 @@ namespace SimpleDatabaseReplicator.UI
             {
                 // Disable the button during execution
                 btnApplyChangesToDB.Enabled = false;
+                btnAbort.Enabled = true;
+
+                cancellationTokenSource = new CancellationTokenSource();
+                cancellationToken = cancellationTokenSource.Token;
 
                 DbConnectionInfo destinationConnectionInfo = new DbConnectionInfo(replicationTaskInfo.ConnectionStringDestination, replicationTaskInfo.DbProviderDestination);
 
@@ -279,7 +291,7 @@ namespace SimpleDatabaseReplicator.UI
                 };
 
                 // Run the sync operation asynchronously
-                await Task.Run(() => dbSyncRunner.ExecuteSyncIntoTable(previewResult.ModifiedRows, previewResult.TableDestination));
+                await Task.Run(() => dbSyncRunner.ExecuteSyncIntoTable(previewResult.ModifiedRows, previewResult.TableDestination, cancellationToken, null));
 
                 MessageBox.Show("Sync complete", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -291,13 +303,16 @@ namespace SimpleDatabaseReplicator.UI
             {
                 // Re-enable the button when done
                 btnApplyChangesToDB.Enabled = true;
+                btnAbort.Enabled = false;
             }
         }
 
         private void btnAbort_Click(object sender, EventArgs e)
         {
-            Replicator.AbortReplication = true;
-
+            if (cancellationTokenSource != null)
+            {
+                cancellationTokenSource.Cancel();
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿# Simple Database Replicator
+﻿﻿# Simple Database Replicator
 
 This is a very simple database data synchronizer. It loads a bunch of rows from the source and destination, compares them, and inserts or updates the differences into the destination.
 

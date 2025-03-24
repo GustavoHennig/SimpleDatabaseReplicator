@@ -22,6 +22,8 @@ using System.Threading.Tasks;
 using SqlKata;
 using SqlKata.Execution;
 using System.Diagnostics;
+using System.Threading;
+using Google.Protobuf.Collections;
 
 namespace SimpleDatabaseReplicator.DB
 {
@@ -32,7 +34,7 @@ namespace SimpleDatabaseReplicator.DB
         {
         }
 
-        public void ExecuteInstructions(Table source, Table dest)
+        public void ExecuteInstructions(Table source, Table dest, CancellationToken cancellationToken)
         {
             TableComparator tc = new TableComparator();
 
@@ -43,7 +45,7 @@ namespace SimpleDatabaseReplicator.DB
             */
 
             List<TableRow> modifiedRows = tc.SearchForObjectDifferences(source, dest);
-            ExecuteSyncIntoTable(modifiedRows, dest);
+            ExecuteSyncIntoTable(modifiedRows, dest, cancellationToken);
 
             if (source.TableInfo.EnableIdentitySync)
             {
@@ -61,7 +63,7 @@ namespace SimpleDatabaseReplicator.DB
             }
         }
 
-        public void ExecuteSyncIntoTable(List<TableRow> l, Table dest, string postUpdateSQL = null)
+        public void ExecuteSyncIntoTable(List<TableRow> l, Table dest, CancellationToken cancellationToken, string postUpdateSQL = null)
         {
 
             try
@@ -71,6 +73,7 @@ namespace SimpleDatabaseReplicator.DB
                 int max = l.Count(t => t.DifferentFromDestination);
                 int cntErrors = 0;
                 int cntSkipped = 0;
+                int batchSize = 800;
 
                 if (max == 0)
                 {
@@ -81,63 +84,86 @@ namespace SimpleDatabaseReplicator.DB
                 var db = new QueryFactory(dbConnection.DB, dbType.KataCompiler);
 
                 Stopwatch sw = Stopwatch.StartNew();
-                foreach (TableRow ri in l)
-                {
-                    if (!ri.DifferentFromDestination)
-                        continue;
+
+
+
+                // First handle all NotExistsInDestination in batches
+                var inserts = l.Where(ri => ri.NotExistsInDestination && ri.DifferentFromDestination).ToList();
+                var columns = dest.TableInfo.Columns.Select(c => c.Name);
+
+
+            var insertBatches = l
+                .Where(ri => ri.NotExistsInDestination && ri.DifferentFromDestination)
+                .Select((row, index) => new { row, index })
+                .GroupBy(x => x.index / batchSize)
+                .Select(g => g.Select(x => x.row).ToList());
+
+                
+                foreach (var batch in insertBatches)
+{ 
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                   
+                    var values = batch.Select(ri => ri.GetValues().Select(s => s.Value));
+                    //var valuesList = batch.Select(r => columns.Select(col => r.GetValues()[col]).ToList()).ToList();
+
+
                     try
                     {
-                        if (ri.NotExistsInDestination)
+
+                        //if (dest.TableInfo.SynchronizationMode == TableInfo.SyncMode.ByLimitOffset)
+                        //{
+                        //    throw new ApplicationException("AllAtOnce not implemented");
+
+                        //    var query = db.Query(dest.TableInfo.FormattedTableName);
+
+                        //    foreach (var key in dest.TableInfo.Keys)
+                        //    {
+                        //        query = query.Where(key, ri.Data[key].Value);
+                        //}
+
+
+
+                        intAffected += db.Query(dest.TableInfo.FormattedTableName)
+                                        .Insert(columns, values);
+
+                        nroRegs += batch.Count;
+
+                        if (sw.ElapsedMilliseconds > 500)
                         {
-
-                            //TODO: read config before this check
-                            //TODO: should no enter for AllAtOnce
-                            bool exists = false;
-                            if (dest.TableInfo.SynchronizationMode == TableInfo.SyncMode.ByLimitOffset)
-                            {
-                                throw new ApplicationException("AllAtOnce not implemented");
-
-                                var query = db.Query(dest.TableInfo.FormattedTableName);
-
-                                foreach (var key in dest.TableInfo.Keys)
-                                {
-                                    query = query.Where(key, ri.Data[key].Value);
-                                }
-                                exists = db.Exists(query);
-                            }
-
-                            if (!exists)
-                            {
-                                // todo: improve this, very slow
-                                intAffected += db
-                                    .Query(dest.TableInfo.FormattedTableName)
-                                    .Insert( values: ri.GetValues());
-                            }
-                            else
-                            {
-                                cntSkipped++;
-                            }
+                            messageHandler.SendStatus($"Syncing {dest.TableInfo.TableName}: {nroRegs}/{max}  (Affected: {intAffected} | Skipped: {cntSkipped} | Errors: {cntErrors}){sw.ElapsedMilliseconds}ms", null, true);
+                            OnProgress(nroRegs, max);
+                            sw.Restart();
                         }
-                        else
+                    }
+                    catch (Exception error)
+                    {
+                        cntErrors += batch.Count;
+                        messageHandler.SendError(error.Message, null);
+                    }
+                }
+
+
+                foreach (TableRow ri in l.Where(ri => !ri.NotExistsInDestination && ri.DifferentFromDestination))
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    try
+                    {
+                        var query = db.Query(dest.TableInfo.FormattedTableName);
+                        foreach (var key in dest.TableInfo.Keys)
                         {
-                            var query = db.Query(dest.TableInfo.TableName);
-
-                            foreach (var key in dest.TableInfo.Keys)
-                            {
-                                query = query.Where(key, ri.Data[key].Value);
-                            }
-
-                            intAffected += query.Update(ri.GetValues());
-
-                            // For debug:
-                            //dbType.KataCompiler.Compile(db.Query(dest.TableInfo.TableName).Where(dest.TableInfo.ColumnKeyName, ri.Key).AsUpdate(ri.Data)).Sql.ToString();
+                            query = query.Where(key, ri.Data[key].Value);
                         }
-                        ///db.Query(dest.TableInfo.TableName).Where(dest.TableInfo.ColumnKeyName, ri.Key).AsUpdate(ri.Data).ToString(); 
+
+                        intAffected += query.Update(ri.GetValues());
+                        // For debug:
+                        //dbType.KataCompiler.Compile(db.Query(dest.TableInfo.TableName).Where(dest.TableInfo.ColumnKeyName, ri.Key).AsUpdate(ri.Data)).Sql.ToString();
 
                         if (!string.IsNullOrEmpty(postUpdateSQL))
                         {
                             // TODO: It's needed to run on source
-                            //  bd.ExecuteSQL(rib.getPostUpdate(JobCallBack.PostUpdateSQL));
+                            // bd.ExecuteSQL(rib.getPostUpdate(JobCallBack.PostUpdateSQL));
                         }
                     }
                     catch (Exception error)
@@ -150,18 +176,17 @@ namespace SimpleDatabaseReplicator.DB
 
                     if (sw.ElapsedMilliseconds > 500)
                     {
-
                         messageHandler.SendStatus($"Syncing {dest.TableInfo.TableName}: {nroRegs}/{max}  (Affected: {intAffected} | Skipped: {cntSkipped} | Errors: {cntErrors}){sw.ElapsedMilliseconds}ms", null, true);
                         OnProgress(nroRegs, max);
                         sw.Restart();
                     }
-                    if (Replicator.AbortReplication)
-                        throw new ApplicationException("Aborted");
                 }
 
 
+
+
             }
-            catch (ApplicationException)
+            catch (OperationCanceledException)
             {
                 throw;
             }
