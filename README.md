@@ -39,10 +39,13 @@ Please, feel free to contribute with Pull Requests ;)
 
 ## Screenshots
 
-![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/main-stopped.png "Main screen stopped")
+![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/main1.png "Main screen running")
 ![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/main-running.png "Main screen running")
-![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/configuring-connection.png "Configuring connection strings")
-![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/selecting-tables.png "Selecting tables")
+![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/replication-task-info.png "Configuring connection strings")
+![alt text](https://raw.githubusercontent.com/GustavoHennig/SimpleDatabaseReplicator/master/Screenshots/replication-task-info-select-table.png "Selecting tables")
+
+
+
 
 Gustavo Augusto Hennig
 

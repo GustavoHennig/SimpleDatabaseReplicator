@@ -178,19 +178,19 @@
     <value>None</value>
   </data>
   <data name="optionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 34</value>
+    <value>182, 34</value>
   </data>
   <data name="optionsToolStripMenuItem.Text" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="homepageToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 34</value>
+    <value>182, 34</value>
   </data>
   <data name="homepageToolStripMenuItem1.Text" xml:space="preserve">
     <value>Web site</value>
   </data>
   <data name="aboutToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 34</value>
+    <value>182, 34</value>
   </data>
   <data name="aboutToolStripMenuItem1.Text" xml:space="preserve">
     <value>About</value>
@@ -787,7 +787,7 @@
     <value>4, 6, 4, 6</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Simple Database Replicator (Alpha)</value>
+    <value>Simple Database Replicator</value>
   </data>
   <data name="&gt;&gt;addToolStripMenuItem.Name" xml:space="preserve">
     <value>addToolStripMenuItem</value>
